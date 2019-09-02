@@ -8,21 +8,10 @@ import {
     withStyles,
     withTheme,
 } from '@material-ui/core';
-import background from '../../../images/bg.png';
-
-const styles = theme => ({
-    backgroundImg: {
-        backgroundImage: `url(${background})`,
-        height: '100vh',
-        maxWidth: '750px',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover'
-    }
-});
+import SigninBackground from '../custom/signin/SigninBackground';
 
 const Signin = props => {
-    return (<div className={props.classes.backgroundImg}>SignIn</div>)
+    return (<SigninBackground />)
 };
 
 const mapStateToProps = (state) => ({
@@ -54,6 +43,6 @@ export default connect(
             handleSubmit: (values, { props }) => {
                 // props.sendLogin(values);
             },
-        })(withTheme(withStyles(styles)(Signin)))
+        })(withTheme(Signin))
     )
 );

@@ -25,7 +25,6 @@ export const themeOptions = {
             width: '110px',
             padding: '15px',
         },
-        background: {},
     }
 };
 

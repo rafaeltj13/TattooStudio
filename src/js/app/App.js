@@ -5,7 +5,7 @@ import Signin from '../components/signin/SigninPage';
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Router>
         <Switch>
           <Route path="/signin" component={Signin}/>
