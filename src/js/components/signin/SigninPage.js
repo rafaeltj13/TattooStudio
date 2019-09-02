@@ -8,12 +8,21 @@ import {
     withStyles,
     withTheme,
 } from '@material-ui/core';
-import background from '../../../bg.jpeg';
+import background from '../../../images/bg.png';
 
-const styles = theme => ({});
+const styles = theme => ({
+    backgroundImg: {
+        backgroundImage: `url(${background})`,
+        height: '100vh',
+        maxWidth: '750px',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover'
+    }
+});
 
 const Signin = props => {
-    return (<div>SignIn</div>)
+    return (<div className={props.classes.backgroundImg}>SignIn</div>)
 };
 
 const mapStateToProps = (state) => ({
