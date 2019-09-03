@@ -5,13 +5,50 @@ import * as PropTypes from 'prop-types';
 import * as Yup from 'yup';
 import { withFormik } from 'formik';
 import {
-    withStyles,
-    withTheme,
+    withTheme
 } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 import SigninBackground from '../custom/signin/SigninBackground';
+import CustomTextField from '../custom/CustomTextField';
+import CustomButton from '../custom/CustomButton';
 
 const Signin = props => {
-    return (<SigninBackground />)
+    return (
+        <SigninBackground>
+            <Grid item xs={12}>
+                <CustomTextField
+                    required
+                    name={'family'}
+                    label={'Username'}
+                    field={'fields'}
+                    variant="outlined"
+                />
+            </Grid>
+            <Grid item xs={12}>
+                <CustomTextField
+                    required
+                    name={'family'}
+                    label={'Password'}
+                    field={'fields'}
+                    variant="outlined"
+                    type='password'
+                />
+            </Grid>
+            <Grid container>
+                <Grid item xs={12} md={6}>
+                    <CustomButton variant='contained'>Entrar</CustomButton>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <CustomButton variant='outlined'>Cadastrar-se</CustomButton>
+                </Grid>
+                <Grid item xs={12}>
+                    <CustomButton variant=''>Sou um tatuador</CustomButton>
+                </Grid>
+                <Grid item xs={12}>
+                    <CustomButton variant=''>Tenho um estúdio</CustomButton>
+                </Grid>
+            </Grid>
+        </SigninBackground>)
 };
 
 const mapStateToProps = (state) => ({

@@ -8,7 +8,7 @@ const styles = thisTheme => ({
     textField: {
         height: '40px',
         width: '100%',
-        margin: '10px 0px 10px 0px',
+        margin: '10px 0px 20px 0px',
     },
     underline: {
         '&&&&:hover:before': {
