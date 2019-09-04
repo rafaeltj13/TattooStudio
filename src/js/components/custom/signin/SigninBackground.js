@@ -10,13 +10,13 @@ const styles = theme => ({
     },
     backgroundImg: {
         backgroundImage: `url(${background})`,
-        height: '100vh',
-        maxWidth: '750px',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
+        height: '100vh',
+        maxWidth: '750px',
         color: theme.palette.secondary.main,
-        margin: 'auto',
+        textAlign: 'center'
     }
 });
 

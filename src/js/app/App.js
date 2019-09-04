@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import '../../css/App.css';
-import Signin from '../components/signin/SigninPage';
+import SigninCostumer from '../components/signin/SigninCostumer';
 
 function App() {
   return (
     <div>
       <Router>
         <Switch>
-          <Route path="/signin" component={Signin}/>
+          <Route path="/signin" component={SigninCostumer}/>
         </Switch>
       </Router>
     </div>

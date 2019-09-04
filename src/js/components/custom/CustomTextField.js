@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 const styles = thisTheme => ({
     textField: {
         height: '40px',
-        width: '100%',
+        width: '90%',
         margin: '10px 0px 20px 0px',
     },
     underline: {

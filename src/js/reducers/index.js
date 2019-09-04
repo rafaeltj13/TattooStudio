@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
+import signinReducer from './signin';
 
 export default combineReducers({
-    main: () => null
+    signin: signinReducer
 });
