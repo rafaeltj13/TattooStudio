@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, withRouter } from 'react-router-dom';
-import * as PropTypes from 'prop-types';
-import * as Yup from 'yup';
+// import * as PropTypes from 'prop-types';
+// import * as Yup from 'yup';
 import { withFormik } from 'formik';
 import {
     withTheme
@@ -15,7 +15,7 @@ import CustomButton from '../custom/CustomButton';
 
 const Signin = props => {
     const fields = props;
-    const { isSubmitting, handleSubmit, setSubmitting, handleChange, values, loading, error, signinCostumer } = props;
+    const { isSubmitting, handleSubmit, setSubmitting, handleChange, values, loading, error } = props;
 
     return (
         <SigninBackground>
@@ -49,11 +49,11 @@ const Signin = props => {
                         <CustomButton variant='outlined'>Cadastrar-se</CustomButton>
                     </Grid>
                     <Grid item xs={6}>
-                        <CustomButton variant='contained' size="small">Entrar</CustomButton>
+                        <CustomButton variant='contained' size="small" onClick={handleSubmit}>Entrar</CustomButton>
                     </Grid>
                     <Grid item xs={12}>
-                        <CustomButton variant=''>Sou um tatuador</CustomButton>
-                        <CustomButton variant=''>Tenho um estúdio</CustomButton>
+                        <CustomButton variant='text'>Sou um tatuador</CustomButton>
+                        <CustomButton variant='text'>Tenho um estúdio</CustomButton>
                     </Grid>
                 </Grid>
             </Grid>
@@ -67,8 +67,8 @@ const mapStateToProps = ({ signin }) => ({
     type: signin.type
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    signinCostumer: (signinInput, typeInput) => signinCostumerRequest(signinInput, typeInput),
+const mapDispatchToProps = dispatch => ({
+    signinCostumer: (signinInput, typeInput) => dispatch(signinCostumerRequest(signinInput, typeInput)),
 });
 
 export default connect(
@@ -83,11 +83,11 @@ export default connect(
                     password: '',
                 };
             },
-            validationSchema: () =>
-                Yup.object().shape({
-                    username: Yup.string().required('Campo Required'),
-                    password: Yup.string().required('Campo Required')
-                }),
+            // validationSchema: () =>
+            //     Yup.object().shape({
+            //         username: Yup.string().required('Campo Required'),
+            //         password: Yup.string().required('Campo Required')
+            //     }),
 
             handleSubmit: (values, { props }) => {
                 props.signinCostumer(values, props.type);

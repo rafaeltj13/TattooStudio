@@ -13,21 +13,23 @@ export const signinCostumerSuccess = ({ status, data }) => ({
 });
 
 export const SIGNIN_COSTUMER_FAILED = 'SIGNIN_COSTUMER_FAILED';
-export const signinCostumerFailed = ({ data }) => ({
+export const signinCostumerFailed = (error) => ({
     type: SIGNIN_COSTUMER_FAILED,
-    error: data.errors,
+    error
 });
 
 export const SIGNIN_COSTUMER_REQUEST = 'SIGNIN_REQUEST';
 export const signinCostumerRequest = (body, type) => {
+    console.log(body)
     return dispatch => {
         dispatch(signinCostumerAsyncRequestStarted());
         Api.post(`/signin${type}`, body)
             .then(res => {
+                console.log(res)
                 dispatch(signinCostumerSuccess(res));
             })
-            .catch(({ response }) => {
-                dispatch(signinCostumerFailed(response));
+            .catch(({ message }) => {
+                dispatch(signinCostumerFailed(message));
             });
     };
 };

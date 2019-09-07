@@ -10,10 +10,10 @@ export const loadState = () => {
     }
 };
 
-export const saveState = state => {
+export const saveState = signinState => {
     try {
-        const serializedState = JSON.stringify(state);
-        localStorage.setItem('state', serializedState);
+        const signin = JSON.stringify(signinState);
+        localStorage.setItem('signin', { username: signin.username, token: `Bearer ${signin.sessionToken}` });
     } catch (err) {
         console.log(err);
     }

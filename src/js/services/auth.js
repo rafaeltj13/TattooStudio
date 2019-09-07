@@ -1,6 +1,4 @@
 export const getToken = () =>
-    JSON.parse(localStorage.getItem('state')).login
-        ? JSON.parse(localStorage.getItem('state')).login.sessionToken
-        : '';
+    localStorage.getItem('signin') ? localStorage.getItem('signin').token : '';
 
 export default getToken;

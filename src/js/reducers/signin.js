@@ -8,7 +8,7 @@ import {
 const initialState = {
     loading: false,
     error: null,
-    logged: false,
+    username: '',
     sessionToken: null,
     type: 'Customer'
 };
@@ -25,7 +25,7 @@ const signin = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                logged: true,
+                username: action.data.username,
                 error: null,
                 sessionToken: action.data.token,
             };
@@ -34,17 +34,15 @@ const signin = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                logged: false,
+                username: '',
                 error: action.error,
             };
 
         case SIGNOUT_REQUEST:
-            //localStorage.removeItem('login')
-
             return {
                 ...state,
                 loading: false,
-                logged: false,
+                username: '',
                 error: null,
                 sessionToken: null,
             };
