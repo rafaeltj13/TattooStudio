@@ -23,7 +23,7 @@ export const signinCostumerRequest = (body, type) => {
     console.log(body)
     return dispatch => {
         dispatch(signinCostumerAsyncRequestStarted());
-        Api.post(`/signin${type}`, body)
+        Api.post(`auth/signin${type}`, body)
             .then(res => {
                 console.log(res)
                 dispatch(signinCostumerSuccess(res));
@@ -37,4 +37,10 @@ export const signinCostumerRequest = (body, type) => {
 export const SIGNOUT_REQUEST = 'SIGNOUT_REQUEST';
 export const signOut = () => ({
     type: SIGNOUT_REQUEST
+})
+
+export const CHANGE_SIGNIN_TYPE = 'CHANGE_SIGNIN_TYPE';
+export const changeSigninType = newType => ({
+    type: CHANGE_SIGNIN_TYPE,
+    newType
 })

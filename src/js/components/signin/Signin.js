@@ -7,7 +7,7 @@ import { withFormik } from 'formik';
 import {
     withTheme
 } from '@material-ui/core';
-import { signinCostumerRequest } from '../../actions/signin-actions'
+import { signinCostumerRequest, changeSigninType } from '../../actions/signin-actions'
 import Grid from '@material-ui/core/Grid';
 import SigninBackground from '../custom/signin/SigninBackground';
 import CustomTextField from '../custom/CustomTextField';
@@ -15,7 +15,24 @@ import CustomButton from '../custom/CustomButton';
 
 const Signin = props => {
     const fields = props;
-    const { isSubmitting, handleSubmit, setSubmitting, handleChange, values, loading, error } = props;
+    const { isSubmitting, handleSubmit, setSubmitting, handleChange, values, newSigninType, loading, error, type } = props;
+
+    const renderOptions = () => {
+        if (type === 'Customer') {
+            return (
+                <Grid item xs={12}>
+                    <CustomButton variant='text' onClick={() => newSigninType('Artist')}>Sou um tatuador</CustomButton>
+                    <CustomButton variant='text' onClick={() => newSigninType('Owner')}>Tenho um estúdio</CustomButton>
+                </Grid>
+            );
+        } else {
+            return (
+                <Grid item xs={12}>
+                    <CustomButton variant='text' onClick={() => newSigninType('Customer')}>Voltar</CustomButton>
+                </Grid>
+            );
+        }
+    };
 
     return (
         <SigninBackground>
@@ -37,7 +54,7 @@ const Signin = props => {
                 <Grid item xs={12}>
                     <CustomTextField
                         required
-                        name={'family'}
+                        name={'password'}
                         label={'Senha'}
                         field={fields}
                         variant="outlined"
@@ -51,10 +68,7 @@ const Signin = props => {
                     <Grid item xs={6}>
                         <CustomButton variant='contained' size="small" onClick={handleSubmit}>Entrar</CustomButton>
                     </Grid>
-                    <Grid item xs={12}>
-                        <CustomButton variant='text'>Sou um tatuador</CustomButton>
-                        <CustomButton variant='text'>Tenho um estúdio</CustomButton>
-                    </Grid>
+                    {renderOptions()}
                 </Grid>
             </Grid>
         </SigninBackground>)
@@ -69,6 +83,7 @@ const mapStateToProps = ({ signin }) => ({
 
 const mapDispatchToProps = dispatch => ({
     signinCostumer: (signinInput, typeInput) => dispatch(signinCostumerRequest(signinInput, typeInput)),
+    newSigninType: newType => dispatch(changeSigninType(newType))
 });
 
 export default connect(
@@ -90,6 +105,7 @@ export default connect(
             //     }),
 
             handleSubmit: (values, { props }) => {
+                console.log(values)
                 props.signinCostumer(values, props.type);
             },
         })(withTheme(Signin))

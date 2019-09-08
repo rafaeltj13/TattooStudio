@@ -51,9 +51,9 @@ const CustomTextField = ({ classes, ...props }) => {
                 {...props}
                 className={props.className ? props.className : classes.textField}
                 variant={variant}
-                // error={Boolean(field.touched[name] && field.errors[name])}
-                // onChange={props.onChange ? props.onChange : field.handleChange}
-                // helperText={field.touched[name] && field.errors[name] ? field.errors[name] : ''}
+                error={Boolean(field.touched[name] && field.errors[name])}
+                onChange={props.onChange ? props.onChange : field.handleChange}
+                helperText={field.touched[name] && field.errors[name] ? field.errors[name] : ''}
                 // InputProps={{
                 //     classes: {
                 //         underline: !disabled || underlined ? classes.underline : null,
@@ -69,8 +69,8 @@ const CustomTextField = ({ classes, ...props }) => {
                 inputProps={{
                     className: props.inputclass ? props.inputclass : classes.input,
                 }}
-            // FormHelperTextProps={{ classes: { root: classes.helperText } }}
-            // value={field.values[name]}
+                FormHelperTextProps={{ classes: { root: classes.helperText } }}
+                value={field.values[name]}
             />
         </MuiThemeProvider>
     );

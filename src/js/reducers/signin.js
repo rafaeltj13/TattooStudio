@@ -2,7 +2,8 @@ import {
     SIGNIN_ASYNC_REQUEST_STARTED,
     SIGNIN_COSTUMER_SUCCESS,
     SIGNIN_COSTUMER_FAILED,
-    SIGNOUT_REQUEST
+    SIGNOUT_REQUEST,
+    CHANGE_SIGNIN_TYPE
 } from '../actions/signin-actions';
 
 const initialState = {
@@ -46,6 +47,12 @@ const signin = (state = initialState, action) => {
                 error: null,
                 sessionToken: null,
             };
+
+        case CHANGE_SIGNIN_TYPE:
+            return {
+                ...state,
+                type: action.newType
+            }
 
         default:
             return state;
