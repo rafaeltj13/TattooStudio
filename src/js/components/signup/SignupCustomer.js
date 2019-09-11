@@ -5,18 +5,111 @@ import { withFormik } from 'formik';
 import {
     withTheme
 } from '@material-ui/core';
-import { createCustomerRequest } from '../../actions/signup-actions'
+import { createCustomerRequest } from '../../actions/signup-actions';
+import { SIGNUP } from '../../utils/constants';
 import Grid from '@material-ui/core/Grid';
 import SigninBackground from '../custom/signin/SigninBackground';
 import CustomTextField from '../custom/CustomTextField';
 import CustomButton from '../custom/CustomButton';
+import CustomSelect from '../custom/CustomSelect';
 
 const SignupCustomer = props => {
     const fields = props;
-    const { isSubmitting, handleSubmit, setSubmitting, handleChange, values, newSigninType, loading, error, type } = props;
+    const { isSubmitting, handleSubmit, setSubmitting, handleChange, values, loading, error, createCustomer } = props;
 
     return (
-        <div></div>
+        <SigninBackground>
+            <Grid
+                container
+                direction="row"
+                justify="center"
+                alignItems="center"
+            >
+                <CustomTextField
+                    required
+                    name={'username'}
+                    label={SIGNUP.USERNAME}
+                    field={fields}
+                    variant="outlined"
+                />
+                <CustomTextField
+                    required
+                    name={'password'}
+                    label={SIGNUP.PASSWORD}
+                    field={fields}
+                    variant="outlined"
+                    type='password'
+                />
+                <CustomTextField
+                    required
+                    name={'confirmPassword'}
+                    label={SIGNUP.CONFIRM_PASSWORD}
+                    field={fields}
+                    variant="outlined"
+                    type='password'
+                />
+
+
+                <CustomTextField
+                    required
+                    name={'name'}
+                    label={SIGNUP.NAME}
+                    field={fields}
+                    variant="outlined"
+                />
+                <CustomTextField
+                    required
+                    name={'email'}
+                    label={SIGNUP.EMAIL}
+                    field={fields}
+                    variant="outlined"
+                    type='email'
+                />
+                <Grid container>
+                    <Grid item xs={9}>
+                        <CustomSelect
+                            required
+                            name={'gender'}
+                            label={SIGNUP.GENDER}
+                            optionmessage={'Selecione um gênero'}
+                            field={fields}
+                            optionsmap={[
+                                {
+                                    code: 1,
+                                    optionLabel: 'Masculino',
+                                },
+                                {
+                                    code: 2,
+                                    optionLabel: 'Feminino',
+                                }
+                            ]}
+                            variant='outlined'
+                        />
+                    </Grid>
+                    <Grid item xs={3}>
+                        <CustomTextField
+                            required
+                            name={'age'}
+                            label={SIGNUP.AGE}
+                            field={fields}
+                            variant="outlined"
+                            type='number'
+                        />
+                    </Grid>
+                </Grid>
+                <CustomTextField
+                    required
+                    name={'phone'}
+                    label={SIGNUP.PHONE}
+                    field={fields}
+                    variant="outlined"
+                />
+
+                <Grid item xs={12} style={{ textAlign: 'right' }}>
+                    <CustomButton variant='outlined' onClick={handleSubmit}>Cadastrar-se</CustomButton>
+                </Grid>
+            </Grid>
+        </SigninBackground>
     )
 }
 
@@ -37,11 +130,12 @@ export default connect(
         withFormik({
             mapPropsToValues: () => {
                 return {
-                    name: '',
                     username: '',
                     password: '',
+                    confirmPassword: '',
+                    name: '',
                     email: '',
-                    age: null,
+                    age: undefined,
                     gender: '',
                     phone: ''
                 };
@@ -54,6 +148,7 @@ export default connect(
 
             handleSubmit: (values, { props }) => {
                 console.log(values)
+                props.createCustomer(values, 'customer')
             },
         })(withTheme(SignupCustomer))
     )

@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Redirect, withRouter } from 'react-router-dom';
-// import * as PropTypes from 'prop-types';
-// import * as Yup from 'yup';
+import { withRouter } from 'react-router-dom';
+import * as Yup from 'yup';
 import { withFormik } from 'formik';
 import {
     withTheme
 } from '@material-ui/core';
 import { signinCostumerRequest, changeSigninType } from '../../actions/signin-actions'
+import { createNotification } from '../../actions/notification-actions';
 import Grid from '@material-ui/core/Grid';
 import SigninBackground from '../custom/signin/SigninBackground';
 import CustomTextField from '../custom/CustomTextField';
@@ -15,7 +15,28 @@ import CustomButton from '../custom/CustomButton';
 
 const Signin = props => {
     const fields = props;
-    const { isSubmitting, handleSubmit, setSubmitting, handleChange, values, newSigninType, loading, error, type } = props;
+    const { isSubmitting, handleSubmit, setSubmitting, newNotification, newSigninType, loading, error, type } = props;
+
+    useEffect(
+        () => {
+            if (!loading && isSubmitting) {
+                setSubmitting(false);
+                if (error) {
+                    newNotification({
+                        variant: 'error',
+                        message: error
+                    });
+                } else {
+                    newNotification({
+                        variant: 'success',
+                        message: 'Sucesso'
+                    })
+                    props.history.push('/signup/customer');
+                }
+            }
+        },
+        [loading],
+    );
 
     const renderOptions = () => {
         if (type === 'Customer') {
@@ -42,25 +63,21 @@ const Signin = props => {
                 justify="flex-start"
                 alignItems="center"
             >
-                <Grid item xs={12}>
-                    <CustomTextField
-                        required
-                        name={'username'}
-                        label={'Usuário'}
-                        field={fields}
-                        variant="outlined"
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <CustomTextField
-                        required
-                        name={'password'}
-                        label={'Senha'}
-                        field={fields}
-                        variant="outlined"
-                        type='password'
-                    />
-                </Grid>
+                <CustomTextField
+                    required
+                    name={'username'}
+                    label={'Usuário'}
+                    field={fields}
+                    variant="outlined"
+                />
+                <CustomTextField
+                    required
+                    name={'password'}
+                    label={'Senha'}
+                    field={fields}
+                    variant="outlined"
+                    type='password'
+                />
                 <Grid container>
                     <Grid item xs={6}>
                         <CustomButton variant='outlined'>Cadastrar-se</CustomButton>
@@ -83,7 +100,8 @@ const mapStateToProps = ({ signin }) => ({
 
 const mapDispatchToProps = dispatch => ({
     signinCostumer: (signinInput, typeInput) => dispatch(signinCostumerRequest(signinInput, typeInput)),
-    newSigninType: newType => dispatch(changeSigninType(newType))
+    newSigninType: newType => dispatch(changeSigninType(newType)),
+    newNotification: payload => dispatch(createNotification(payload))
 });
 
 export default connect(
@@ -98,11 +116,11 @@ export default connect(
                     password: '',
                 };
             },
-            // validationSchema: () =>
-            //     Yup.object().shape({
-            //         username: Yup.string().required('Campo Required'),
-            //         password: Yup.string().required('Campo Required')
-            //     }),
+            validationSchema: () =>
+                Yup.object().shape({
+                    username: Yup.string().required('Campo obrigatório'),
+                    password: Yup.string().required('Campo obrigatório')
+                }),
 
             handleSubmit: (values, { props }) => {
                 console.log(values)

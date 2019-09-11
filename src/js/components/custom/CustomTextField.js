@@ -1,19 +1,25 @@
 import React from 'react';
 import { createMuiTheme, MuiThemeProvider, withStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField/index';
-import theme from '../../utils/theme';
-import PropTypes from 'prop-types';
 
 const styles = thisTheme => ({
+    root: {
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+                borderColor: 'green',
+            },
+            '&:hover fieldset': {
+                borderColor: 'yellow',
+            },
+            '&.Mui-focused fieldset': {
+                borderColor: 'green',
+            },
+        },
+    },
     textField: {
         height: '40px',
         width: '90%',
-        margin: '10px 0px 20px 0px',
-    },
-    underline: {
-        '&&&&:hover:before': {
-            borderBottom: `2px solid ${thisTheme.palette.secondary.main}`,
-        },
+        margin: '20px 0px 20px 0px',
     },
     helperText: {
         textAlign: 'right',
@@ -25,7 +31,8 @@ const styles = thisTheme => ({
         color: 'rgba(0, 0, 0, 0.84) !important',
     },
     input: {
-        color: "white"
+        color: "white",
+        textAlign: 'left'
     }
 });
 
@@ -44,31 +51,27 @@ const myTheme = createMuiTheme({
 });
 
 const CustomTextField = ({ classes, ...props }) => {
-    const { field, name, disabled, underlined, variant } = props;
+    const { field, name, disabled, underlined } = props;
     return (
         <MuiThemeProvider theme={myTheme}>
             <TextField
                 {...props}
                 className={props.className ? props.className : classes.textField}
-                variant={variant}
                 error={Boolean(field.touched[name] && field.errors[name])}
                 onChange={props.onChange ? props.onChange : field.handleChange}
                 helperText={field.touched[name] && field.errors[name] ? field.errors[name] : ''}
-                // InputProps={{
-                //     classes: {
-                //         underline: !disabled || underlined ? classes.underline : null,
-                //         disabled: classes.disabledInput,
-                //     },
-                // }}
-                InputLabelProps={
-                    // (field.values[name] && field.values[name].length > 0) || disabled
-                    //     ? { classes: { disabled: classes.disabledLabel }, shrink: true }
-                    //     : { classes: { disabled: classes.disabledLabel } }
-                    {className: classes.input}
-                }
-                inputProps={{
-                    className: props.inputclass ? props.inputclass : classes.input,
+                InputProps={{
+                    classes: {
+                        root: classes.input,
+                        input: classes.input,
+                        disabled: classes.disabledInput,
+                    },
                 }}
+                InputLabelProps={
+                    (field.values[name] && field.values[name].length > 0) || disabled
+                        ? { classes: { root: classes.input, disabled: classes.disabledLabel }, shrink: true }
+                        : { classes: { root: classes.input, disabled: classes.disabledLabel } }
+                }
                 FormHelperTextProps={{ classes: { root: classes.helperText } }}
                 value={field.values[name]}
             />
