@@ -25,6 +25,12 @@ export const themeOptions = {
             width: '110px',
             padding: '15px',
         },
+    },
+    typography: {
+        fontFamily: 'Trebuchet MS',
+        fontSize: 12,
+        fontStyle: 'normal',
+        color: '#ffffff'
     }
 };
 

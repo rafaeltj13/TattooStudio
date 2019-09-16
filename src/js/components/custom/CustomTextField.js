@@ -1,25 +1,13 @@
 import React from 'react';
 import { createMuiTheme, MuiThemeProvider, withStyles } from '@material-ui/core';
 import TextField from '@material-ui/core/TextField/index';
+import theme from '../../utils/theme';
 
 const styles = thisTheme => ({
-    root: {
-        '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-                borderColor: 'green',
-            },
-            '&:hover fieldset': {
-                borderColor: 'yellow',
-            },
-            '&.Mui-focused fieldset': {
-                borderColor: 'green',
-            },
-        },
-    },
     textField: {
         height: '40px',
-        width: '90%',
-        margin: '20px 0px 20px 0px',
+        width: '100%',
+        margin: '20px 0px',
     },
     helperText: {
         textAlign: 'right',
@@ -43,15 +31,14 @@ const myTheme = createMuiTheme({
         },
         secondary: {
             main: '#ffffff'
-        },
-        typography: {
-            color: '#ffffff'
         }
     },
+    typography: theme.typography
 });
 
 const CustomTextField = ({ classes, ...props }) => {
     const { field, name, disabled } = props;
+
     return (
         <MuiThemeProvider theme={myTheme}>
             <TextField
@@ -61,10 +48,12 @@ const CustomTextField = ({ classes, ...props }) => {
                 onChange={props.onChange ? props.onChange : field.handleChange}
                 helperText={field.touched[name] && field.errors[name] ? field.errors[name] : ''}
                 InputProps={{
+                    ...props.InputProps,
                     classes: {
                         root: classes.input,
                         input: classes.input,
                         disabled: classes.disabledInput,
+
                     },
                 }}
                 InputLabelProps={

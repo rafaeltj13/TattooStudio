@@ -6,6 +6,10 @@ import { withFormik } from 'formik';
 import {
     withTheme
 } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import Lock from '@material-ui/icons/Lock';
 import { signinCostumerRequest, changeSigninType } from '../../actions/signin-actions'
 import { createNotification } from '../../actions/notification-actions';
 import { SIGNIN, GENERAL } from '../../utils/constants';
@@ -53,19 +57,31 @@ const Signin = props => {
             );
         } else {
             return (
-                <LinkUi variant='text' onClick={() => newSigninType('Customer')}>Voltar</LinkUi>
+                <div>
+                    <LinkUi component="button" variant="body2" onClick={() => newSigninType('Customer')}>Sou um cliente</LinkUi>
+                </div>
             );
         }
     };
 
     return (
         <SigninBackground>
+            <Typography variant="h3">
+                Bem vindo!
+            </Typography>
             <CustomTextField
                 required
                 name={'username'}
                 label={SIGNIN.USER}
                 field={fields}
                 variant="outlined"
+                InputProps={{
+                    startAdornment: (
+                        <InputAdornment position="start">
+                            <AccountCircle />
+                        </InputAdornment>
+                    ),
+                }}
             />
             <CustomTextField
                 required
@@ -74,6 +90,13 @@ const Signin = props => {
                 field={fields}
                 variant="outlined"
                 type='password'
+                InputProps={{
+                    startAdornment: (
+                        <InputAdornment position="start">
+                            <Lock />
+                        </InputAdornment>
+                    ),
+                }}
             />
             <CustomButton variant='outlined' component={Link} to={`/signup/${type}`}>Cadastrar-se</CustomButton>
             <CustomButton variant='contained' size="small" onClick={handleSubmit}>Entrar</CustomButton>

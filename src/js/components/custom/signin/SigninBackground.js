@@ -2,11 +2,15 @@ import React from 'react';
 import { withStyles } from '@material-ui/core';
 
 import background from '../../../../images/bg.png';
+import { borderColor } from '@material-ui/system';
 
 const styles = theme => ({
     background: {
         backgroundColor: '#1A1A1A',
-        position: 'relative'
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     backgroundImg: {
         backgroundImage: `url(${background})`,
@@ -16,6 +20,14 @@ const styles = theme => ({
         height: '100vh',
         maxWidth: '750px',
         color: theme.palette.secondary.main,
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: 'white'
+    },
+    content: {
+        padding: '1rem',
         textAlign: 'right'
     }
 });
@@ -23,7 +35,9 @@ const styles = theme => ({
 const SigninBackground = props => (
     <div className={props.classes.background}>
         <div className={props.classes.backgroundImg}>
-            {props.children}
+            <div className={props.classes.content}>
+                {props.children}
+            </div>
         </div>
     </div>
 )

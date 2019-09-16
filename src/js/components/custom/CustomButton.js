@@ -6,7 +6,8 @@ const styles = theme => ({
         height: theme.palette.button.height,
         fontWeight: 'bold',
         textAlign: 'center',
-        margin: '5px 0px 10px 0px'
+        fontSize: '12px',
+        margin: '20px 0px 10px 10px'
     },
 });
 
