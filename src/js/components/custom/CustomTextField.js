@@ -51,7 +51,7 @@ const myTheme = createMuiTheme({
 });
 
 const CustomTextField = ({ classes, ...props }) => {
-    const { field, name, disabled, underlined } = props;
+    const { field, name, disabled } = props;
     return (
         <MuiThemeProvider theme={myTheme}>
             <TextField

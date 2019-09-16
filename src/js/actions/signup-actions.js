@@ -6,28 +6,28 @@ export const signupCostumerAsyncRequestStarted = () => ({
 });
 
 export const CREATE_CUSTOMER_SUCCESS = 'CREATE_CUSTOMER_SUCCESS';
-export const createCustomerSuccess = data => ({
+export const createUserSuccess = data => ({
     type: CREATE_CUSTOMER_SUCCESS,
     data
 });
 
-export const CREATE_CUSTOMER_FAILED = 'CREATE_CUSTOMER_FAILED';
-export const createCustomerFailed = error => ({
-    type: CREATE_CUSTOMER_FAILED,
+export const CREATE_USER_FAILED = 'CREATE_USER_FAILED';
+export const createUserFailed = error => ({
+    type: CREATE_USER_FAILED,
     error
 });
 
-export const CREATE_CUSTOMER_REQUEST = 'CREATE_CUSTOMER_REQUEST';
-export const createCustomerRequest = (signupBody, type) => {
+export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST';
+export const createUserRequest = (signupBody, type) => {
     return dispath => {
         dispath(signupCostumerAsyncRequestStarted);
 
         Api.post(type, signupBody)
             .then(({ data }) => {
-                dispath(createCustomerSuccess(data))
+                dispath(createUserSuccess(data))
             })
             .catch(({ message }) => {
-                dispath(createCustomerFailed(message))
+                dispath(createUserFailed(message))
             });
     };
 };

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import * as Yup from 'yup';
 import { withFormik } from 'formik';
 import {
@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core';
 import { signinCostumerRequest, changeSigninType } from '../../actions/signin-actions'
 import { createNotification } from '../../actions/notification-actions';
+import { SIGNIN, GENERAL } from '../../utils/constants';
 import Grid from '@material-ui/core/Grid';
 import SigninBackground from '../custom/signin/SigninBackground';
 import CustomTextField from '../custom/CustomTextField';
@@ -29,9 +30,9 @@ const Signin = props => {
                 } else {
                     newNotification({
                         variant: 'success',
-                        message: 'Sucesso'
+                        message: GENERAL.SUCCESS_MESSAGE
                     })
-                    props.history.push('/signup/customer');
+                    props.history.push('/home');
                 }
             }
         },
@@ -57,36 +58,29 @@ const Signin = props => {
 
     return (
         <SigninBackground>
-            <Grid
-                container
-                direction="row"
-                justify="flex-start"
-                alignItems="center"
-            >
-                <CustomTextField
-                    required
-                    name={'username'}
-                    label={'Usuário'}
-                    field={fields}
-                    variant="outlined"
-                />
-                <CustomTextField
-                    required
-                    name={'password'}
-                    label={'Senha'}
-                    field={fields}
-                    variant="outlined"
-                    type='password'
-                />
-                <Grid container>
-                    <Grid item xs={6}>
-                        <CustomButton variant='outlined'>Cadastrar-se</CustomButton>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <CustomButton variant='contained' size="small" onClick={handleSubmit}>Entrar</CustomButton>
-                    </Grid>
-                    {renderOptions()}
+            <CustomTextField
+                required
+                name={'username'}
+                label={SIGNIN.USER}
+                field={fields}
+                variant="outlined"
+            />
+            <CustomTextField
+                required
+                name={'password'}
+                label={SIGNIN.PASSWORD}
+                field={fields}
+                variant="outlined"
+                type='password'
+            />
+            <Grid container>
+                <Grid item xs={6}>
+                    <CustomButton variant='outlined' component={Link} to={`/signup/${type}`}>Cadastrar-se</CustomButton>
                 </Grid>
+                <Grid item xs={6}>
+                    <CustomButton variant='contained' size="small" onClick={handleSubmit}>Entrar</CustomButton>
+                </Grid>
+                {renderOptions()}
             </Grid>
         </SigninBackground>)
 };
@@ -118,12 +112,11 @@ export default connect(
             },
             validationSchema: () =>
                 Yup.object().shape({
-                    username: Yup.string().required('Campo obrigatório'),
-                    password: Yup.string().required('Campo obrigatório')
+                    username: Yup.string().required(GENERAL.REQUIRED_FIELD),
+                    password: Yup.string().required(GENERAL.REQUIRED_FIELD)
                 }),
 
             handleSubmit: (values, { props }) => {
-                console.log(values)
                 props.signinCostumer(values, props.type);
             },
         })(withTheme(Signin))

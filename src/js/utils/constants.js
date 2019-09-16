@@ -1,3 +1,14 @@
+export const GENERAL = {
+    SUCCESS_MESSAGE: 'Operação realizada com sucesso.',
+    REQUIRED_FIELD: 'Campo obrigatório'
+};
+
+export const SIGNIN = {
+    TITLE: 'TattooStudio',
+    USER: 'Usuario',
+    PASSWORD: 'Senha'
+};
+
 export const SIGNUP = {
     TITLE: 'Cadastrar usuário',
     ACCOUNT_INFORMATION: 'Dados da conta',
@@ -10,4 +21,4 @@ export const SIGNUP = {
     AGE: 'Idade',
     GENDER: 'Gênero',
     PHONE: 'Telefone'
-}
+};

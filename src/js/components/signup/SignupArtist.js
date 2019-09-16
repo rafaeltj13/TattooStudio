@@ -2,10 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { withFormik } from 'formik';
-import * as Yup from 'yup';
-import {
-    withTheme
-} from '@material-ui/core';
+import { withTheme } from '@material-ui/core';
 import { createUserRequest } from '../../actions/signup-actions';
 import { createNotification } from '../../actions/notification-actions';
 import { SIGNUP, GENERAL } from '../../utils/constants';
@@ -15,7 +12,7 @@ import CustomTextField from '../custom/CustomTextField';
 import CustomButton from '../custom/CustomButton';
 import CustomSelect from '../custom/CustomSelect';
 
-const SignupCustomer = props => {
+const SignupArtist = props => {
     const fields = props;
     const { isSubmitting, handleSubmit, setSubmitting, loading, error, newNotification } = props;
 
@@ -126,8 +123,8 @@ const SignupCustomer = props => {
                 <CustomButton variant='outlined' onClick={handleSubmit}>Cadastrar-se</CustomButton>
             </Grid>
         </SigninBackground>
-    )
-}
+    );
+};
 
 const mapStateToProps = ({ signup }) => ({
     loading: signup.loading,
@@ -135,7 +132,7 @@ const mapStateToProps = ({ signup }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    createCustomer: (custommerBody, type) => dispatch(createUserRequest(custommerBody, type)),
+    createCustomer: (artistBody, type) => dispatch(createUserRequest(artistBody, type)),
     newNotification: payload => dispatch(createNotification(payload))
 });
 
@@ -152,26 +149,22 @@ export default connect(
                     confirmPassword: '',
                     name: '',
                     email: '',
-                    age: '',
+                    age: undefined,
                     gender: '',
-                    phone: ''
+                    phone: '',
+                    specialities: []
                 };
             },
-            validationSchema: () =>
-                Yup.object().shape({
-                    username: Yup.string().required(GENERAL.REQUIRED_FIELD),
-                    password: Yup.string().required(GENERAL.REQUIRED_FIELD),
-                    confirmPassword: Yup.string().required(GENERAL.REQUIRED_FIELD),
-                    name: Yup.string().required(GENERAL.REQUIRED_FIELD),
-                    email: Yup.string().required(GENERAL.REQUIRED_FIELD),
-                    age: Yup.string().required(GENERAL.REQUIRED_FIELD),
-                    gender: Yup.string().required(GENERAL.REQUIRED_FIELD),
-                    phone: Yup.string().required(GENERAL.REQUIRED_FIELD),
-                }),
+            // validationSchema: () =>
+            //     Yup.object().shape({
+            //         username: Yup.string().required('Campo Required'),
+            //         password: Yup.string().required('Campo Required')
+            //     }),
 
             handleSubmit: (values, { props }) => {
-                props.createCustomer(values, 'customer')
+                console.log(values)
+                props.createCustomer(values, 'artist')
             },
-        })(withTheme(SignupCustomer))
+        })(withTheme(SignupArtist))
     )
 );

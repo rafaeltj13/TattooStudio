@@ -1,7 +1,7 @@
 import {
     SIGNUP_ASYNC_REQUEST_STARTED,
     CREATE_CUSTOMER_SUCCESS,
-    CREATE_CUSTOMER_FAILED
+    CREATE_USER_FAILED
 } from '../actions/signup-actions';
 
 const initialState = {
@@ -24,7 +24,7 @@ const signup = (state = initialState, action) => {
                 error: '',
             };
 
-        case CREATE_CUSTOMER_FAILED:
+        case CREATE_USER_FAILED:
             return {
                 ...state,
                 loading: false,
