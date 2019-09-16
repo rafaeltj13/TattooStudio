@@ -16,7 +16,7 @@ const styles = theme => ({
         height: '100vh',
         maxWidth: '750px',
         color: theme.palette.secondary.main,
-        textAlign: 'center'
+        textAlign: 'right'
     }
 });
 

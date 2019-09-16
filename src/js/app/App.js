@@ -1,7 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import '../../css/App.css';
-import SigninRoutes from '../components/signin/SigninRoutes';
+import Home from '../components/home';
+import Signin from '../components/signin/Signin';
+import SignupRoutes from '../components/signup/SignupRoutes';
 import Notification from '../components/custom/notification';
 
 function App() {
@@ -9,8 +11,9 @@ function App() {
     <div>
       <Router>
         <Switch>
-          <Route path="/" component={SigninRoutes} />
-          <Redirect to={{ pathname: '/signin' }} />
+          <Route path="/signin" component={Signin} />
+          <Route path="/signup" component={SignupRoutes}/>
+          <Route path="/" component={Home} />
         </Switch>
       </Router>
       <Notification />

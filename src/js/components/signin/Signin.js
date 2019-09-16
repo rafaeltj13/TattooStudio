@@ -9,7 +9,7 @@ import {
 import { signinCostumerRequest, changeSigninType } from '../../actions/signin-actions'
 import { createNotification } from '../../actions/notification-actions';
 import { SIGNIN, GENERAL } from '../../utils/constants';
-import Grid from '@material-ui/core/Grid';
+import LinkUi from '@material-ui/core/Link';
 import SigninBackground from '../custom/signin/SigninBackground';
 import CustomTextField from '../custom/CustomTextField';
 import CustomButton from '../custom/CustomButton';
@@ -42,16 +42,18 @@ const Signin = props => {
     const renderOptions = () => {
         if (type === 'Customer') {
             return (
-                <Grid item xs={12}>
-                    <CustomButton variant='text' onClick={() => newSigninType('Artist')}>Sou um tatuador</CustomButton>
-                    <CustomButton variant='text' onClick={() => newSigninType('Owner')}>Tenho um estúdio</CustomButton>
-                </Grid>
+                <div>
+                    <div>
+                        <LinkUi component="button" variant="body2" onClick={() => newSigninType('Artist')}>Sou um tatuador</LinkUi>
+                    </div>
+                    <div>
+                        <LinkUi component="button" variant="body2" onClick={() => newSigninType('Owner')}>Tenho um estúdio</LinkUi>
+                    </div>
+                </div>
             );
         } else {
             return (
-                <Grid item xs={12}>
-                    <CustomButton variant='text' onClick={() => newSigninType('Customer')}>Voltar</CustomButton>
-                </Grid>
+                <LinkUi variant='text' onClick={() => newSigninType('Customer')}>Voltar</LinkUi>
             );
         }
     };
@@ -73,16 +75,10 @@ const Signin = props => {
                 variant="outlined"
                 type='password'
             />
-            <Grid container>
-                <Grid item xs={6}>
-                    <CustomButton variant='outlined' component={Link} to={`/signup/${type}`}>Cadastrar-se</CustomButton>
-                </Grid>
-                <Grid item xs={6}>
-                    <CustomButton variant='contained' size="small" onClick={handleSubmit}>Entrar</CustomButton>
-                </Grid>
-                {renderOptions()}
-            </Grid>
-        </SigninBackground>)
+            <CustomButton variant='outlined' component={Link} to={`/signup/${type}`}>Cadastrar-se</CustomButton>
+            <CustomButton variant='contained' size="small" onClick={handleSubmit}>Entrar</CustomButton>
+            {renderOptions()}
+        </SigninBackground >)
 };
 
 const mapStateToProps = ({ signin }) => ({

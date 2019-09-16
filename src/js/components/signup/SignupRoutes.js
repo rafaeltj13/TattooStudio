@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import SignupCustomer from './SignupCustomer';
 import SignupArtist from './SignupArtist';
 
@@ -8,7 +8,7 @@ const SignupRoutes = ({ match }) => {
     <Switch>
       <Route path={`${match.url}/customer`} component={SignupCustomer} />
       <Route path={`${match.url}/artist`} component={SignupArtist} />
-      <Redirect to={{ pathname: '/nomatch' }} />
+      {/* <Redirect to={{ pathname: '/nomatch' }} /> */}
     </Switch>
   );
 };
