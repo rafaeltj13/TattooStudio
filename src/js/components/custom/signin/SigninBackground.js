@@ -2,7 +2,6 @@ import React from 'react';
 import { withStyles } from '@material-ui/core';
 
 import background from '../../../../images/bg.png';
-import { borderColor } from '@material-ui/system';
 
 const styles = theme => ({
     background: {
@@ -28,7 +27,7 @@ const styles = theme => ({
     },
     content: {
         padding: '1rem',
-        textAlign: 'right'
+        textAlign: 'center'
     }
 });
 

@@ -66,7 +66,7 @@ const Signin = props => {
 
     return (
         <SigninBackground>
-            <Typography variant="h3">
+            <Typography variant="h4">
                 Bem vindo!
             </Typography>
             <CustomTextField
