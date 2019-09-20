@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { withFormik } from 'formik';
 import { withTheme } from '@material-ui/core';
 import { createUserRequest } from '../../actions/signup-actions';
 import { createNotification } from '../../actions/notification-actions';
 import { SIGNUP, GENERAL } from '../../utils/constants';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import SigninBackground from '../custom/signin/SigninBackground';
 import CustomTextField from '../custom/CustomTextField';
 import CustomButton from '../custom/CustomButton';
@@ -39,6 +40,7 @@ const SignupArtist = props => {
 
     return (
         <SigninBackground>
+            <Typography variant="h6">{SIGNUP.ACCOUNT_INFORMATION}</Typography>
             <CustomTextField
                 required
                 name={'username'}
@@ -63,7 +65,7 @@ const SignupArtist = props => {
                 type='password'
             />
 
-
+            <Typography variant="h6">{SIGNUP.USER_INFORMATION}</Typography>
             <CustomTextField
                 required
                 name={'name'}
@@ -120,6 +122,7 @@ const SignupArtist = props => {
             />
 
             <Grid item xs={12} style={{ textAlign: 'right' }}>
+                <CustomButton variant='outlined' component={Link} to={'/signin'}>Voltar</CustomButton>
                 <CustomButton variant='outlined' onClick={handleSubmit}>Cadastrar-se</CustomButton>
             </Grid>
         </SigninBackground>

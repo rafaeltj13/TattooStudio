@@ -15,7 +15,7 @@ export const SIGNUP = {
     USERNAME: 'Nome de usuário',
     PASSWORD: 'Senha',
     CONFIRM_PASSWORD: 'Confirmar Senha',
-    CUSTOMER_INFORMATION: 'Dados do usuário',
+    USER_INFORMATION: 'Dados do usuário',
     NAME: 'Nome completo',
     EMAIL: 'Email',
     AGE: 'Idade',

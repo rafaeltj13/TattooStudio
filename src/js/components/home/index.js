@@ -3,24 +3,24 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
 import { withRouter, Redirect } from 'react-router-dom';
 import HomeRoutes from './HomeRoutes';
+import BottomNavigation from '../custom/navigation/CustomBottomNavigation'
 
 const styles = () => ({
   mainContainer: {
-    marginTop: '80px',
-    width: '100%',
+    height: '92vh'
   },
 });
 
 const Home = ({ classes, logged }) => {
-  if (!logged) return <Redirect to="/signin" />;
+  // if (!logged) return <Redirect to="/signin" />;
 
   return (
     <div>
-      {/* <BottomNavigation /> */}
       <div className={classes.mainContainer}>
         <HomeRoutes />
         <style>{'body { background-color: #F5F5F5; }'}</style>
       </div>
+      <BottomNavigation />
     </div>
   );
 };

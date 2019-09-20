@@ -18,12 +18,11 @@ const styles = theme => ({
         backgroundSize: 'cover',
         height: '100vh',
         maxWidth: '750px',
-        color: theme.palette.secondary.main,
+        color: theme.palette.primary.light,
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center',
-        color: 'white'
+        justifyContent: 'center'
     },
     content: {
         padding: '1rem',
