@@ -7,8 +7,7 @@ import FormControl from '@material-ui/core/FormControl/index';
 const styles = {
   formControl: {
     height: '40px',
-    width: '90%',
-    margin: '10px 0px 20px 0px',
+    width: '100%',
   },
   underline: {
     '&&&&:hover:before': {
