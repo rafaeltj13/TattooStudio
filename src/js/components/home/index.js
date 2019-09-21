@@ -11,8 +11,8 @@ const styles = () => ({
   },
 });
 
-const Home = ({ classes, logged }) => {
-  // if (!logged) return <Redirect to="/signin" />;
+const Home = ({ classes, sessionToken }) => {
+  // if (!sessionToken) return <Redirect to="/signin" />;
 
   return (
     <div>
@@ -25,8 +25,8 @@ const Home = ({ classes, logged }) => {
   );
 };
 
-const mapStateToProps = ({ signin: { logged } }) => ({
-  logged
+const mapStateToProps = ({ signin: { sessionToken } }) => ({
+  sessionToken
 });
 
 export default withRouter(connect(mapStateToProps)(withStyles(styles)(Home)));

@@ -68,4 +68,4 @@ const CustomTextField = ({ classes, ...props }) => {
     );
 };
 
-export default withStyles(styles)(CustomTextField)
+export default withStyles(styles)(CustomTextField);

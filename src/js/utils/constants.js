@@ -22,3 +22,8 @@ export const SIGNUP = {
     GENDER: 'Gênero',
     PHONE: 'Telefone'
 };
+
+export const APPOINTMENT = {
+    TITLE: 'Marcar horário',
+    SELECT_DATE: 'Selecionar data'
+};

@@ -31,7 +31,7 @@ const SignupArtist = props => {
                         variant: 'success',
                         message: GENERAL.SUCCESS_MESSAGE
                     })
-                    props.history.push('/home');
+                    props.history.push('/signin');
                 }
             }
         },
