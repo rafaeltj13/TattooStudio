@@ -1,6 +1,6 @@
 import Api from '../services/api';
 
-export const SIGNIN_ASYNC_REQUEST_STARTED = 'LOGIN_ASYNC_REQUEST_STARTED';
+export const SIGNIN_ASYNC_REQUEST_STARTED = 'SIGNIN_ASYNC_REQUEST_STARTED';
 export const signinCostumerAsyncRequestStarted = () => ({
     type: SIGNIN_ASYNC_REQUEST_STARTED,
 });

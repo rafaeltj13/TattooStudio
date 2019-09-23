@@ -10,7 +10,7 @@ import FaceIcon from '@material-ui/icons/Face';
 const styles = {
     root: {
         width: '100%',
-        height: '8vh',
+        height: '6vh',
         backgroundColor: 'black',
         color: 'white'
     },
@@ -31,7 +31,7 @@ const CustomBottomNavigation = ({ classes, ...props }) => {
             <BottomNavigationAction label="Início" value="home" icon={<HomeIcon color='primary'/>} />
             <BottomNavigationAction label="Pesquisa" value="search" icon={<SearchIcon color='primary'/>} />
             <BottomNavigationAction label="Agendamentos" value="appointment" icon={<FormatListBulletedIcon color='primary'/>} />
-            <BottomNavigationAction label="Configurações" value="config" icon={<FaceIcon color='primary'/>} />
+            <BottomNavigationAction label="Perfil" value="config" icon={<FaceIcon color='primary'/>} />
         </BottomNavigation>
     );
 };

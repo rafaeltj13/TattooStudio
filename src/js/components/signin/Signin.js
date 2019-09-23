@@ -17,6 +17,7 @@ import LinkUi from '@material-ui/core/Link';
 import SigninBackground from '../custom/signin/SigninBackground';
 import CustomTextField from '../custom/CustomTextField';
 import CustomButton from '../custom/CustomButton';
+import CustomFormActions from '../custom/pages/CustomFormActions';
 
 const Signin = props => {
     const fields = props;
@@ -98,10 +99,13 @@ const Signin = props => {
                     ),
                 }}
             />
-            <CustomButton variant='outlined' component={Link} to={`/signup/${type}`}>Cadastrar-se</CustomButton>
-            <CustomButton variant='contained' size="small" onClick={handleSubmit}>Entrar</CustomButton>
-            {renderOptions()}
-        </SigninBackground >)
+            <CustomFormActions>
+                <CustomButton variant='outlined' component={Link} to={`/signup/${type}`}>Cadastrar-se</CustomButton>
+                <CustomButton variant='contained' size="small" onClick={handleSubmit}>Entrar</CustomButton>
+                {renderOptions()}
+            </CustomFormActions>
+        </SigninBackground >
+    );
 };
 
 const mapStateToProps = ({ signin }) => ({

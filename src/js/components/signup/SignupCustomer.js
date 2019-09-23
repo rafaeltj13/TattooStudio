@@ -94,11 +94,11 @@ const SignupCustomer = props => {
                         field={fields}
                         optionsmap={[
                             {
-                                code: 1,
+                                code: "Male",
                                 optionLabel: 'Masculino',
                             },
                             {
-                                code: 2,
+                                code: "Female",
                                 optionLabel: 'Feminino',
                             }
                         ]}

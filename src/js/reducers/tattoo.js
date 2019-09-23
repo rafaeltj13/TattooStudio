@@ -1,6 +1,6 @@
 import {
-    APPOINTMENT_ASYNC_REQUEST_STARTED,
-} from '../actions/appointment-actions';
+    TATTOO_ASYNC_REQUEST_STARTED,
+} from '../actions/tattoo-actions';
 
 const initialState = {
     loading: false,
@@ -9,7 +9,7 @@ const initialState = {
 
 const appointment = (state = initialState, action) => {
     switch (action.type) {
-        case APPOINTMENT_ASYNC_REQUEST_STARTED:
+        case TATTOO_ASYNC_REQUEST_STARTED:
             return {
                 ...state,
                 loading: true,

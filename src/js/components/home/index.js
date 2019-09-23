@@ -7,7 +7,7 @@ import BottomNavigation from '../custom/navigation/CustomBottomNavigation'
 
 const styles = () => ({
   mainContainer: {
-    height: '92vh'
+    height: '94vh'
   },
 });
 

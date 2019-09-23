@@ -25,5 +25,13 @@ export const SIGNUP = {
 
 export const APPOINTMENT = {
     TITLE: 'Marcar horário',
-    SELECT_DATE: 'Selecionar data'
+    SELECT_DATE: 'Selecionar data',
+    SELECT_TYPE: 'Selecionar atendimento',
+};
+
+export const TATTOO = {
+    TITLE: 'Criar tatuagem',
+    IMAGEM: 'Selecionar imagem de referência',
+    SIZE: 'Tamanho(cm)',
+    PLACE: 'Local'
 };

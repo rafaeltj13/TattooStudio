@@ -9,12 +9,12 @@ const styles = {
     height: '40px',
     width: '100%',
   },
-  underline: {
-    '&&&&:hover:before': {
-      borderBottom: `2px solid ${theme.palette.secondary.main}`,
-    },
-    textAlign: 'left'
-  },
+  // underline: {
+  //   '&&&&:hover:before': {
+  //     borderBottom: `2px solid ${theme.palette.secondary.main}`,
+  //   },
+  //   textAlign: 'left'
+  // },
   helperText: {
     textAlign: 'right',
   },
@@ -51,9 +51,9 @@ const CustomSelect = ({ classes, ...props }) => {
         <CustomTextField
           select
           {...props}
-          classes={{
-            underline: !disabled ? classes.underline : null,
-          }}
+          // classes={{
+          //   underline: !disabled ? classes.underline : null,
+          // }}
           SelectProps={{
             MenuProps: {
               className: classes.menu,
