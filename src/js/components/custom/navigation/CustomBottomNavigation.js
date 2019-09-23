@@ -13,9 +13,6 @@ const styles = {
         height: '6vh',
         backgroundColor: 'black',
         color: 'white'
-    },
-    iconColor: {
-        color: 'white'
     }
 };
 

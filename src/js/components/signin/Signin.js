@@ -15,7 +15,7 @@ import { createNotification } from '../../actions/notification-actions';
 import { SIGNIN, GENERAL } from '../../utils/constants';
 import LinkUi from '@material-ui/core/Link';
 import SigninBackground from '../custom/signin/SigninBackground';
-import CustomTextField from '../custom/CustomTextField';
+import CustomTextField from '../custom/textField/CustomTextField';
 import CustomButton from '../custom/CustomButton';
 import CustomFormActions from '../custom/pages/CustomFormActions';
 

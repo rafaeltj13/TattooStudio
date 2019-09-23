@@ -1,7 +1,7 @@
 import React from 'react';
 import { createMuiTheme, MuiThemeProvider, withStyles } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField/index';
-import theme from '../../utils/theme';
+import TextField from '@material-ui/core/TextField';
+import theme from '../../../utils/theme';
 
 const styles = thisTheme => ({
     textField: {

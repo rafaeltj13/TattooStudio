@@ -8,7 +8,8 @@ import { createNotification } from '../../actions/notification-actions';
 import { TATTOO, GENERAL } from '../../utils/constants';
 import Typography from '@material-ui/core/Typography';
 import CustomDatepicker from '../custom/CustomDatepicker';
-import CustomTextField from '../custom/CustomTextField';
+import CustomTextField from '../custom/textField/CustomTextField';
+import CustomFileField from '../custom/textField/CustomFileField';
 import CustomButton from '../custom/CustomButton';
 import CustomSelect from '../custom/CustomSelect';
 import CustomContainer from '../custom/pages/CustomContainer';
@@ -17,9 +18,18 @@ const TattooForm = props => {
     const fields = props;
     const { isSubmitting, handleSubmit, setSubmitting, loading, error, newNotification, values } = props;
 
+    console.log(values)
+
     return (
         <React.Fragment>
             <Typography variant="overline">{TATTOO.TITLE}</Typography>
+            <CustomFileField
+                required
+                name={'imageBase64'}
+                label={TATTOO.IMAGEM}
+                field={fields}
+            />
+            {values.imageBase64}
             <CustomTextField
                 required
                 name={'size'}

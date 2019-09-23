@@ -10,7 +10,7 @@ export const themeOptions = {
         },
         secondary: {
             light: '#4dabf5',
-            main: '#2196f3',
+            main: '#000000',
             dark: '#1769aa',
             contrastText: '#ffffff',
         },

@@ -9,7 +9,7 @@ import { createNotification } from '../../actions/notification-actions';
 import { APPOINTMENT, GENERAL } from '../../utils/constants';
 import Typography from '@material-ui/core/Typography';
 import CustomDatepicker from '../custom/CustomDatepicker';
-import CustomTextField from '../custom/CustomTextField';
+import CustomTextField from '../custom/textField/CustomTextField';
 import CustomButton from '../custom/CustomButton';
 import CustomSelect from '../custom/CustomSelect';
 import CustomContainer from '../custom/pages/CustomContainer';
