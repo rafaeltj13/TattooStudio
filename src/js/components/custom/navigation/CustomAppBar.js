@@ -10,12 +10,14 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 const styles = thisTheme => ({
     root: {
         height: '5vh',
+        padding: '0rem'
+    },
+    toolbar: {
         backgroundColor: 'black',
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '0rem'
     },
     title: {
         color: thisTheme.palette.primary.light,
