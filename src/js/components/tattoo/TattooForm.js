@@ -4,44 +4,58 @@ import { withRouter, Link } from 'react-router-dom';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import { withTheme } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
 import { createNotification } from '../../actions/notification-actions';
 import { TATTOO, GENERAL } from '../../utils/constants';
 import Typography from '@material-ui/core/Typography';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import CustomTextField from '../custom/textField/CustomTextField';
 import CustomFileField from '../custom/textField/CustomFileField';
 import CustomButton from '../custom/CustomButton';
-import CustomSelect from '../custom/CustomSelect';
-import CustomContainer from '../custom/pages/CustomContainer';
 
 const TattooForm = props => {
     const fields = props;
-    const { isSubmitting, handleSubmit, setSubmitting, loading, error, newNotification, values } = props;
+    const { isSubmitting, handleSubmit, setSubmitting, loading, error, newNotification, values, open } = props;
 
-    console.log(values)
+    const dispatch = useDispatch();
+
+    const handleClose = () => {
+        dispatch(); //Action de fechar o dialog
+    };
 
     return (
-        <React.Fragment>
-            <Typography variant="overline">{TATTOO.TITLE}</Typography>
-            <CustomFileField
-                required
-                name={'imageBase64'}
-                label={TATTOO.IMAGEM}
-                field={fields}
-            />
-            <CustomTextField
-                required
-                name={'size'}
-                label={TATTOO.SIZE}
-                field={fields}
-                type='number'
-            />
-            <CustomTextField
-                required
-                name={'place'}
-                label={TATTOO.PLACE}
-                field={fields}
-            />
-        </React.Fragment>
+        <Dialog open={true} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <DialogTitle id="form-dialog-title">{TATTOO.TITLE}</DialogTitle>
+            <DialogContent>
+                <CustomFileField
+                    required
+                    name={'imageBase64'}
+                    label={TATTOO.IMAGEM}
+                    field={fields}
+                />
+                <CustomTextField
+                    required
+                    name={'size'}
+                    label={TATTOO.SIZE}
+                    field={fields}
+                    type='number'
+                />
+                <CustomTextField
+                    required
+                    name={'place'}
+                    label={TATTOO.PLACE}
+                    field={fields}
+                />
+            </DialogContent>
+            <DialogActions>
+                <CustomButton variant='contained' onClick={handleClose}>Cancelar</CustomButton>
+                <CustomButton variant='contained' onClick={handleSubmit}>Criar Tatuagem</CustomButton>
+            </DialogActions>
+        </Dialog>
     );
 };
 

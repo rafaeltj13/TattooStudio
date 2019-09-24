@@ -9,8 +9,7 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 const styles = thisTheme => ({
     root: {
-        height: '5vh',
-        padding: '0rem'
+        height: '6vh',
     },
     toolbar: {
         backgroundColor: 'black',
@@ -23,23 +22,20 @@ const styles = thisTheme => ({
         color: thisTheme.palette.primary.light,
         textAlign: 'center'
     },
-    menuButton: {
-        marginRight: thisTheme.spacing(2),
-    },
 });
 
 const CustomAppBar = ({ classes, ...props }) => {
 
     return (
-        <AppBar position="static" >
-            <Toolbar className={classes.root}>
+        <AppBar position="static" className={classes.root}>
+            <Toolbar className={classes.toolbar}>
                 <IconButton className={classes.menuButton} color="inherit" aria-label="menu">
                     <ArrowBackIosIcon />
                 </IconButton>
                 <Typography variant="h6" className={classes.title}>
                     TattooStudio
                 </Typography>
-                <IconButton className={classes.menuButton} color="inherit" aria-label="menu">
+                <IconButton color="inherit" aria-label="menu">
                     <AddIcon />
                 </IconButton>
             </Toolbar>
