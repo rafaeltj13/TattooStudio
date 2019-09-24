@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { get } from 'lodash';
 import CustomTextField from './CustomTextField';
 import { InputAdornment, withStyles } from '@material-ui/core';
@@ -13,9 +13,25 @@ const styles = thisTheme => ({
     }
 });
 
-const CustomFileField = ({ classes, name, ...props }) => {
+const CustomFileField = ({ classes, ...props }) => {
+    const { field, name } = props;
+
     const inputFileRef = React.useRef(null);
     const [inputState, setInputState] = React.useState('');
+    const [renderedValue, setRenderedValue] = React.useState('');
+    const [imageBase64, setImageBase64] = React.useState('');
+
+    useEffect(
+        () => {
+            setFileBase64(imageBase64);
+        },
+        [imageBase64]
+    );
+
+    const setFileBase64 = base64 => {
+        console.log('entrou pae')
+        field.values[name] = base64;
+    };
 
     const toBase64 = file => new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -32,10 +48,14 @@ const CustomFileField = ({ classes, name, ...props }) => {
 
     const handleChange = event => {
         const file = get(event.target, 'files[0]');
+        const filepath = event.target.value;
         toBase64(file).then(imgBase64 => {
-            const filepath = event.target.value;
-            setInputState('');
-        }).catch(() => {
+            setImageBase64(imgBase64)
+            setRenderedValue(file.name)
+            // setInputState(filepath);
+        }).catch(error => {
+            setImageBase64('');
+            setRenderedValue('')
             setInputState('');
         });
     };
@@ -53,7 +73,7 @@ const CustomFileField = ({ classes, name, ...props }) => {
                     ),
                 }}
                 onClick={openFileManager}
-                value={inputState}
+                value={renderedValue}
             />
             <input
                 type="file"

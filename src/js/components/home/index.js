@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core';
 import { withRouter, Redirect } from 'react-router-dom';
 import HomeRoutes from './HomeRoutes';
+import AppBar from '../custom/navigation/CustomAppBar';
 import BottomNavigation from '../custom/navigation/CustomBottomNavigation'
 
 const styles = () => ({
   mainContainer: {
-    height: '94vh'
+    height: '88vh'
   },
 });
 
@@ -16,6 +17,7 @@ const Home = ({ classes, sessionToken }) => {
 
   return (
     <div>
+      <AppBar />
       <div className={classes.mainContainer}>
         <HomeRoutes />
         <style>{'body { background-color: #F5F5F5; }'}</style>

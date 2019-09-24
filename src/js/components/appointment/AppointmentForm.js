@@ -13,6 +13,7 @@ import CustomTextField from '../custom/textField/CustomTextField';
 import CustomButton from '../custom/CustomButton';
 import CustomSelect from '../custom/CustomSelect';
 import CustomContainer from '../custom/pages/CustomContainer';
+import CustomFormActions from '../custom/pages/CustomFormActions'
 import TattooForm from '../tattoo/TattooForm';
 
 const AppointmentForm = props => {
@@ -20,7 +21,17 @@ const AppointmentForm = props => {
     const { isSubmitting, handleSubmit, setSubmitting, loading, error, newNotification, values } = props;
 
     const renderForm = () => {
-        if (values.type === 'tattoo') return <TattooForm />
+        if (values.type === 'tattoo') {
+            return (
+                <React.Fragment>
+                    <TattooForm />
+                    <CustomFormActions>
+                        <CustomButton component={Link} to={'/'}>Voltar</CustomButton>
+                        <CustomButton variant='outlined' onClick={handleSubmit}>Cadastrar-se</CustomButton>
+                    </CustomFormActions>
+                </React.Fragment>
+            );
+        }
         else if (values.type === 'art') return /*<ArtForm />*/(<div></div>)
         else return (<div></div>);
     }

@@ -7,7 +7,6 @@ import { withTheme } from '@material-ui/core';
 import { createNotification } from '../../actions/notification-actions';
 import { TATTOO, GENERAL } from '../../utils/constants';
 import Typography from '@material-ui/core/Typography';
-import CustomDatepicker from '../custom/CustomDatepicker';
 import CustomTextField from '../custom/textField/CustomTextField';
 import CustomFileField from '../custom/textField/CustomFileField';
 import CustomButton from '../custom/CustomButton';
@@ -29,7 +28,6 @@ const TattooForm = props => {
                 label={TATTOO.IMAGEM}
                 field={fields}
             />
-            {values.imageBase64}
             <CustomTextField
                 required
                 name={'size'}

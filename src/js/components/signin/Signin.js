@@ -101,7 +101,7 @@ const Signin = props => {
             />
             <CustomFormActions>
                 <CustomButton variant='outlined' component={Link} to={`/signup/${type}`}>Cadastrar-se</CustomButton>
-                <CustomButton variant='contained' size="small" onClick={handleSubmit}>Entrar</CustomButton>
+                <CustomButton variant='contained' onClick={handleSubmit}>Entrar</CustomButton>
                 {renderOptions()}
             </CustomFormActions>
         </SigninBackground >

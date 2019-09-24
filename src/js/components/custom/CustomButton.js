@@ -7,7 +7,9 @@ const styles = theme => ({
         fontWeight: 'bold',
         textAlign: 'center',
         fontSize: '12px',
-        margin: '20px 0px 10px 10px'
+        margin: '20px 0px 10px 10px',
+        backgroundColor: theme.palette.primary.dark,
+        color: theme.palette.primary.light,
     },
 });
 
