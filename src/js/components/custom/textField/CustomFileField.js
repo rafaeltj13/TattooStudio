@@ -29,7 +29,6 @@ const CustomFileField = ({ classes, ...props }) => {
     );
 
     const setFileBase64 = base64 => {
-        console.log('entrou pae')
         field.values[name] = base64;
     };
 

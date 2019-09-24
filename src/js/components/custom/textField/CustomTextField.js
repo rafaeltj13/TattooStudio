@@ -19,7 +19,7 @@ const styles = thisTheme => ({
         color: 'rgba(0, 0, 0, 0.84) !important',
     },
     input: {
-        color: "white",
+        color: "black",
         textAlign: 'left'
     }
 });

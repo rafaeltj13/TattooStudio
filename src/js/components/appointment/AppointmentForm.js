@@ -5,6 +5,7 @@ import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import { withTheme } from '@material-ui/core';
 // import { createUserRequest } from '../../actions/signup-actions';
+import { showTattooDialog } from '../../actions/tattoo-actions';
 import { createNotification } from '../../actions/notification-actions';
 import { APPOINTMENT, GENERAL } from '../../utils/constants';
 import Typography from '@material-ui/core/Typography';
@@ -18,7 +19,7 @@ import TattooForm from '../tattoo/TattooForm';
 
 const AppointmentForm = props => {
     const fields = props;
-    const { isSubmitting, handleSubmit, setSubmitting, loading, error, newNotification, values } = props;
+    const { isSubmitting, handleSubmit, setSubmitting, loading, error, newNotification, values, tattooDialog } = props;
 
     const renderForm = () => {
         if (values.type === 'tattoo') {
@@ -26,8 +27,8 @@ const AppointmentForm = props => {
                 <React.Fragment>
                     <TattooForm />
                     <CustomFormActions>
-                        <CustomButton component={Link} to={'/'}>Voltar</CustomButton>
-                        <CustomButton variant='outlined' onClick={handleSubmit}>Cadastrar-se</CustomButton>
+                    <CustomButton variant='outlined' onClick={() => {}}>Escolher Tatuagem</CustomButton>
+                        <CustomButton variant='outlined' onClick={() => tattooDialog(true)}>Criar nova Tatuagem</CustomButton>
                     </CustomFormActions>
                 </React.Fragment>
             );
@@ -73,6 +74,7 @@ const mapStateToProps = ({ appointment }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    tattooDialog: show => dispatch(showTattooDialog(show)),
     newNotification: payload => dispatch(createNotification(payload))
 });
 

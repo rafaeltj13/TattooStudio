@@ -1,17 +1,15 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import { withTheme } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
+import { createTattooRequest, showTattooDialog } from '../../actions/tattoo-actions';
 import { createNotification } from '../../actions/notification-actions';
 import { TATTOO, GENERAL } from '../../utils/constants';
-import Typography from '@material-ui/core/Typography';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CustomTextField from '../custom/textField/CustomTextField';
 import CustomFileField from '../custom/textField/CustomFileField';
@@ -19,16 +17,36 @@ import CustomButton from '../custom/CustomButton';
 
 const TattooForm = props => {
     const fields = props;
-    const { isSubmitting, handleSubmit, setSubmitting, loading, error, newNotification, values, open } = props;
+    const { isSubmitting, handleSubmit, setSubmitting, loading, error, newNotification, open, tattooDialog } = props;
 
-    const dispatch = useDispatch();
+    useEffect(
+        () => {
+            console.log('useEffect')
+            if (!loading) {
+                if (isSubmitting) {
+                    setSubmitting(false);
+                    if (error) {
+                        newNotification({
+                            variant: 'error',
+                            message: error
+                        });
+                    } else {
+                        newNotification({
+                            variant: 'success',
+                            message: GENERAL.SUCCESS_MESSAGE
+                        })
+                        handleClose();
+                    }
+                }
+            }
+        },
+        [loading, error]
+    );
 
-    const handleClose = () => {
-        dispatch(); //Action de fechar o dialog
-    };
+    const handleClose = () => tattooDialog(false);
 
     return (
-        <Dialog open={true} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
             <DialogTitle id="form-dialog-title">{TATTOO.TITLE}</DialogTitle>
             <DialogContent>
                 <CustomFileField
@@ -62,9 +80,12 @@ const TattooForm = props => {
 const mapStateToProps = ({ tattoo }) => ({
     loading: tattoo.loading,
     error: tattoo.error,
+    open: tattoo.openForm
 });
 
 const mapDispatchToProps = dispatch => ({
+    createTattoo: tattooBody => dispatch(createTattooRequest(tattooBody)),
+    tattooDialog: show => dispatch(showTattooDialog(show)),
     newNotification: payload => dispatch(createNotification(payload))
 });
 
@@ -89,8 +110,7 @@ export default connect(
                 }),
 
             handleSubmit: (values, { props }) => {
-                console.log(values)
-                // props.createCustomer(values, 'customer')
+                props.createTattoo(values)
             },
         })(withTheme(TattooForm))
     )

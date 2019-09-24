@@ -3,7 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
     root: {
-        textAlign: 'right'
+        textAlign: 'right',
+        margin: '1.5rem 0rem'
     }
 };
 

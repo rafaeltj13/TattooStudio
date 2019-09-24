@@ -35,7 +35,7 @@ const SignupArtist = props => {
                 }
             }
         },
-        [loading],
+        [loading]
     );
 
     return (
