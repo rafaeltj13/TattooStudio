@@ -12,8 +12,8 @@ const styles = () => ({
   },
 });
 
-const Home = ({ classes, sessionToken }) => {
-  // if (!sessionToken) return <Redirect to="/signin" />;
+const Home = ({ classes }) => {
+  if (!(localStorage.getItem('signin'))) return <Redirect to="/signin" />;
 
   return (
     <div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, withStyles } from '@material-ui/core';
+import classNames from 'classnames';
 
 const styles = theme => ({
     button: {
@@ -11,10 +12,13 @@ const styles = theme => ({
         backgroundColor: theme.palette.primary.dark,
         color: theme.palette.primary.light,
     },
+    width: {
+        width: '100%'
+    }
 });
 
-const CustomButton = ({ classes, variant, ...props }) => (
-    <Button {...props} variant={variant} className={classes.button} size="small"/>
+const CustomButton = ({ classes, variant, width, ...props }) => (
+    <Button {...props} variant={variant} className={width ? classNames(classes.button, width) : classes.button} size="small"/>
 );
 
 

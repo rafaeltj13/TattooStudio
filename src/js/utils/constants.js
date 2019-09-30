@@ -27,6 +27,7 @@ export const APPOINTMENT = {
     TITLE: 'Marcar horário',
     SELECT_DATE: 'Selecionar data',
     SELECT_TYPE: 'Selecionar atendimento',
+    PRICE_UNDEFINED: 'Preço não definido',
 };
 
 export const TATTOO = {

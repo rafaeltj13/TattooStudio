@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import { withRouter, Link } from 'react-router-dom';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import HomeIcon from '@material-ui/icons/Home';
@@ -25,12 +26,12 @@ const CustomBottomNavigation = ({ classes, ...props }) => {
 
     return (
         <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
-            <BottomNavigationAction label="Início" value="home" icon={<HomeIcon color='primary'/>} />
+            <BottomNavigationAction label="Início" value="home" icon={<HomeIcon color='primary'/>} component={Link} to={`/`}/>
             <BottomNavigationAction label="Pesquisa" value="search" icon={<SearchIcon color='primary'/>} />
-            <BottomNavigationAction label="Agendamentos" value="appointment" icon={<FormatListBulletedIcon color='primary'/>} />
+            <BottomNavigationAction label="Agendamentos" value="appointment" icon={<FormatListBulletedIcon color='primary'/>} component={Link} to={`/appointment`} />
             <BottomNavigationAction label="Perfil" value="config" icon={<FaceIcon color='primary'/>} />
         </BottomNavigation>
     );
 };
 
-export default withStyles(styles)(CustomBottomNavigation);
+export default withRouter(withStyles(styles)(CustomBottomNavigation));

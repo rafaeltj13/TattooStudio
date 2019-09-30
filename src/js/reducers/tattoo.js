@@ -8,7 +8,8 @@ import {
 const initialState = {
     loading: false,
     error: null,
-    openForm: false
+    openForm: false,
+    tattoo: {}
 };
 
 const appointment = (state = initialState, action) => {
@@ -30,6 +31,7 @@ const appointment = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: '',
+                tattoo: action.data
             };
 
         case CREATE_TATTOO_FAILED:

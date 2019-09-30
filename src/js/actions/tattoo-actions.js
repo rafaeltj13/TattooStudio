@@ -20,15 +20,12 @@ export const createTattooFailed = error => ({
 export const CREATE_TATTOO_REQUEST = 'CREATE_TATTOO_REQUEST';
 export const createTattooRequest = tattooBody => {
     return dispath => {
-        dispath(tattooAsyncRequestStarted);
-        console.log('ACTION')
+        dispath(tattooAsyncRequestStarted());
         Api.post('tattoos', tattooBody)
             .then(({ data }) => {
-                console.log('THEN')
                 dispath(createTattooSuccess(data))
             })
             .catch(({ message }) => {
-                console.log('error')
                 dispath(createTattooFailed(message))
             });
     };

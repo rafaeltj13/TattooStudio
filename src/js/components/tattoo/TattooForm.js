@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import { withTheme } from '@material-ui/core';
 import { createTattooRequest, showTattooDialog } from '../../actions/tattoo-actions';
 import { createNotification } from '../../actions/notification-actions';
+import { setAppointmentData } from '../../actions/appointment-actions';
 import { TATTOO, GENERAL } from '../../utils/constants';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -17,11 +18,10 @@ import CustomButton from '../custom/CustomButton';
 
 const TattooForm = props => {
     const fields = props;
-    const { isSubmitting, handleSubmit, setSubmitting, loading, error, newNotification, open, tattooDialog } = props;
+    const { appointment, isSubmitting, handleSubmit, setSubmitting , values, newTattoo, loading, error, newNotification, open, tattooDialog, setAppointment } = props;
 
     useEffect(
         () => {
-            console.log('useEffect')
             if (!loading) {
                 if (isSubmitting) {
                     setSubmitting(false);
@@ -43,7 +43,10 @@ const TattooForm = props => {
         [loading, error]
     );
 
-    const handleClose = () => tattooDialog(false);
+    const handleClose = () => {
+        if(appointment) setAppointment({ id: newTattoo._id, imageBase64: values.imageBase64 })
+        tattooDialog(false);
+    };
 
     return (
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -80,12 +83,14 @@ const TattooForm = props => {
 const mapStateToProps = ({ tattoo }) => ({
     loading: tattoo.loading,
     error: tattoo.error,
-    open: tattoo.openForm
+    open: tattoo.openForm,
+    newTattoo: tattoo.tattoo
 });
 
 const mapDispatchToProps = dispatch => ({
     createTattoo: tattooBody => dispatch(createTattooRequest(tattooBody)),
     tattooDialog: show => dispatch(showTattooDialog(show)),
+    setAppointment: tattoo => dispatch(setAppointmentData(tattoo)),
     newNotification: payload => dispatch(createNotification(payload))
 });
 

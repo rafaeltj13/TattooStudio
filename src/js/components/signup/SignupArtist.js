@@ -165,7 +165,6 @@ export default connect(
             //     }),
 
             handleSubmit: (values, { props }) => {
-                console.log(values)
                 props.createCustomer(values, 'artist')
             },
         })(withTheme(SignupArtist))

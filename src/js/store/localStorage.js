@@ -1,6 +1,6 @@
 export const loadState = () => {
     try {
-        const serializedState = localStorage.getItem('state');
+        const serializedState = localStorage.getItem('signin');
         if (serializedState === null) {
             return undefined;
         }
@@ -12,9 +12,19 @@ export const loadState = () => {
 
 export const saveState = signinState => {
     try {
-        const signin = JSON.stringify(signinState);
-        localStorage.setItem('signin', { username: signin.username, token: `Bearer ${signin.sessionToken}` });
+        console.log('saveState')
+        const signin = JSON.stringify({
+            token: `Bearer ${signinState.sessionToken}`,
+            username: signinState.username,
+            idUser: signinState.idUser,
+            type: signinState.type,
+        });
+        localStorage.setItem('signin', signin);
     } catch (err) {
-        console.log(err);
+        return undefined;
     }
+};
+
+export const getId = () => {
+    return JSON.parse(localStorage.getItem('signin')).idUser;
 };

@@ -10,8 +10,9 @@ const initialState = {
     loading: false,
     error: null,
     username: '',
+    idUser: '',
     sessionToken: null,
-    type: 'Customer'
+    type: 'customer'
 };
 
 const signin = (state = initialState, action) => {
@@ -27,6 +28,7 @@ const signin = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 username: action.data.username,
+                idUser: action.data.id,
                 error: null,
                 sessionToken: action.data.token,
             };
