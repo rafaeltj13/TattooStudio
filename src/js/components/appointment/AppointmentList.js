@@ -34,17 +34,18 @@ const AppointmentForm = props => {
 
     const handleClick = appointment => {
         //TODO: Edit appointment
-        console.log('Editar appointment')
+        props.history.push(`/appointment/create/${appointment.id}`);
     };
 
     return (
         <CustomContainer>
-            {appointments.map(appointment => (
+            {appointments.map((appointment, index) => (
                 <AppointmentCard
                     image64={appointment.details.imageBase64}
                     user={appointment.details.name}
                     price={appointment.price}
-                    onClick={handleClick(appointment)}
+                    onClick={() => handleClick(appointment)}
+                    key={index}
                 />
             ))}
         </CustomContainer>

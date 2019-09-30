@@ -28,6 +28,12 @@ export const APPOINTMENT = {
     SELECT_DATE: 'Selecionar data',
     SELECT_TYPE: 'Selecionar atendimento',
     PRICE_UNDEFINED: 'Preço não definido',
+    STATUS: {
+        CREATED: 'created',
+        VALIDATED: 'validated',
+        REVIEWED:'reviewed',
+        APPROVED: 'approved'
+    }
 };
 
 export const TATTOO = {

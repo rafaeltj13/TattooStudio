@@ -10,35 +10,29 @@ const styles = thisTheme => ({
     card: {
         display: 'flex',
         width: '100%',
-        height: '40px'
+        height: '80px'
     },
     details: {
         display: 'flex',
         flexDirection: 'column',
-    },
-    content: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center'
     }
 });
 
 const CustomCard = ({ classes, user, price, image64, onClick, ...props }) => {
     const formatPrice = () => price ? `R$ ${price}` : APPOINTMENT.PRICE_UNDEFINED;
-    
+
     return (
         <Card className={classes.card} onClick={onClick}>
-            {/* <CardMedia
-                image={image64}
-            /> */}
+            <CardMedia
+                src={image64}
+            />
             <div className={classes.details}>
                 <CardContent className={classes.content}>
                     <Typography component="h5" variant="h5">
                         {user}
                     </Typography>
                     <Typography variant="subtitle1" color="textSecondary">
-                        {formatPrice}
+                        {formatPrice()}
                     </Typography>
                 </CardContent>
             </div>

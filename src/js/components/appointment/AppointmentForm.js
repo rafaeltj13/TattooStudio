@@ -128,11 +128,16 @@ export default connect(
             validationSchema: () =>
                 Yup.object().shape({
                     appointmentDate: Yup.date().required(GENERAL.REQUIRED_FIELD),
+                    type: Yup.string().required(GENERAL.REQUIRED_FIELD)
                 }),
 
             handleSubmit: (values, { props }) => {
-                console.log({ ...values, customer: props.idUser, tattoo: props.selectedAppointment.id })
-                props.createAppointment({ ...values, customer: props.idUser, tattoo: props.selectedAppointment.id })
+                props.createAppointment({
+                    ...values,
+                    customer: props.idUser,
+                    tattoo: props.selectedAppointment.id,
+                    status: APPOINTMENT.STATUS.CREATED
+                })
             },
         })(withTheme(AppointmentForm))
     )

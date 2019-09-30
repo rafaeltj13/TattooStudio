@@ -12,7 +12,6 @@ export const loadState = () => {
 
 export const saveState = signinState => {
     try {
-        console.log('saveState')
         const signin = JSON.stringify({
             token: `Bearer ${signinState.sessionToken}`,
             username: signinState.username,

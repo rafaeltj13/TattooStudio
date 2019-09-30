@@ -6,6 +6,8 @@ import {
     CHANGE_SIGNIN_TYPE
 } from '../actions/signin-actions';
 
+import { saveState } from '../store/localStorage';
+
 const initialState = {
     loading: false,
     error: null,
@@ -24,6 +26,13 @@ const signin = (state = initialState, action) => {
             };
 
         case SIGNIN_COSTUMER_SUCCESS:
+            saveState({
+                sessionToken: action.data.token,
+                username: action.data.username,
+                idUser: action.data.id,
+                type: state.type,
+            })
+
             return {
                 ...state,
                 loading: false,

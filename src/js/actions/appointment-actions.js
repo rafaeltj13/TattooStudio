@@ -64,3 +64,57 @@ export const setAppointmentData = data => ({
     type: SET_APPOINTMENT_DATA,
     data
 });
+
+export const GET_APPOINTMENT_SUCCESS = 'GET_APPOINTMENT_SUCCESS';
+export const getAppointmentSuccess = data => ({
+    type: GET_APPOINTMENT_SUCCESS,
+    data
+});
+
+export const GET_APPOINTMENT_FAILED = 'GET_APPOINTMENT_FAILED';
+export const getAppointmentFailed = error => ({
+    type: GET_APPOINTMENT_FAILED,
+    error
+});
+
+export const GET_APPOINTMENT_REQUEST = 'GET_APPOINTMENT_REQUEST';
+export const getAppointmentRequest = appointmentId => {
+    return dispath => {
+        dispath(appointmentAsyncRequestStarted());
+
+        Api.get(`/appointments/${appointmentId}`)
+            .then(({ data }) => {
+                dispath(getAppointmentSuccess(data))
+            })
+            .catch(({ message }) => {
+                dispath(getAppointmentFailed(message))
+            });
+    };
+};
+
+export const EDIT_APPOINTMENT_SUCCESS = 'EDIT_APPOINTMENT_SUCCESS';
+export const editAppointmentSuccess = data => ({
+    type: EDIT_APPOINTMENT_SUCCESS,
+    data
+});
+
+export const EDIT_APPOINTMENT_FAILED = 'EDIT_APPOINTMENT_FAILED';
+export const editAppointmentFailed = error => ({
+    type: EDIT_APPOINTMENT_FAILED,
+    error
+});
+
+export const EDIT_APPOINTMENT_REQUEST = 'EDIT_APPOINTMENT_REQUEST';
+export const editAppointmentRequest = (appointmentId, appointmentBody) => {
+    return dispath => {
+        dispath(appointmentAsyncRequestStarted());
+
+        Api.patch(`/appointments/${appointmentId}`, appointmentBody)
+            .then(({ data }) => {
+                dispath(editAppointmentSuccess(data))
+            })
+            .catch(({ message }) => {
+                dispath(editAppointmentFailed(message))
+            });
+    };
+};

@@ -18,9 +18,9 @@ const styles = {
 };
 
 const CustomBottomNavigation = ({ classes, ...props }) => {
-    const [value, setValue] = React.useState('home');
+    const [value, setValue] = React.useState(props.location.pathname.split('/')[1]);
 
-    const handleChange = (event, newValue) => {
+    const handleChange = (e, newValue) => {
         setValue(newValue);
     };
 
