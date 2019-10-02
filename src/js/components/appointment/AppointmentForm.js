@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import Image from 'material-ui-image'

@@ -41,7 +41,7 @@ const AppointmentForm = props => {
         <CustomContainer>
             {appointments.map((appointment, index) => (
                 <AppointmentCard
-                    image64={appointment.details.imageBase64}
+                    imagePath={appointment.details.imagePath}
                     user={appointment.details.name}
                     price={appointment.price}
                     onClick={() => handleClick(appointment)}

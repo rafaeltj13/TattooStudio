@@ -79,15 +79,15 @@ export const getAppointmentFailed = error => ({
 
 export const GET_APPOINTMENT_REQUEST = 'GET_APPOINTMENT_REQUEST';
 export const getAppointmentRequest = appointmentId => {
-    return dispath => {
-        dispath(appointmentAsyncRequestStarted());
+    return dispatch => {
+        dispatch(appointmentAsyncRequestStarted());
 
         Api.get(`/appointments/${appointmentId}`)
             .then(({ data }) => {
-                dispath(getAppointmentSuccess(data))
+                dispatch(getAppointmentSuccess(data))
             })
             .catch(({ message }) => {
-                dispath(getAppointmentFailed(message))
+                dispatch(getAppointmentFailed(message))
             });
     };
 };
@@ -106,15 +106,15 @@ export const editAppointmentFailed = error => ({
 
 export const EDIT_APPOINTMENT_REQUEST = 'EDIT_APPOINTMENT_REQUEST';
 export const editAppointmentRequest = (appointmentId, appointmentBody) => {
-    return dispath => {
-        dispath(appointmentAsyncRequestStarted());
+    return dispatch => {
+        dispatch(appointmentAsyncRequestStarted());
 
         Api.patch(`/appointments/${appointmentId}`, appointmentBody)
             .then(({ data }) => {
-                dispath(editAppointmentSuccess(data))
+                dispatch(editAppointmentSuccess(data))
             })
             .catch(({ message }) => {
-                dispath(editAppointmentFailed(message))
+                dispatch(editAppointmentFailed(message))
             });
     };
 };

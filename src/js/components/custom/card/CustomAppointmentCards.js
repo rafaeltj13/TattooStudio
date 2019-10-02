@@ -10,21 +10,26 @@ const styles = thisTheme => ({
     card: {
         display: 'flex',
         width: '100%',
-        height: '80px'
+        height: '80px',
+        marginBottom: '12px'
     },
     details: {
         display: 'flex',
         flexDirection: 'column',
-    }
+    },
+    cover: {
+        width: '5rem',
+    },
 });
 
-const CustomCard = ({ classes, user, price, image64, onClick, ...props }) => {
+const CustomCard = ({ classes, user, price, imagePath, onClick, ...props }) => {
     const formatPrice = () => price ? `R$ ${price}` : APPOINTMENT.PRICE_UNDEFINED;
 
     return (
         <Card className={classes.card} onClick={onClick}>
             <CardMedia
-                src={image64}
+                className={classes.cover}
+                image={`http://localhost:4040/api/${imagePath}`}
             />
             <div className={classes.details}>
                 <CardContent className={classes.content}>

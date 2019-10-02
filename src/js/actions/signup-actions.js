@@ -1,13 +1,13 @@
 import Api from '../services/api';
 
 export const SIGNUP_ASYNC_REQUEST_STARTED = 'SIGNUP_ASYNC_REQUEST_STARTED';
-export const signupCostumerAsyncRequestStarted = () => ({
+export const signupAsyncRequestStarted = () => ({
     type: SIGNUP_ASYNC_REQUEST_STARTED,
 });
 
-export const CREATE_CUSTOMER_SUCCESS = 'CREATE_CUSTOMER_SUCCESS';
+export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
 export const createUserSuccess = data => ({
-    type: CREATE_CUSTOMER_SUCCESS,
+    type: CREATE_USER_SUCCESS,
     data
 });
 
@@ -19,15 +19,15 @@ export const createUserFailed = error => ({
 
 export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST';
 export const createUserRequest = (signupBody, type) => {
-    return dispath => {
-        dispath(signupCostumerAsyncRequestStarted);
+    return dispatch => {
+        dispatch(signupAsyncRequestStarted());
 
-        Api.post(type, signupBody)
+        Api.post(`${type}s`, signupBody)
             .then(({ data }) => {
-                dispath(createUserSuccess(data))
+                dispatch(createUserSuccess(data))
             })
             .catch(({ message }) => {
-                dispath(createUserFailed(message))
+                dispatch(createUserFailed(message))
             });
     };
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import { withRouter, Link } from 'react-router-dom';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
@@ -17,7 +18,7 @@ const styles = {
     }
 };
 
-const CustomBottomNavigation = ({ classes, ...props }) => {
+const CustomBottomNavigation = ({ classes, type, ...props }) => {
     const [value, setValue] = React.useState(props.location.pathname.split('/')[1]);
 
     const handleChange = (e, newValue) => {
@@ -26,12 +27,16 @@ const CustomBottomNavigation = ({ classes, ...props }) => {
 
     return (
         <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
-            <BottomNavigationAction label="Início" value="home" icon={<HomeIcon color='primary'/>} component={Link} to={`/`}/>
-            <BottomNavigationAction label="Pesquisa" value="search" icon={<SearchIcon color='primary'/>} />
-            <BottomNavigationAction label="Agendamentos" value="appointment" icon={<FormatListBulletedIcon color='primary'/>} component={Link} to={`/appointment`} />
-            <BottomNavigationAction label="Perfil" value="config" icon={<FaceIcon color='primary'/>} />
+            <BottomNavigationAction label="Início" value="home" icon={<HomeIcon color='primary' />} component={Link} to={`/`} />
+            {type === 'customer' ? <BottomNavigationAction label="Pesquisa" value="search" icon={<SearchIcon color='primary' />} /> : <></>}
+            <BottomNavigationAction label="Agendamentos" value="appointment" icon={<FormatListBulletedIcon color='primary' />} component={Link} to={`/appointment`} />
+            <BottomNavigationAction label="Perfil" value="config" icon={<FaceIcon color='primary' />} />
         </BottomNavigation>
     );
 };
 
-export default withRouter(withStyles(styles)(CustomBottomNavigation));
+const mapStateToProps = ({ signin }) => ({
+    type: signin.type
+});
+
+export default connect(mapStateToProps)(withRouter(withStyles(styles)(CustomBottomNavigation)));

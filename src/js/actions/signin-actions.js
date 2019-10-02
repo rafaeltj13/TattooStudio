@@ -1,32 +1,33 @@
 import Api from '../services/api';
 
 export const SIGNIN_ASYNC_REQUEST_STARTED = 'SIGNIN_ASYNC_REQUEST_STARTED';
-export const signinCostumerAsyncRequestStarted = () => ({
+export const signinAsyncRequestStarted = () => ({
     type: SIGNIN_ASYNC_REQUEST_STARTED,
 });
 
-export const SIGNIN_COSTUMER_SUCCESS = 'SIGNIN_COSTUMER_SUCCESS';
-export const signinCostumerSuccess = data => ({
-    type: SIGNIN_COSTUMER_SUCCESS,
+export const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
+export const signinSuccess = data => ({
+    type: SIGNIN_SUCCESS,
     data
 });
 
-export const SIGNIN_COSTUMER_FAILED = 'SIGNIN_COSTUMER_FAILED';
-export const signinCostumerFailed = (error) => ({
-    type: SIGNIN_COSTUMER_FAILED,
+export const SIGNIN_FAILED = 'SIGNIN_FAILED';
+export const signinFailed = (error) => ({
+    type: SIGNIN_FAILED,
     error
 });
 
-export const SIGNIN_COSTUMER_REQUEST = 'SIGNIN_REQUEST';
-export const signinCostumerRequest = (signinBody, type) => {
+export const SIGNIN_REQUEST = 'SIGNIN_REQUEST';
+export const signinRequest = (signinBody, type) => {
     return dispatch => {
-        dispatch(signinCostumerAsyncRequestStarted());
+        dispatch(signinAsyncRequestStarted());
         Api.post(`auth/signin${type}`, signinBody)
             .then(({ data }) => {
-                dispatch(signinCostumerSuccess(data));
+                dispatch(signinSuccess
+                (data));
             })
             .catch(({ message }) => {
-                dispatch(signinCostumerFailed(message));
+                dispatch(signinFailed(message));
             });
     };
 };

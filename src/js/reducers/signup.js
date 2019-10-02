@@ -1,6 +1,6 @@
 import {
     SIGNUP_ASYNC_REQUEST_STARTED,
-    CREATE_CUSTOMER_SUCCESS,
+    CREATE_USER_SUCCESS,
     CREATE_USER_FAILED
 } from '../actions/signup-actions';
 
@@ -17,7 +17,7 @@ const signup = (state = initialState, action) => {
                 loading: true,
             };
 
-        case CREATE_CUSTOMER_SUCCESS:
+        case CREATE_USER_SUCCESS:
             return {
                 ...state,
                 loading: false,

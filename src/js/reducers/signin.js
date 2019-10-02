@@ -1,7 +1,7 @@
 import {
     SIGNIN_ASYNC_REQUEST_STARTED,
-    SIGNIN_COSTUMER_SUCCESS,
-    SIGNIN_COSTUMER_FAILED,
+    SIGNIN_SUCCESS,
+    SIGNIN_FAILED,
     SIGNOUT_REQUEST,
     CHANGE_SIGNIN_TYPE
 } from '../actions/signin-actions';
@@ -25,12 +25,12 @@ const signin = (state = initialState, action) => {
                 loading: true,
             };
 
-        case SIGNIN_COSTUMER_SUCCESS:
+        case SIGNIN_SUCCESS:
             saveState({
                 sessionToken: action.data.token,
                 username: action.data.username,
                 idUser: action.data.id,
-                type: state.type,
+                type: action.data.type,
             })
 
             return {
@@ -40,23 +40,29 @@ const signin = (state = initialState, action) => {
                 idUser: action.data.id,
                 error: null,
                 sessionToken: action.data.token,
+                type: action.data.type
             };
 
-        case SIGNIN_COSTUMER_FAILED:
+        case SIGNIN_FAILED:
             return {
                 ...state,
                 loading: false,
-                username: '',
                 error: action.error,
+                username: '',
+                idUser: '',
+                sessionToken: '',
+                type: ''
             };
 
         case SIGNOUT_REQUEST:
             return {
                 ...state,
                 loading: false,
-                username: '',
                 error: null,
-                sessionToken: null,
+                username: '',
+                idUser: '',
+                sessionToken: '',
+                type: ''
             };
 
         case CHANGE_SIGNIN_TYPE:
