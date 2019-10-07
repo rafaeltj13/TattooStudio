@@ -59,7 +59,7 @@ const Signin = props => {
         } else {
             return (
                 <div>
-                    <LinkUi component="button" variant="body2" onClick={() => newSigninType('Customer')}>Sou um cliente</LinkUi>
+                    <LinkUi component="button" variant="body2" onClick={() => newSigninType('customer')}>Sou um cliente</LinkUi>
                 </div>
             );
         }

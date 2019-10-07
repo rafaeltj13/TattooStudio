@@ -4,7 +4,7 @@ import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { APPOINTMENT } from '../../../utils/constants';
+import { APPOINTMENT, UTILS } from '../../../utils/constants';
 
 const styles = thisTheme => ({
     card: {
@@ -29,7 +29,7 @@ const CustomCard = ({ classes, user, price, imagePath, onClick, ...props }) => {
         <Card className={classes.card} onClick={onClick}>
             <CardMedia
                 className={classes.cover}
-                image={`http://localhost:4040/api/${imagePath}`}
+                image={`${UTILS.apiUrl}/${imagePath}`}
             />
             <div className={classes.details}>
                 <CardContent className={classes.content}>

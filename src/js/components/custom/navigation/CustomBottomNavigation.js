@@ -25,13 +25,34 @@ const CustomBottomNavigation = ({ classes, type, ...props }) => {
         setValue(newValue);
     };
 
+    const generateBottomNavigationActions = () => {
+
+        if (type !== 'customer') {
+            return (
+                <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
+                    <BottomNavigationAction label="Início" value="home" icon={<HomeIcon color='primary' />} component={Link} to={`/`} />
+                    <BottomNavigationAction label="Agendamentos" value="appointment" icon={<FormatListBulletedIcon color='primary' />} component={Link} to={`/appointment`} />
+                    <BottomNavigationAction label="Perfil" value="config" icon={<FaceIcon color='primary' />} />
+                </BottomNavigation>
+
+            );
+        }
+
+        return (
+            <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
+                <BottomNavigationAction label="Início" value="home" icon={<HomeIcon color='primary' />} component={Link} to={`/`} />
+                <BottomNavigationAction label="Pesquisa" value="search" icon={<SearchIcon color='primary' />} />
+                <BottomNavigationAction label="Agendamentos" value="appointment" icon={<FormatListBulletedIcon color='primary' />} component={Link} to={`/appointment`} />
+                <BottomNavigationAction label="Perfil" value="config" icon={<FaceIcon color='primary' />} />
+            </BottomNavigation>
+
+        );
+    };
+
     return (
-        <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
-            <BottomNavigationAction label="Início" value="home" icon={<HomeIcon color='primary' />} component={Link} to={`/`} />
-            {type === 'customer' ? <BottomNavigationAction label="Pesquisa" value="search" icon={<SearchIcon color='primary' />} /> : <></>}
-            <BottomNavigationAction label="Agendamentos" value="appointment" icon={<FormatListBulletedIcon color='primary' />} component={Link} to={`/appointment`} />
-            <BottomNavigationAction label="Perfil" value="config" icon={<FaceIcon color='primary' />} />
-        </BottomNavigation>
+        <div>
+            {generateBottomNavigationActions()}
+        </div>
     );
 };
 

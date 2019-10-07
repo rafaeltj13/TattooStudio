@@ -33,7 +33,11 @@ export const APPOINTMENT = {
         VALIDATED: 'validated',
         REVIEWED:'reviewed',
         APPROVED: 'approved'
-    }
+    },
+    TOTAL_DURATION: 'Duração total',
+    SESSIONS: 'Número de seções',
+    PRICE: 'Preço (R$)',
+    INSTALLMENTS: 'Número de parcelas'
 };
 
 export const TATTOO = {
@@ -41,4 +45,8 @@ export const TATTOO = {
     IMAGEM: 'Selecionar imagem de referência',
     SIZE: 'Tamanho(cm)',
     PLACE: 'Local'
+};
+
+export const UTILS = {
+    apiUrl: 'http://localhost:4040/api'
 };
