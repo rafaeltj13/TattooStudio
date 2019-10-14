@@ -51,7 +51,6 @@ const signin = (state = initialState, action) => {
                 username: '',
                 idUser: '',
                 sessionToken: '',
-                type: ''
             };
 
         case SIGNOUT_REQUEST:

@@ -12,7 +12,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Lock from '@material-ui/icons/Lock';
 import { signinRequest, changeSigninType } from '../../actions/signin-actions'
 import { createNotification } from '../../actions/notification-actions';
-import { SIGNIN, GENERAL } from '../../utils/constants';
+import { SIGNIN, GENERAL, USER_TYPES } from '../../utils/constants';
 import LinkUi from '@material-ui/core/Link';
 import SigninBackground from '../custom/signin/SigninBackground';
 import CustomTextField from '../custom/textField/CustomTextField';
@@ -45,7 +45,7 @@ const Signin = props => {
     );
 
     const renderOptions = () => {
-        if (type === 'customer') {
+        if (type === USER_TYPES.CUSTOMER) {
             return (
                 <div>
                     <div>

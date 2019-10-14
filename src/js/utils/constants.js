@@ -47,6 +47,12 @@ export const TATTOO = {
     PLACE: 'Local'
 };
 
+export const USER_TYPES = {
+    CUSTOMER: 'customer',
+    ARTIST: 'artist',
+    OWNER: 'owner'
+}
+
 export const UTILS = {
     apiUrl: 'http://localhost:4040/api'
 };

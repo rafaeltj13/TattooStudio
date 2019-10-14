@@ -7,10 +7,9 @@ import Image from 'material-ui-image'
 import { withTheme } from '@material-ui/core';
 import { getAppointmentRequest, editAppointmentRequest } from '../../../actions/appointment-actions';
 import { createNotification } from '../../../actions/notification-actions';
-import { APPOINTMENT, TATTOO, GENERAL, UTILS } from '../../../utils/constants';
+import { APPOINTMENT, TATTOO, GENERAL, USER_TYPES, UTILS } from '../../../utils/constants';
 import { validateAppointment } from '../../../utils/utils';
 import CustomButton from '../../custom/CustomButton';
-import CustomSelect from '../../custom/CustomSelect';
 import CustomTextField from '../../custom/textField/CustomTextField';
 import CustomContainer from '../../custom/pages/CustomContainer';
 import CustomDoubleInput from '../../custom/pages/CustomDoubleInput';
@@ -41,10 +40,19 @@ const AppointmentValidation = props => {
         () => {
             if (id) {
                 getAppointment(id);
-                // if (typeUser === 'customer') setDisableFields(true)
             }
         },
         [id],
+    );
+
+    useEffect(
+        () => {
+            if (selectedAppointment) {
+                if (typeUser !== USER_TYPES.ARTIST) setDisableFields(true);
+                else if (selectedAppointment.status !== APPOINTMENT.STATUS.CREATED) setDisableFields(true);
+            }
+        },
+        [selectedAppointment],
     );
 
     useEffect(
@@ -150,7 +158,10 @@ const AppointmentValidation = props => {
             </CustomDoubleInput>
             <CustomFormActions>
                 <CustomButton variant='outlined' component={Link} to={`/appointment`}>Voltar</CustomButton>
-                <CustomButton variant='contained' onClick={handleSubmit}>Salvar</CustomButton>
+                {!disableFields ?
+                    <CustomButton variant='contained' onClick={handleSubmit}>Salvar</CustomButton> : <React.Fragment />
+                }
+
             </CustomFormActions>
         </CustomContainer>
     );
@@ -199,7 +210,7 @@ export default connect(
                 console.log('asdfds')
                 console.log(props.selectedAppointment._id, values)
                 props.editAppointment(props.selectedAppointment._id,
-                    { ...values, status: APPOINTMENT.STATUS.VALIDATED}
+                    { ...values, status: APPOINTMENT.STATUS.VALIDATED }
                 )
             },
         })(withTheme(AppointmentValidation))
