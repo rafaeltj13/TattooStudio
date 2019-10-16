@@ -118,3 +118,30 @@ export const editAppointmentRequest = (appointmentId, appointmentBody) => {
             });
     };
 };
+
+export const GET_AVAILABLE_HOURS_SUCCESS = 'GET_AVAILABLE_HOURS_SUCCESS';
+export const getAvailableHoursSuccess = data => ({
+    type: GET_AVAILABLE_HOURS_SUCCESS,
+    data
+});
+
+export const GET_AVAILABLE_HOURS_FAILED = 'GET_AVAILABLE_HOURS_FAILED';
+export const getAvailableHoursFailed = error => ({
+    type: GET_AVAILABLE_HOURS_FAILED,
+    error
+});
+
+export const GET_AVAILABLE_HOURS_REQUEST = 'GET_AVAILABLE_HOURS_REQUEST';
+export const getAvailableHours = artistId => {
+    return dispatch => {
+        dispatch(appointmentAsyncRequestStarted());
+
+        Api.get(`/appointments/${artistId}/availableHours`)
+            .then(({ data }) => {
+                dispatch(getAvailableHoursSuccess(data))
+            })
+            .catch(({ message }) => {
+                dispatch(getAvailableHoursFailed(message))
+            });
+    };
+};

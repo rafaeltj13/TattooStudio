@@ -10,8 +10,6 @@ import theme from '../../utils/theme';
 
 const styles = () => ({
     datepicker: {
-        // color: "white",
-        // textAlign: 'left',
         width: '100%'
     }
 });
@@ -28,6 +26,10 @@ const myTheme = createMuiTheme({
 const CustomDatepicker = ({ classes, ...props }) => {
     const { field, name, label, disabled } = props;
 
+    const handleDateChange = date => {
+        field.values[name] = date;
+    };
+
     return (
         <MuiThemeProvider theme={myTheme}>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -37,7 +39,7 @@ const CustomDatepicker = ({ classes, ...props }) => {
                     label={label}
                     format="dd/MM/yyyy"
                     value={field.values[name]}
-                    onChange={props.onChange ? props.onChange : field.handleChange}
+                    onChange={handleDateChange}
                     KeyboardButtonProps={{
                         'aria-label': 'change date',
                     }}

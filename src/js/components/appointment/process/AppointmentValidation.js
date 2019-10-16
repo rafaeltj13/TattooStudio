@@ -13,7 +13,7 @@ import CustomButton from '../../custom/CustomButton';
 import CustomTextField from '../../custom/textField/CustomTextField';
 import CustomContainer from '../../custom/pages/CustomContainer';
 import CustomDoubleInput from '../../custom/pages/CustomDoubleInput';
-import CustomFormActions from '../../custom/pages/CustomFormActions'
+import CustomFormActions from '../../custom/pages/CustomFormActions';
 
 const AppointmentValidation = props => {
     const fields = props;
@@ -207,11 +207,9 @@ export default connect(
                 }),
 
             handleSubmit: (values, { props }) => {
-                console.log('asdfds')
-                console.log(props.selectedAppointment._id, values)
                 props.editAppointment(props.selectedAppointment._id,
                     { ...values, status: APPOINTMENT.STATUS.VALIDATED }
-                )
+                );
             },
         })(withTheme(AppointmentValidation))
     )
