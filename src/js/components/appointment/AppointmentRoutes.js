@@ -5,7 +5,7 @@ import AppointmentForm from './AppointmentForm';
 import AppointmentValidation from './process/AppointmentValidation';
 import AppointmentConfirmation from './process/AppointmentConfirmation';
 
-const SignupRoutes = ({ match }) => {
+const AppointmentRoutes = ({ match }) => {
   return (
     <Switch>
       <Route exact path={`${match.url}/`} component={AppointmentList} />
@@ -17,4 +17,4 @@ const SignupRoutes = ({ match }) => {
   );
 };
 
-export default withRouter(SignupRoutes);
+export default withRouter(AppointmentRoutes);

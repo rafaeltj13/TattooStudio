@@ -12,7 +12,7 @@ import { SIGNUP, GENERAL } from '../../utils/constants';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import SigninBackground from '../custom/signin/SigninBackground';
-import CustomTextField from '../custom/textField/CustomTextField';
+import CustomTextField from '../custom/textField/CustomOutlinedTextField';
 import CustomButton from '../custom/CustomButton';
 import CustomSelect from '../custom/CustomSelect';
 

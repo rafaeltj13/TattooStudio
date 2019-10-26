@@ -24,7 +24,7 @@ export const signinRequest = (signinBody, type) => {
         Api.post(`auth/signin${type}`, signinBody)
             .then(({ data }) => {
                 dispatch(signinSuccess
-                (data));
+                    (data));
             })
             .catch(({ message }) => {
                 dispatch(signinFailed(message));
@@ -32,13 +32,13 @@ export const signinRequest = (signinBody, type) => {
     };
 };
 
-export const SIGNOUT_REQUEST = 'SIGNOUT_REQUEST';
-export const signOut = () => ({
-    type: SIGNOUT_REQUEST
-})
-
 export const CHANGE_SIGNIN_TYPE = 'CHANGE_SIGNIN_TYPE';
 export const changeSigninType = newType => ({
     type: CHANGE_SIGNIN_TYPE,
     newType
 })
+
+export const SIGNOUT = 'SIGNOUT';
+export const signoutRequest = () => ({
+    type: SIGNOUT,
+});

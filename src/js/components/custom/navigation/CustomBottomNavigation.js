@@ -32,7 +32,7 @@ const CustomBottomNavigation = ({ classes, type, ...props }) => {
                 <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
                     <BottomNavigationAction label="Início" value="home" icon={<HomeIcon color='primary' />} component={Link} to={`/`} />
                     <BottomNavigationAction label="Agendamentos" value="appointment" icon={<FormatListBulletedIcon color='primary' />} component={Link} to={`/appointment`} />
-                    <BottomNavigationAction label="Perfil" value="config" icon={<FaceIcon color='primary' />} />
+                    <BottomNavigationAction label="Perfil" value="config" icon={<FaceIcon color='primary' />} component={Link} to={`/about`}/>
                 </BottomNavigation>
 
             );
@@ -43,7 +43,7 @@ const CustomBottomNavigation = ({ classes, type, ...props }) => {
                 <BottomNavigationAction label="Início" value="home" icon={<HomeIcon color='primary' />} component={Link} to={`/`} />
                 <BottomNavigationAction label="Pesquisa" value="search" icon={<SearchIcon color='primary' />} />
                 <BottomNavigationAction label="Agendamentos" value="appointment" icon={<FormatListBulletedIcon color='primary' />} component={Link} to={`/appointment`} />
-                <BottomNavigationAction label="Perfil" value="config" icon={<FaceIcon color='primary' />} />
+                <BottomNavigationAction label="Perfil" value="profile" icon={<FaceIcon color='primary' />} component={Link} to={`/about`} />
             </BottomNavigation>
 
         );

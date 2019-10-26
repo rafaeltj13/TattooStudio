@@ -2,8 +2,8 @@ import {
     SIGNIN_ASYNC_REQUEST_STARTED,
     SIGNIN_SUCCESS,
     SIGNIN_FAILED,
-    SIGNOUT_REQUEST,
-    CHANGE_SIGNIN_TYPE
+    SIGNOUT,
+    CHANGE_SIGNIN_TYPE,
 } from '../actions/signin-actions';
 
 import { saveState } from '../store/localStorage';
@@ -53,7 +53,14 @@ const signin = (state = initialState, action) => {
                 sessionToken: '',
             };
 
-        case SIGNOUT_REQUEST:
+        case SIGNOUT:
+            saveState({
+                sessionToken: '',
+                username: '',
+                idUser: '',
+                type: 'customer',
+            })
+
             return {
                 ...state,
                 loading: false,
