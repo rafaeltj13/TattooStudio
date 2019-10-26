@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { withFormik } from 'formik';
-import * as Yup from 'yup';
 import { withTheme } from '@material-ui/core';
 import { getAppointmentRequest, editAppointmentRequest } from '../../../actions/appointment-actions';
 import { createNotification } from '../../../actions/notification-actions';
-import { APPOINTMENT, TATTOO, GENERAL, USER_TYPES, UTILS } from '../../../utils/constants';
-import { validateAppointment } from '../../../utils/utils';
+import { APPOINTMENT, GENERAL, USER_TYPES } from '../../../utils/constants';
+import { formatAppointmentDate, containsDate } from '../../../utils/utils';
 import Typography from '@material-ui/core/Typography';
 import CustomButton from '../../custom/CustomButton';
-import CustomTextField from '../../custom/textField/CustomTextField';
 import CustomContainer from '../../custom/pages/CustomContainer';
 import CustomDoubleInput from '../../custom/pages/CustomDoubleInput';
 import CustomFormActions from '../../custom/pages/CustomFormActions';
@@ -25,7 +23,6 @@ const AppointmentConfirmation = props => {
         isSubmitting,
         handleSubmit,
         setSubmitting,
-        setValues,
         setFieldValue,
         loading,
         error,
@@ -40,6 +37,9 @@ const AppointmentConfirmation = props => {
         }
     } = props;
 
+    const [render, setRender] = useState(false);
+    const [disableFields, setDisableFields] = useState(false);
+
     useEffect(
         () => {
             if (id) {
@@ -49,20 +49,64 @@ const AppointmentConfirmation = props => {
         [id],
     );
 
+    useEffect(
+        () => {
+            if (selectedAppointment) {
+                if (typeUser !== USER_TYPES.CUSTOMER) setDisableFields(true);
+                // else if (selectedAppointment.status !== APPOINTMENT.STATUS.VALIDATED) setDisableFields(true);
+            }
+        },
+        [selectedAppointment],
+    );
+
+    useEffect(
+        () => {
+            if (!loading) {
+                if (isSubmitting) {
+                    setSubmitting(false);
+                    if (error) {
+                        newNotification({
+                            variant: 'error',
+                            message: error
+                        });
+                    } else {
+                        newNotification({
+                            variant: 'success',
+                            message: GENERAL.SUCCESS_MESSAGE
+                        })
+                        props.history.push('/appointment');
+                    }
+                } else {
+                    if (error) {
+                        newNotification({
+                            variant: 'error',
+                            message: error
+                        });
+                    }
+                }
+            }
+        },
+        [loading]
+    );
+
     const addHour = interval => {
-        // if(values.date.includes(interval)) return;
-
-        const newDate = values.date;
-
-        console.log(values.pickDate, interval)
-
-        if(!newDate.includes(values.pickDate)){
-            newDate[values.pickDate] = [];
+        const newInterval = {
+            date: values.pickDate,
+            start: interval[0],
+            end: interval[1]
         }
 
-        newDate[values.pickDate].push(interval)
+        if (containsDate(values.dates, newInterval) || values.dates.length + 1 > selectedAppointment.sessions || disableFields) return;
 
-        setFieldValue("date", newDate);
+        const newDate = values.dates;
+        newDate.push(newInterval);
+
+        setFieldValue("dates", newDate);
+    }
+
+    const removeHour = index => {
+        values.dates.splice(index, 1);
+        setRender(!render);
     }
 
     const renderAvailableHours = () => {
@@ -70,19 +114,31 @@ const AppointmentConfirmation = props => {
 
         return (
             <CustomChipContainer>
-                {availableHours.map((element, index) => <CustomChip label={`${element[0]} - ${element[1]} hrs`} onDelete={() => addHour(element)} key={index} />)}
+                {availableHours.map((element, index) =>
+                    <CustomChip label={`${element[0]} - ${element[1]} hrs`} onClick={() => addHour(element)} key={index} />)}
             </CustomChipContainer>
         );
     };
 
+    const renderSelectedHours = () => {
+        if (values.dates.length === 0) return <Typography variant="body2" gutterBottom>{'Nenhum horário selecionado.'}</Typography>
+
+        return (
+            <CustomChipContainer>
+                {values.dates.map((element, index) =>
+                    <CustomChip label={formatAppointmentDate(element)} onDelete={() => removeHour(index)} key={index} />)}
+            </CustomChipContainer>
+        );
+    }
+
     return (
         <CustomContainer>
             <CustomDoubleInput>
-                <CustomTypography>{`Duração: ${selectedAppointment.totalDuration}`}</CustomTypography>
+                <CustomTypography>{`Duração: ${selectedAppointment.totalDuration} horas`}</CustomTypography>
                 <CustomTypography>{`Seções: ${selectedAppointment.sessions}`}</CustomTypography>
             </CustomDoubleInput>
             <CustomDoubleInput>
-                <CustomTypography>{`Preço R$ ${selectedAppointment.price}`}</CustomTypography>
+                <CustomTypography>{`R$ ${selectedAppointment.price}`}</CustomTypography>
                 <CustomTypography>{`Em até ${selectedAppointment.installments}x`}</CustomTypography>
             </CustomDoubleInput>
             <CustomDatepicker
@@ -90,10 +146,15 @@ const AppointmentConfirmation = props => {
                 name={'pickDate'}
                 label={APPOINTMENT.SELECT_DATE}
                 field={fields}
+                disabled={disableFields}
             />
             <Typography variant="overline" display="block" gutterBottom>Horários Disponíveis</Typography>
             {renderAvailableHours()}
             <Typography variant="overline" display="block" gutterBottom>Horário(s) Selecionado(s)</Typography>
+            {renderSelectedHours()}
+            <CustomFormActions>
+                <CustomButton variant='contained' onClick={handleSubmit} disabled={disableFields || (values.dates.length !== selectedAppointment.sessions)}>Salvar</CustomButton>
+            </CustomFormActions>
         </CustomContainer>
     );
 };
@@ -121,19 +182,15 @@ export default connect(
             mapPropsToValues: () => {
                 return {
                     pickDate: new Date(),
-                    date: [],
+                    dates: [],
                 };
             },
-            validationSchema: () =>
-                Yup.object().shape({
-                    pickDate: Yup.date().required(GENERAL.REQUIRED_FIELD),
-                    date: Yup.array().required(GENERAL.REQUIRED_FIELD),
-                }),
-
             handleSubmit: (values, { props }) => {
-                props.editAppointment(props.selectedAppointment._id,
-                    { ...values, status: APPOINTMENT.STATUS.APPROVED }
-                );
+                console.log('alo')
+                // props.editAppointment(props.selectedAppointment._id,
+                //     { ...values, status: APPOINTMENT.STATUS.APPROVED }
+                // );
+                console.log(props.selectedAppointment._id, { ...values, status: APPOINTMENT.STATUS.APPROVED })
             },
         })(withTheme(AppointmentConfirmation))
     )
