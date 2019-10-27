@@ -7,13 +7,14 @@ import Image from 'material-ui-image'
 import { withTheme } from '@material-ui/core';
 import { getAppointmentRequest, editAppointmentRequest } from '../../../actions/appointment-actions';
 import { createNotification } from '../../../actions/notification-actions';
-import { APPOINTMENT, TATTOO, GENERAL, USER_TYPES, UTILS } from '../../../utils/constants';
+import { APPOINTMENT, GENERAL, USER_TYPES, UTILS } from '../../../utils/constants';
 import { validateAppointment } from '../../../utils/utils';
 import CustomButton from '../../custom/CustomButton';
 import CustomTextField from '../../custom/textField/CustomTextField';
 import CustomContainer from '../../custom/pages/CustomContainer';
 import CustomDoubleInput from '../../custom/pages/CustomDoubleInput';
 import CustomFormActions from '../../custom/pages/CustomFormActions';
+import CustomTypography from '../../custom/CustomTypografy';
 
 const AppointmentValidation = props => {
     const fields = props;
@@ -94,32 +95,24 @@ const AppointmentValidation = props => {
         [loading]
     );
 
-    const renderImage = () => {
+    const renderAppointmentDetails = () => {
         if (!selectedAppointment.tattoo) return <div></div>;
 
-        return <Image src={`${UTILS.apiUrl}/${selectedAppointment.tattoo.imagePath}`} />;
-    };
+        return (
+            <React.Fragment>
+                <Image src={`${UTILS.apiUrl}/${selectedAppointment.tattoo.imagePath}`} />
+                <CustomDoubleInput>
+                    <CustomTypography>{`${selectedAppointment.tattoo.size} cm`}</CustomTypography>
+                    <CustomTypography>{`Local: ${selectedAppointment.tattoo.place}`}</CustomTypography>
+                </CustomDoubleInput>
+            </React.Fragment>
+
+        )
+    }
 
     return (
         <CustomContainer>
-            {renderImage()}
-            <CustomDoubleInput>
-                <CustomTextField
-                    required
-                    name={'tattoSize'}
-                    label={TATTOO.SIZE}
-                    field={fields}
-                    type='number'
-                    disabled
-                />
-                <CustomTextField
-                    required
-                    name={'tattooPlace'}
-                    label={TATTOO.PLACE}
-                    field={fields}
-                    disabled
-                />
-            </CustomDoubleInput>
+            {renderAppointmentDetails()}
             <CustomDoubleInput>
                 <CustomTextField
                     required

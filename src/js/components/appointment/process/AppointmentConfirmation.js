@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { withFormik } from 'formik';
 import { withTheme } from '@material-ui/core';
-import { getAppointmentRequest, editAppointmentRequest } from '../../../actions/appointment-actions';
+import { getAppointmentRequest, editAppointmentRequest, getAvailableHours } from '../../../actions/appointment-actions';
 import { createNotification } from '../../../actions/notification-actions';
 import { APPOINTMENT, GENERAL, USER_TYPES } from '../../../utils/constants';
-import { formatAppointmentDate, containsDate } from '../../../utils/utils';
+import { formatAppointmentDate, containsDate, createDate } from '../../../utils/utils';
+import { getScheduleId } from '../../../store/localStorage';
 import Typography from '@material-ui/core/Typography';
 import CustomButton from '../../custom/CustomButton';
 import CustomContainer from '../../custom/pages/CustomContainer';
@@ -32,6 +33,8 @@ const AppointmentConfirmation = props => {
         getAppointment,
         availableHours,
         typeUser,
+        availableHoursRequest,
+        selectedArtist,
         match: {
             params: { id },
         }
@@ -51,9 +54,20 @@ const AppointmentConfirmation = props => {
 
     useEffect(
         () => {
-            if (selectedAppointment) {
+            if (values.pickDate) {
+                renderHours();
+            }
+        },
+        [values.pickDate],
+    );
+
+    useEffect(
+        () => {
+            if (Object.entries(selectedAppointment).length > 0) {
                 if (typeUser !== USER_TYPES.CUSTOMER) setDisableFields(true);
                 // else if (selectedAppointment.status !== APPOINTMENT.STATUS.VALIDATED) setDisableFields(true);
+
+                renderHours();
             }
         },
         [selectedAppointment],
@@ -88,6 +102,13 @@ const AppointmentConfirmation = props => {
         },
         [loading]
     );
+
+    const renderHours = () => {
+        if(!selectedAppointment.totalDuration || !selectedAppointment.sessions) return
+
+        const interval = Math.round(selectedAppointment.totalDuration / selectedAppointment.sessions);
+        availableHoursRequest(selectedArtist._id, values.pickDate, interval);
+    }
 
     const addHour = interval => {
         const newInterval = {
@@ -164,12 +185,14 @@ const mapStateToProps = ({ appointment, signin }) => ({
     error: appointment.error,
     selectedAppointment: appointment.selectedAppointment,
     availableHours: appointment.availableHours,
-    typeUser: signin.type
+    typeUser: signin.type,
+    selectedArtist: appointment.selectedArtist
 });
 
 const mapDispatchToProps = dispatch => ({
     getAppointment: appointmentId => dispatch(getAppointmentRequest(appointmentId)),
     editAppointment: (appointmentId, appointmentBody) => dispatch(editAppointmentRequest(appointmentId, appointmentBody)),
+    availableHoursRequest: (artistId, date, interval) => dispatch(getAvailableHours(artistId, date, interval)),
     newNotification: payload => dispatch(createNotification(payload))
 });
 
@@ -181,16 +204,20 @@ export default connect(
         withFormik({
             mapPropsToValues: () => {
                 return {
-                    pickDate: new Date(),
+                    pickDate: createDate(),
                     dates: [],
                 };
             },
             handleSubmit: (values, { props }) => {
-                console.log('alo')
-                // props.editAppointment(props.selectedAppointment._id,
-                //     { ...values, status: APPOINTMENT.STATUS.APPROVED }
-                // );
-                console.log(props.selectedAppointment._id, { ...values, status: APPOINTMENT.STATUS.APPROVED })
+                props.editAppointment(props.selectedAppointment._id,
+                    {
+                        ...values,
+                        status: APPOINTMENT.STATUS.APPROVED,
+                        details: {
+                            customerScheduleId: getScheduleId(),
+                            artistScheduleId: props.selectedArtist.schedule
+                        }
+                    });
             },
         })(withTheme(AppointmentConfirmation))
     )

@@ -1,4 +1,5 @@
 import Api from '../services/api';
+import { getScheduleId } from '../store/localStorage';
 
 export const APPOINTMENT_ASYNC_REQUEST_STARTED = 'APPOINTMENT_ASYNC_REQUEST_STARTED';
 export const appointmentAsyncRequestStarted = () => ({
@@ -45,13 +46,13 @@ export const getAppointmentsFailed = error => ({
 });
 
 export const GET_APPOINTMENTS_REQUEST = 'GET_APPOINTMENTS_REQUEST';
-export const getAppointmentsRequest = (idUser, typeUser) => {
+export const getAppointmentsRequest = () => {
     return dispath => {
         dispath(appointmentAsyncRequestStarted());
 
-        Api.get(`/appointments/${typeUser}/${idUser}`)
+        Api.get(`/schedules/${getScheduleId()}`)
             .then(({ data }) => {
-                dispath(getAppointmentsSuccess(data))
+                dispath(getAppointmentsSuccess(data.appointments))
             })
             .catch(({ message }) => {
                 dispath(getAppointmentsFailed(message))
@@ -132,11 +133,11 @@ export const getAvailableHoursFailed = error => ({
 });
 
 export const GET_AVAILABLE_HOURS_REQUEST = 'GET_AVAILABLE_HOURS_REQUEST';
-export const getAvailableHours = artistId => {
+export const getAvailableHours = (artistId, date, interval) => {
     return dispatch => {
         dispatch(appointmentAsyncRequestStarted());
 
-        Api.get(`/appointments/${artistId}/availableHours`)
+        Api.get(`/artists/${artistId}/availableHours?date=${date}&interval=${interval}`)
             .then(({ data }) => {
                 dispatch(getAvailableHoursSuccess(data))
             })
@@ -145,3 +146,9 @@ export const getAvailableHours = artistId => {
             });
     };
 };
+
+export const SET_SELECTED_ARTIST = 'SET_SELECTED_ARTIST';
+export const setSelectedArtist = artist => ({
+    type: SET_SELECTED_ARTIST,
+    artist,
+});

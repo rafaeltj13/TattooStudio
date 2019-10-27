@@ -21,7 +21,7 @@ export const GET_USER_DEATILS_REQUEST = 'GET_USER_DEATILS_REQUEST';
 export const getUserDetailsRequest = (id, type) => {
     return dispatch => {
         dispatch(aboutAsyncRequestStarted());
-        Api.get(`${type}/${id}`)
+        Api.get(`${type}s/${id}`)
             .then(({ data }) => {
                 dispatch(getUserDetailsSuccess(data));
             })

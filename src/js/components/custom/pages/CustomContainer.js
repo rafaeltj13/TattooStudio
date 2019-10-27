@@ -9,7 +9,6 @@ const styles = {
 };
 
 const CustomContainer = ({ classes, ...props }) => {
-
     return (
         <Container className={classes.root}>
             <div>

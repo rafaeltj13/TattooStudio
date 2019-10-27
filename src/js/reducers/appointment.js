@@ -10,15 +10,17 @@ import {
     EDIT_APPOINTMENT_SUCCESS,
     EDIT_APPOINTMENT_FAILED,
     GET_AVAILABLE_HOURS_SUCCESS,
-    GET_AVAILABLE_HOURS_FAILED
+    GET_AVAILABLE_HOURS_FAILED,
+    SET_SELECTED_ARTIST
 } from '../actions/appointment-actions';
 
 const initialState = {
     loading: false,
     error: null,
     selectedAppointment: {},
+    selectedArtist: {},
     appointments: [],
-    availableHours: [[8,10], [10,12]]
+    availableHours: []
 };
 
 const appointment = (state = initialState, action) => {
@@ -102,6 +104,12 @@ const appointment = (state = initialState, action) => {
                 loading: false,
                 error: action.error,
                 availableHours: []
+            };
+
+        case SET_SELECTED_ARTIST:
+            return {
+                ...state,
+                selectedArtist: action.artist
             };
 
         default:

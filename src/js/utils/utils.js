@@ -5,7 +5,7 @@ export const validateAppointment = appointment => {
 export const formatAppointmentDate = appointment => {
     return `${appointment.date.getDate()}/${appointment.date.getMonth() + 1}/${appointment.date.getFullYear()
         }: ${appointment.start}-${appointment.end} hrs`;
-}
+};
 
 export const containsDate = (dateList, dateToCheck) => {
     let contains = false;
@@ -18,4 +18,10 @@ export const containsDate = (dateList, dateToCheck) => {
     })
 
     return contains;
+};
+
+export const createDate = () => {
+    const newDate = new Date();
+    newDate.setHours(0,0,0,0);
+    return newDate;
 }

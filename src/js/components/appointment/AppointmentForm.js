@@ -120,7 +120,7 @@ export default connect(
         withFormik({
             mapPropsToValues: () => {
                 return {
-                    artist: '5d7d5b98e548471b0cbe3d1a',
+                    artist: '5db48d05f530f13bc8d55fb7',
                     appointmentDate: new Date(),
                     type: '',
                 };

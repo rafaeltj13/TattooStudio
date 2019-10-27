@@ -17,6 +17,7 @@ export const saveState = signinState => {
             username: signinState.username,
             idUser: signinState.idUser,
             type: signinState.type,
+            scheduleId: signinState.scheduleId
         });
         localStorage.setItem('signin', signin);
     } catch (err) {
@@ -27,3 +28,7 @@ export const saveState = signinState => {
 export const getId = () => {
     return JSON.parse(localStorage.getItem('signin')).idUser;
 };
+
+export const getScheduleId = () => {
+    return JSON.parse(localStorage.getItem('signin')).scheduleId;
+}

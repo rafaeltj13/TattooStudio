@@ -9,12 +9,6 @@ const styles = {
     height: '40px',
     width: '100%',
   },
-  // underline: {
-  //   '&&&&:hover:before': {
-  //     borderBottom: `2px solid ${theme.palette.secondary.main}`,
-  //   },
-  //   textAlign: 'left'
-  // },
   helperText: {
     textAlign: 'right',
   },
@@ -39,7 +33,7 @@ const myTheme = createMuiTheme({
 });
 
 const CustomSelect = ({ classes, ...props }) => {
-  const { field, name, required, optionsmap, disabled } = props;
+  const { field, name, required, optionsmap } = props;
 
   return (
     <MuiThemeProvider theme={myTheme}>
@@ -51,9 +45,6 @@ const CustomSelect = ({ classes, ...props }) => {
         <CustomTextField
           select
           {...props}
-          // classes={{
-          //   underline: !disabled ? classes.underline : null,
-          // }}
           SelectProps={{
             MenuProps: {
               className: classes.menu,

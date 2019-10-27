@@ -36,6 +36,7 @@ const CustomDatepicker = ({ classes, ...props }) => {
     );
 
     const handleDateChange = date => {
+        date.setHours(0,0,0,0);
         field.values[name] = date;
         setSelectedDate(date);
     };

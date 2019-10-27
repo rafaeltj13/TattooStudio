@@ -8,6 +8,7 @@ import { getId } from '../../store/localStorage';
 import { GENERAL, TATTOO } from '../../utils/constants';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
@@ -26,6 +27,11 @@ const About = props => {
         },
         []
     );
+
+    const logout = () => {
+        signout();
+        props.history.push('/signin');
+    };
 
     return (
         <CustomContainer>
@@ -46,11 +52,11 @@ const About = props => {
                     <ListItemText primary={TATTOO.MY_TATTOOS} />
                 </ListItem>
                 <Divider light />
-                <ListItem button onClick={signout}>
+                <ListItem button onClick={logout}>
                     <ListItemIcon>
                         <HighlightOffIcon />
                     </ListItemIcon>
-                    <ListItemText primary={GENERAL.PASSWORD} />
+                    <ListItemText primary={GENERAL.SIGNOUT} />
                 </ListItem>
                 <Divider light />
             </List>

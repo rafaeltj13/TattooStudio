@@ -1,7 +1,7 @@
 export const GENERAL = {
     SUCCESS_MESSAGE: 'Operação realizada com sucesso.',
     REQUIRED_FIELD: 'Campo obrigatório',
-    SIGNOUT: 'Sair,'
+    SIGNOUT: 'Sair'
 };
 
 export const SIGNIN = {
@@ -46,7 +46,7 @@ export const TATTOO = {
     IMAGEM: 'Selecionar imagem de referência',
     SIZE: 'Tamanho(cm)',
     PLACE: 'Local',
-    MY_TATTOOS: 'Minhas tatuagens';
+    MY_TATTOOS: 'Minhas tatuagens'
 };
 
 export const USER_TYPES = {

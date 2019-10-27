@@ -14,7 +14,8 @@ const initialState = {
     username: '',
     idUser: '',
     sessionToken: null,
-    type: 'customer'
+    type: 'customer',
+    scheduleId: ''
 };
 
 const signin = (state = initialState, action) => {
@@ -31,6 +32,7 @@ const signin = (state = initialState, action) => {
                 username: action.data.username,
                 idUser: action.data.id,
                 type: action.data.type,
+                scheduleId: action.data.scheduleId
             })
 
             return {
@@ -40,7 +42,8 @@ const signin = (state = initialState, action) => {
                 idUser: action.data.id,
                 error: null,
                 sessionToken: action.data.token,
-                type: action.data.type
+                type: action.data.type,
+                scheduleId: action.data.scheduleId
             };
 
         case SIGNIN_FAILED:

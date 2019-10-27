@@ -23,8 +23,7 @@ export const signinRequest = (signinBody, type) => {
         dispatch(signinAsyncRequestStarted());
         Api.post(`auth/signin${type}`, signinBody)
             .then(({ data }) => {
-                dispatch(signinSuccess
-                    (data));
+                dispatch(signinSuccess(data));
             })
             .catch(({ message }) => {
                 dispatch(signinFailed(message));
