@@ -1,6 +1,7 @@
 export const GENERAL = {
     SUCCESS_MESSAGE: 'Operação realizada com sucesso.',
-    REQUIRED_FIELD: 'Campo obrigatório'
+    REQUIRED_FIELD: 'Campo obrigatório',
+    SIGNOUT: 'Sair'
 };
 
 export const SIGNIN = {
@@ -33,12 +34,27 @@ export const APPOINTMENT = {
         VALIDATED: 'validated',
         REVIEWED:'reviewed',
         APPROVED: 'approved'
-    }
+    },
+    TOTAL_DURATION: 'Duração total',
+    SESSIONS: 'Número de seções',
+    PRICE: 'Preço (R$)',
+    INSTALLMENTS: 'Número de parcelas'
 };
 
 export const TATTOO = {
     TITLE: 'Criar tatuagem',
     IMAGEM: 'Selecionar imagem de referência',
     SIZE: 'Tamanho(cm)',
-    PLACE: 'Local'
+    PLACE: 'Local',
+    MY_TATTOOS: 'Minhas tatuagens'
+};
+
+export const USER_TYPES = {
+    CUSTOMER: 'customer',
+    ARTIST: 'artist',
+    OWNER: 'owner'
+}
+
+export const UTILS = {
+    apiUrl: 'http://localhost:4040/api'
 };

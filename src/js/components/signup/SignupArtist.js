@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { withFormik } from 'formik';
+import * as Yup from 'yup';
 import { withTheme } from '@material-ui/core';
 import { createUserRequest } from '../../actions/signup-actions';
 import { createNotification } from '../../actions/notification-actions';
@@ -9,7 +10,7 @@ import { SIGNUP, GENERAL } from '../../utils/constants';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import SigninBackground from '../custom/signin/SigninBackground';
-import CustomTextField from '../custom/textField/CustomTextField';
+import CustomTextField from '../custom/textField/CustomOutlinedTextField';
 import CustomButton from '../custom/CustomButton';
 import CustomSelect from '../custom/CustomSelect';
 
@@ -158,11 +159,17 @@ export default connect(
                     specialities: []
                 };
             },
-            // validationSchema: () =>
-            //     Yup.object().shape({
-            //         username: Yup.string().required('Campo Required'),
-            //         password: Yup.string().required('Campo Required')
-            //     }),
+            validationSchema: () =>
+                Yup.object().shape({
+                    username: Yup.string().required(GENERAL.REQUIRED_FIELD),
+                    password: Yup.string().required(GENERAL.REQUIRED_FIELD),
+                    confirmPassword: Yup.string().required(GENERAL.REQUIRED_FIELD),
+                    name: Yup.string().required(GENERAL.REQUIRED_FIELD),
+                    email: Yup.string().required(GENERAL.REQUIRED_FIELD),
+                    age: Yup.string().required(GENERAL.REQUIRED_FIELD),
+                    gender: Yup.string().required(GENERAL.REQUIRED_FIELD),
+                    phone: Yup.string().required(GENERAL.REQUIRED_FIELD),
+                }),
 
             handleSubmit: (values, { props }) => {
                 props.createCustomer(values, 'artist')

@@ -4,27 +4,32 @@ import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { APPOINTMENT } from '../../../utils/constants';
+import { APPOINTMENT, UTILS } from '../../../utils/constants';
 
 const styles = thisTheme => ({
     card: {
         display: 'flex',
         width: '100%',
-        height: '80px'
+        height: '80px',
+        marginBottom: '12px'
     },
     details: {
         display: 'flex',
         flexDirection: 'column',
-    }
+    },
+    cover: {
+        width: '5rem',
+    },
 });
 
-const CustomCard = ({ classes, user, price, image64, onClick, ...props }) => {
+const CustomCard = ({ classes, user, price, imagePath, onClick, ...props }) => {
     const formatPrice = () => price ? `R$ ${price}` : APPOINTMENT.PRICE_UNDEFINED;
 
     return (
         <Card className={classes.card} onClick={onClick}>
             <CardMedia
-                src={image64}
+                className={classes.cover}
+                image={`${UTILS.apiUrl}/${imagePath}`}
             />
             <div className={classes.details}>
                 <CardContent className={classes.content}>

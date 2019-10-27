@@ -8,14 +8,19 @@ import {
     GET_APPOINTMENT_SUCCESS,
     GET_APPOINTMENT_FAILED,
     EDIT_APPOINTMENT_SUCCESS,
-    EDIT_APPOINTMENT_FAILED
+    EDIT_APPOINTMENT_FAILED,
+    GET_AVAILABLE_HOURS_SUCCESS,
+    GET_AVAILABLE_HOURS_FAILED,
+    SET_SELECTED_ARTIST
 } from '../actions/appointment-actions';
 
 const initialState = {
     loading: false,
     error: null,
     selectedAppointment: {},
-    appointments: []
+    selectedArtist: {},
+    appointments: [],
+    availableHours: []
 };
 
 const appointment = (state = initialState, action) => {
@@ -71,7 +76,7 @@ const appointment = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: action.error
-            }
+            };
 
         case EDIT_APPOINTMENT_SUCCESS:
             return {
@@ -84,7 +89,28 @@ const appointment = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: action.error
-            }
+            };
+
+        case GET_AVAILABLE_HOURS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                availableHours: action.data
+            };
+
+        case GET_AVAILABLE_HOURS_FAILED:
+            return {
+                ...state,
+                loading: false,
+                error: action.error,
+                availableHours: []
+            };
+
+        case SET_SELECTED_ARTIST:
+            return {
+                ...state,
+                selectedArtist: action.artist
+            };
 
         default:
             return state;

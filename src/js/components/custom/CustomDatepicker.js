@@ -1,5 +1,5 @@
 import 'date-fns';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker
@@ -10,8 +10,6 @@ import theme from '../../utils/theme';
 
 const styles = () => ({
     datepicker: {
-        // color: "white",
-        // textAlign: 'left',
         width: '100%'
     }
 });
@@ -28,6 +26,21 @@ const myTheme = createMuiTheme({
 const CustomDatepicker = ({ classes, ...props }) => {
     const { field, name, label, disabled } = props;
 
+    const [selectedDate, setSelectedDate] = React.useState(field.values[name]);
+
+    useEffect(
+        () => {
+            if(!selectedDate) setSelectedDate(new Date());
+        },
+        [selectedDate],
+    );
+
+    const handleDateChange = date => {
+        date.setHours(0,0,0,0);
+        field.values[name] = date;
+        setSelectedDate(date);
+    };
+
     return (
         <MuiThemeProvider theme={myTheme}>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -37,7 +50,7 @@ const CustomDatepicker = ({ classes, ...props }) => {
                     label={label}
                     format="dd/MM/yyyy"
                     value={field.values[name]}
-                    onChange={props.onChange ? props.onChange : field.handleChange}
+                    onChange={handleDateChange}
                     KeyboardButtonProps={{
                         'aria-label': 'change date',
                     }}

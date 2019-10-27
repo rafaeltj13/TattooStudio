@@ -1,34 +1,37 @@
 import {
-    SIGNUP_ASYNC_REQUEST_STARTED,
-    CREATE_USER_SUCCESS,
-    CREATE_USER_FAILED
-} from '../actions/signup-actions';
+    ABOUT_ASYNC_REQUEST_STARTED,
+    GET_USER_DEATILS_SUCCESS,
+    GET_USER_DEATILS_FAILED,
+} from '../actions/about-actions';
 
 const initialState = {
     loading: false,
     error: null,
+    user: {},
 };
 
-const signup = (state = initialState, action) => {
+const about = (state = initialState, action) => {
     switch (action.type) {
-        case SIGNUP_ASYNC_REQUEST_STARTED:
+        case ABOUT_ASYNC_REQUEST_STARTED:
             return {
                 ...state,
                 loading: true,
             };
 
-        case CREATE_USER_SUCCESS:
+        case GET_USER_DEATILS_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 error: '',
+                user: action.data,
             };
 
-        case CREATE_USER_FAILED:
+        case GET_USER_DEATILS_FAILED:
             return {
                 ...state,
                 loading: false,
                 error: action.error,
+                user: {},
             };
 
         default:
@@ -36,4 +39,4 @@ const signup = (state = initialState, action) => {
     }
 };
 
-export default signup;
+export default about;

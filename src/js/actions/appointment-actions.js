@@ -1,4 +1,5 @@
 import Api from '../services/api';
+import { getScheduleId } from '../store/localStorage';
 
 export const APPOINTMENT_ASYNC_REQUEST_STARTED = 'APPOINTMENT_ASYNC_REQUEST_STARTED';
 export const appointmentAsyncRequestStarted = () => ({
@@ -45,13 +46,13 @@ export const getAppointmentsFailed = error => ({
 });
 
 export const GET_APPOINTMENTS_REQUEST = 'GET_APPOINTMENTS_REQUEST';
-export const getAppointmentsRequest = (idUser, typeUser) => {
+export const getAppointmentsRequest = () => {
     return dispath => {
         dispath(appointmentAsyncRequestStarted());
 
-        Api.get(`/appointments/${typeUser}/${idUser}`)
+        Api.get(`/schedules/${getScheduleId()}`)
             .then(({ data }) => {
-                dispath(getAppointmentsSuccess(data))
+                dispath(getAppointmentsSuccess(data.appointments))
             })
             .catch(({ message }) => {
                 dispath(getAppointmentsFailed(message))
@@ -79,15 +80,15 @@ export const getAppointmentFailed = error => ({
 
 export const GET_APPOINTMENT_REQUEST = 'GET_APPOINTMENT_REQUEST';
 export const getAppointmentRequest = appointmentId => {
-    return dispath => {
-        dispath(appointmentAsyncRequestStarted());
+    return dispatch => {
+        dispatch(appointmentAsyncRequestStarted());
 
         Api.get(`/appointments/${appointmentId}`)
             .then(({ data }) => {
-                dispath(getAppointmentSuccess(data))
+                dispatch(getAppointmentSuccess(data))
             })
             .catch(({ message }) => {
-                dispath(getAppointmentFailed(message))
+                dispatch(getAppointmentFailed(message))
             });
     };
 };
@@ -106,15 +107,48 @@ export const editAppointmentFailed = error => ({
 
 export const EDIT_APPOINTMENT_REQUEST = 'EDIT_APPOINTMENT_REQUEST';
 export const editAppointmentRequest = (appointmentId, appointmentBody) => {
-    return dispath => {
-        dispath(appointmentAsyncRequestStarted());
+    return dispatch => {
+        dispatch(appointmentAsyncRequestStarted());
 
         Api.patch(`/appointments/${appointmentId}`, appointmentBody)
             .then(({ data }) => {
-                dispath(editAppointmentSuccess(data))
+                dispatch(editAppointmentSuccess(data))
             })
             .catch(({ message }) => {
-                dispath(editAppointmentFailed(message))
+                dispatch(editAppointmentFailed(message))
             });
     };
 };
+
+export const GET_AVAILABLE_HOURS_SUCCESS = 'GET_AVAILABLE_HOURS_SUCCESS';
+export const getAvailableHoursSuccess = data => ({
+    type: GET_AVAILABLE_HOURS_SUCCESS,
+    data
+});
+
+export const GET_AVAILABLE_HOURS_FAILED = 'GET_AVAILABLE_HOURS_FAILED';
+export const getAvailableHoursFailed = error => ({
+    type: GET_AVAILABLE_HOURS_FAILED,
+    error
+});
+
+export const GET_AVAILABLE_HOURS_REQUEST = 'GET_AVAILABLE_HOURS_REQUEST';
+export const getAvailableHours = (artistId, date, interval) => {
+    return dispatch => {
+        dispatch(appointmentAsyncRequestStarted());
+
+        Api.get(`/artists/${artistId}/availableHours?date=${date}&interval=${interval}`)
+            .then(({ data }) => {
+                dispatch(getAvailableHoursSuccess(data))
+            })
+            .catch(({ message }) => {
+                dispatch(getAvailableHoursFailed(message))
+            });
+    };
+};
+
+export const SET_SELECTED_ARTIST = 'SET_SELECTED_ARTIST';
+export const setSelectedArtist = artist => ({
+    type: SET_SELECTED_ARTIST,
+    artist,
+});

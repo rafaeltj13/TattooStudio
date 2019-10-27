@@ -10,12 +10,12 @@ import Typography from '@material-ui/core/Typography';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Lock from '@material-ui/icons/Lock';
-import { signinCostumerRequest, changeSigninType } from '../../actions/signin-actions'
+import { signinRequest, changeSigninType } from '../../actions/signin-actions'
 import { createNotification } from '../../actions/notification-actions';
-import { SIGNIN, GENERAL } from '../../utils/constants';
+import { SIGNIN, GENERAL, USER_TYPES } from '../../utils/constants';
 import LinkUi from '@material-ui/core/Link';
 import SigninBackground from '../custom/signin/SigninBackground';
-import CustomTextField from '../custom/textField/CustomTextField';
+import CustomTextField from '../custom/textField/CustomOutlinedTextField';
 import CustomButton from '../custom/CustomButton';
 import CustomFormActions from '../custom/pages/CustomFormActions';
 
@@ -45,21 +45,21 @@ const Signin = props => {
     );
 
     const renderOptions = () => {
-        if (type === 'Customer') {
+        if (type === USER_TYPES.CUSTOMER) {
             return (
                 <div>
                     <div>
-                        <LinkUi component="button" variant="body2" onClick={() => newSigninType('Artist')}>Sou um tatuador</LinkUi>
+                        <LinkUi component="button" variant="body2" onClick={() => newSigninType('artist')}>Sou um tatuador</LinkUi>
                     </div>
                     <div>
-                        <LinkUi component="button" variant="body2" onClick={() => newSigninType('Owner')}>Tenho um estúdio</LinkUi>
+                        <LinkUi component="button" variant="body2" onClick={() => newSigninType('owner')}>Tenho um estúdio</LinkUi>
                     </div>
                 </div>
             );
         } else {
             return (
                 <div>
-                    <LinkUi component="button" variant="body2" onClick={() => newSigninType('Customer')}>Sou um cliente</LinkUi>
+                    <LinkUi component="button" variant="body2" onClick={() => newSigninType('customer')}>Sou um cliente</LinkUi>
                 </div>
             );
         }
@@ -116,7 +116,7 @@ const mapStateToProps = ({ signin }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    signinCostumer: (signinInput, typeInput) => dispatch(signinCostumerRequest(signinInput, typeInput)),
+    signin: (signinInput, typeInput) => dispatch(signinRequest(signinInput, typeInput)),
     newSigninType: newType => dispatch(changeSigninType(newType)),
     newNotification: payload => dispatch(createNotification(payload))
 });
@@ -140,7 +140,7 @@ export default connect(
                 }),
 
             handleSubmit: (values, { props }) => {
-                props.signinCostumer(values, props.type);
+                props.signin(values, props.type);
             },
         })(withTheme(Signin))
     )
