@@ -22,7 +22,6 @@ const SignupCustomer = props => {
 
     useEffect(
         () => {
-            console.log('entrou')
             if (!loading && isSubmitting) {
                 setSubmitting(false);
                 if (error) {

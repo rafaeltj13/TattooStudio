@@ -14,7 +14,8 @@ const styles = {
         width: '100%',
         height: '6vh',
         backgroundColor: 'black',
-        color: 'white'
+        color: 'white',
+        position: 'relative',
     }
 };
 
@@ -41,7 +42,7 @@ const CustomBottomNavigation = ({ classes, type, ...props }) => {
         return (
             <BottomNavigation value={value} onChange={handleChange} className={classes.root}>
                 <BottomNavigationAction label="Início" value="home" icon={<HomeIcon color='primary' />} component={Link} to={`/`} />
-                <BottomNavigationAction label="Pesquisa" value="search" icon={<SearchIcon color='primary' />} />
+                <BottomNavigationAction label="Pesquisa" value="search" icon={<SearchIcon color='primary' />} component={Link} to={`/search`}/>
                 <BottomNavigationAction label="Agendamentos" value="appointment" icon={<FormatListBulletedIcon color='primary' />} component={Link} to={`/appointment`} />
                 <BottomNavigationAction label="Perfil" value="profile" icon={<FaceIcon color='primary' />} component={Link} to={`/about`} />
             </BottomNavigation>

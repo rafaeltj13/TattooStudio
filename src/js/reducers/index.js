@@ -5,6 +5,7 @@ import appointmentReducer from './appointment';
 import tattooReducer from './tattoo';
 import notificationReducer from './notification';
 import aboutReducer from './about';
+import profileReducer from './profile';
 
 export default combineReducers({
     signin: signinReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
     appointment: appointmentReducer,
     tattoo: tattooReducer,
     notification: notificationReducer,
-    about: aboutReducer
+    about: aboutReducer,
+    profile: profileReducer,
 });

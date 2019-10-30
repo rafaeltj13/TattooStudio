@@ -18,7 +18,7 @@ import CustomButton from '../custom/CustomButton';
 
 const TattooForm = props => {
     const fields = props;
-    const { appointment, isSubmitting, handleSubmit, setSubmitting , values, newTattoo, loading, error, newNotification, open, tattooDialog, setAppointment } = props;
+    const { appointment, isSubmitting, handleSubmit, setSubmitting, values, newTattoo, loading, error, newNotification, open, tattooDialog, setAppointment } = props;
 
     useEffect(
         () => {
@@ -44,7 +44,7 @@ const TattooForm = props => {
     );
 
     const handleClose = () => {
-        if(appointment) setAppointment({ id: newTattoo._id, imageBase64: values.imageBase64 })
+        if (appointment) setAppointment({ id: newTattoo._id, imageBase64: values.imageBase64 })
         tattooDialog(false);
     };
 
@@ -80,11 +80,13 @@ const TattooForm = props => {
     );
 };
 
-const mapStateToProps = ({ tattoo }) => ({
+const mapStateToProps = ({ tattoo, signin }) => ({
     loading: tattoo.loading,
     error: tattoo.error,
     open: tattoo.openForm,
-    newTattoo: tattoo.tattoo
+    newTattoo: tattoo.tattoo,
+    typeUser: signin.type,
+    idUser: signin.idUser,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -115,7 +117,7 @@ export default connect(
                 }),
 
             handleSubmit: (values, { props }) => {
-                props.createTattoo(values)
+                props.createTattoo({ ...values, user: { id: props.idUser, type: props.typeUser } })
             },
         })(withTheme(TattooForm))
     )

@@ -36,7 +36,7 @@ const myTheme = createMuiTheme({
     typography: theme.typography
 });
 
-const CustomTextField = ({ classes, ...props }) => {
+const CustomTextField = ({ classes, classStyle, ...props }) => {
     const { field, name, disabled, value } = props;
 
     return (
@@ -50,16 +50,16 @@ const CustomTextField = ({ classes, ...props }) => {
                 InputProps={{
                     ...props.InputProps,
                     classes: {
-                        root: classes.input,
-                        input: classes.input,
+                        root: classStyle ? classStyle.root : classes.input,
+                        input: classStyle ? classStyle.input : classes.input,
                         disabled: classes.disabledInput,
 
                     },
                 }}
                 InputLabelProps={
                     (field.values[name] && field.values[name].length > 0) || disabled
-                        ? { classes: { root: classes.input, disabled: classes.disabledLabel }, shrink: true }
-                        : { classes: { root: classes.input, disabled: classes.disabledLabel } }
+                        ? { classes: { root: classes.input, disabled: classes.disabledLabel }, shrink: true, ...props.InputLabelProps }
+                        : { classes: { root: classes.input, disabled: classes.disabledLabel } , ...props.InputLabelProps }
                 }
                 FormHelperTextProps={{ classes: { root: classes.helperText } }}
                 value={value ? value : field.values[name]}

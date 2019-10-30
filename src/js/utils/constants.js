@@ -56,5 +56,13 @@ export const USER_TYPES = {
 }
 
 export const UTILS = {
+    clientUrl: 'http://localhost:3000',
     apiUrl: 'http://localhost:4040/api'
+};
+
+export const PUSH_NOTIFICATIONS = {
+    CREATE_APPOINTMENT: {
+        TITLE: 'Novo agendamento',
+        BODY: 'Foi criado um novo agendamento.'
+    }
 };

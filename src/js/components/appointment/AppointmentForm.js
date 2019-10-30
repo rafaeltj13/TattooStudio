@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
-import Image from 'material-ui-image'
+import Image from 'material-ui-image';
 import { withTheme } from '@material-ui/core';
 import { createAppointmentRequest } from '../../actions/appointment-actions';
 import { showTattooDialog } from '../../actions/tattoo-actions';
@@ -13,7 +13,7 @@ import CustomDatepicker from '../custom/CustomDatepicker';
 import CustomButton from '../custom/CustomButton';
 import CustomSelect from '../custom/CustomSelect';
 import CustomContainer from '../custom/pages/CustomContainer';
-import CustomFormActions from '../custom/pages/CustomFormActions'
+import CustomFormActions from '../custom/pages/CustomFormActions';
 import TattooForm from '../tattoo/TattooForm';
 
 const AppointmentForm = props => {
@@ -72,6 +72,7 @@ const AppointmentForm = props => {
         <CustomContainer>
             <CustomDatepicker
                 required
+                disabled
                 name={'appointmentDate'}
                 label={APPOINTMENT.SELECT_DATE}
                 field={fields}
@@ -90,7 +91,7 @@ const AppointmentForm = props => {
                     },
                     {
                         code: "art",
-                        optionLabel: 'Criar arte',
+                        optionLabel: 'Arte',
                     }
                 ]}
             />
@@ -99,15 +100,17 @@ const AppointmentForm = props => {
     );
 };
 
-const mapStateToProps = ({ appointment, signin }) => ({
+const mapStateToProps = ({ appointment, signin, profile }) => ({
     loading: appointment.loading,
     error: appointment.error,
     selectedAppointment: appointment.selectedAppointment,
-    idUser: signin.idUser
+    idUser: signin.idUser,
+    artistId: profile.selectedArtist._id,
+    tokenToNotificate: profile.selectedArtist.notificationToken,
 });
 
 const mapDispatchToProps = dispatch => ({
-    createAppointment: appointmentBody => dispatch(createAppointmentRequest(appointmentBody)),
+    createAppointment: (appointmentBody, tokenToNotificate) => dispatch(createAppointmentRequest(appointmentBody, tokenToNotificate)),
     tattooDialog: show => dispatch(showTattooDialog(show)),
     newNotification: payload => dispatch(createNotification(payload))
 });
@@ -118,13 +121,11 @@ export default connect(
 )(
     withRouter(
         withFormik({
-            mapPropsToValues: () => {
-                return {
-                    artist: '5db48d05f530f13bc8d55fb7',
-                    appointmentDate: new Date(),
-                    type: '',
-                };
-            },
+            mapPropsToValues: props => ({
+                artist: props.artistId,
+                appointmentDate: new Date(),
+                type: '',
+            }),
             validationSchema: () =>
                 Yup.object().shape({
                     appointmentDate: Yup.date().required(GENERAL.REQUIRED_FIELD),
@@ -136,8 +137,8 @@ export default connect(
                     ...values,
                     customer: props.idUser,
                     tattoo: props.selectedAppointment.id,
-                    status: APPOINTMENT.STATUS.CREATED
-                })
+                    status: APPOINTMENT.STATUS.CREATED,
+                }, props.tokenToNotificate);
             },
         })(withTheme(AppointmentForm))
     )

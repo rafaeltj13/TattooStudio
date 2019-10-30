@@ -41,3 +41,30 @@ export const SIGNOUT = 'SIGNOUT';
 export const signoutRequest = () => ({
     type: SIGNOUT,
 });
+
+export const SET_TOKEN_PUSH_NOTIFICATIONS_SUCCESS = 'SET_TOKEN_PUSH_NOTIFICATIONS_SUCCESS';
+export const setTokenPushNotificationsSuccess = token => ({
+    type: SET_TOKEN_PUSH_NOTIFICATIONS_SUCCESS,
+    token
+});
+
+export const SET_TOKEN_PUSH_NOTIFICATIONS_FAILED = 'SET_TOKEN_PUSH_NOTIFICATIONS_FAILED';
+export const setTokenPushNotificationsFailed = error => ({
+    type: SET_TOKEN_PUSH_NOTIFICATIONS_FAILED,
+    error
+});
+
+export const SET_TOKEN_PUSH_NOTIFICATIONS_REQUEST = 'SET_TOKEN_PUSH_NOTIFICATIONS_REQUEST';
+export const setTokenPushNotificationsRequest = (token, typeUser, idUser) => {
+    return dispatch => {
+        dispatch(signinAsyncRequestStarted());
+
+        Api.patch(`${typeUser}s/${idUser}`, { notificationToken: token })
+            .then(() => {
+                dispatch(setTokenPushNotificationsSuccess(token));
+            })
+            .catch(({ message }) => {
+                dispatch(setTokenPushNotificationsFailed(message));
+            });
+    };
+};
