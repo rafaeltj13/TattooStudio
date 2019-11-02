@@ -32,7 +32,7 @@ const CustomCard = ({ classes, user, price, imagePath, onClick, ...props }) => {
                 image={`${UTILS.apiUrl}/${imagePath}`}
             />
             <div className={classes.details}>
-                <CardContent className={classes.content}>
+                <CardContent>
                     <Typography component="h5" variant="h5">
                         {user}
                     </Typography>

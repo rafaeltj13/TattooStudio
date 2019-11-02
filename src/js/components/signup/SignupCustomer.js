@@ -11,10 +11,12 @@ import { createNotification } from '../../actions/notification-actions';
 import { SIGNUP, GENERAL } from '../../utils/constants';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import TitleTypography from '../custom/typography/CustomTitleTypography';
 import SigninBackground from '../custom/signin/SigninBackground';
 import CustomTextField from '../custom/textField/CustomOutlinedTextField';
-import CustomButton from '../custom/CustomButton';
-import CustomSelect from '../custom/CustomSelect';
+import CustomButton from '../custom/button/CustomButton';
+import CustomSelect from '../custom/select/CustomOutlinedSelect';
+import CustomDoubleField from '../custom/pages/CustomDoubleInput';
 
 const SignupCustomer = props => {
     const fields = props;
@@ -51,24 +53,26 @@ const SignupCustomer = props => {
                 field={fields}
                 variant="outlined"
             />
-            <CustomTextField
-                required
-                name={'password'}
-                label={SIGNUP.PASSWORD}
-                field={fields}
-                variant="outlined"
-                type='password'
-            />
-            <CustomTextField
-                required
-                name={'confirmPassword'}
-                label={SIGNUP.CONFIRM_PASSWORD}
-                field={fields}
-                variant="outlined"
-                type='password'
-            />
+            <CustomDoubleField>
+                <CustomTextField
+                    required
+                    name={'password'}
+                    label={SIGNUP.PASSWORD}
+                    field={fields}
+                    variant="outlined"
+                    type='password'
+                />
+                <CustomTextField
+                    required
+                    name={'confirmPassword'}
+                    label={SIGNUP.CONFIRM_PASSWORD}
+                    field={fields}
+                    variant="outlined"
+                    type='password'
+                />
+            </CustomDoubleField>
 
-            <Typography variant="h6">{SIGNUP.USER_INFORMATION}</Typography>
+            <TitleTypography variant="h6">{SIGNUP.USER_INFORMATION}</TitleTypography>
             <CustomTextField
                 required
                 name={'name'}
@@ -94,11 +98,11 @@ const SignupCustomer = props => {
                         field={fields}
                         optionsmap={[
                             {
-                                code: "Male",
+                                code: "Masculino",
                                 optionLabel: 'Masculino',
                             },
                             {
-                                code: "Female",
+                                code: "Masculino",
                                 optionLabel: 'Feminino',
                             }
                         ]}
@@ -125,7 +129,7 @@ const SignupCustomer = props => {
             />
 
             <Grid item xs={12} style={{ textAlign: 'right' }}>
-            <CustomButton variant='outlined' component={Link} to={'/signin'}>Voltar</CustomButton>
+                <CustomButton variant='outlined' component={Link} to={'/signin'}>Voltar</CustomButton>
                 <CustomButton variant='outlined' onClick={handleSubmit}>Cadastrar-se</CustomButton>
             </Grid>
         </SigninBackground>

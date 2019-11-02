@@ -12,16 +12,20 @@ export const SIGNIN = {
 
 export const SIGNUP = {
     TITLE: 'Cadastrar usuário',
-    ACCOUNT_INFORMATION: 'Dados da conta',
+    ACCOUNT_INFORMATION: 'Dados cadastrais',
     USERNAME: 'Nome de usuário',
     PASSWORD: 'Senha',
     CONFIRM_PASSWORD: 'Confirmar Senha',
-    USER_INFORMATION: 'Dados do usuário',
+    USER_INFORMATION: 'Dados pessoais',
     NAME: 'Nome completo',
     EMAIL: 'Email',
     AGE: 'Idade',
     GENDER: 'Gênero',
-    PHONE: 'Telefone'
+    PHONE: 'Telefone',
+    PROFISSIONAL_INFORMATION: 'Dados profissionais',
+    SPECIALITY: 'Especialidade',
+    EXPERIENCE_YEARS: 'Anos de experiência',
+    TRACE: 'Tipo de traço',
 };
 
 export const APPOINTMENT = {
@@ -46,7 +50,8 @@ export const TATTOO = {
     IMAGEM: 'Selecionar imagem de referência',
     SIZE: 'Tamanho(cm)',
     PLACE: 'Local',
-    MY_TATTOOS: 'Minhas tatuagens'
+    MY_TATTOOS: 'Minhas tatuagens',
+    AVAILABLE: 'Tatuagens disponíveis',
 };
 
 export const USER_TYPES = {

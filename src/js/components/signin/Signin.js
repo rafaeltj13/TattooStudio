@@ -16,7 +16,7 @@ import { SIGNIN, GENERAL, USER_TYPES } from '../../utils/constants';
 import LinkUi from '@material-ui/core/Link';
 import SigninBackground from '../custom/signin/SigninBackground';
 import CustomTextField from '../custom/textField/CustomOutlinedTextField';
-import CustomButton from '../custom/CustomButton';
+import CustomButton from '../custom/button/CustomButton';
 import CustomFormActions from '../custom/pages/CustomFormActions';
 
 const Signin = props => {

@@ -35,7 +35,7 @@ const signin = (state = initialState, action) => {
                 idUser: action.data.id,
                 type: action.data.type,
                 scheduleId: action.data.scheduleId
-            })
+            });
 
             return {
                 ...state,
@@ -64,7 +64,8 @@ const signin = (state = initialState, action) => {
                 username: '',
                 idUser: '',
                 type: 'customer',
-            })
+                scheduleId: ''
+            });
 
             return {
                 ...state,

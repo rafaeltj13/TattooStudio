@@ -22,7 +22,7 @@ export const getArtistsRequest = searchQuery => {
     return dispath => {
         dispath(profileAsyncRequestStarted());
 
-        const queryUrl = searchQuery ? `?query=${searchQuery}` : ''; 
+        const queryUrl = searchQuery ? `?query=${searchQuery}` : '';
 
         Api.get(`artists${queryUrl}`)
             .then(({ data }) => {
@@ -57,6 +57,32 @@ export const getSelectedArtistRequest = idArtist => {
             })
             .catch(({ message }) => {
                 dispath(getSelectedArtistFailed(message))
+            });
+    };
+};
+
+export const GET_USER_TATTOOS_SUCCESS = 'GET_USER_TATTOOS_SUCCESS';
+export const getUserTattoosSuccess = data => ({
+    type: GET_USER_TATTOOS_SUCCESS,
+    data
+});
+
+export const GET_USER_TATTOOS_FAILED = 'GET_USER_TATTOOS_FAILED';
+export const getUserTattoosFailed = error => ({
+    type: GET_USER_TATTOOS_FAILED,
+    error
+});
+
+export const GET_USER_TATTOOS_REQUEST = 'GET_USER_TATTOOS_REQUEST';
+export const getUserTattoosRequest = (id, type) => {
+    return dispatch => {
+        dispatch(profileAsyncRequestStarted());
+        Api.get(`${type}s/${id}/tattoo`)
+            .then(({ data }) => {
+                dispatch(getUserTattoosSuccess(data));
+            })
+            .catch(({ message }) => {
+                dispatch(getUserTattoosFailed(message));
             });
     };
 };

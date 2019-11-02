@@ -9,7 +9,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import Typography from '@material-ui/core/Typography';
 import StarIcon from '@material-ui/icons/Star';
 import Avatar from '@material-ui/core/Avatar';
-import CustomButton from '../custom/CustomButton';
+import CustomButton from '../custom/button/CustomButton';
 import CustomContainerInline from '../custom/pages/CustomContainerInline';
 import CustomFormActions from '../custom/pages/CustomFormActions'
 import Divider from '@material-ui/core/Divider';

@@ -14,11 +14,23 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import CustomTextField from '../custom/textField/CustomTextField';
 import CustomFileField from '../custom/textField/CustomFileField';
-import CustomButton from '../custom/CustomButton';
+import CustomButton from '../custom/button/CustomButton';
 
 const TattooForm = props => {
     const fields = props;
-    const { appointment, isSubmitting, handleSubmit, setSubmitting, values, newTattoo, loading, error, newNotification, open, tattooDialog, setAppointment } = props;
+    const {
+        appointment,
+        isSubmitting,
+        handleSubmit,
+        setSubmitting,
+        values, newTattoo,
+        loading,
+        error,
+        newNotification,
+        open,
+        tattooDialog,
+        setAppointment,
+    } = props;
 
     useEffect(
         () => {
@@ -44,7 +56,7 @@ const TattooForm = props => {
     );
 
     const handleClose = () => {
-        if (appointment) setAppointment({ id: newTattoo._id, imageBase64: values.imageBase64 })
+        if (appointment) setAppointment({ tattoo: newTattoo._id, imageBase64: values.imageBase64 })
         tattooDialog(false);
     };
 

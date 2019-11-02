@@ -25,8 +25,6 @@ export const createAppointmentRequest = (appointmentBody, tokenToNotificate) => 
     return dispath => {
         dispath(appointmentAsyncRequestStarted());
 
-        console.log(tokenToNotificate)
-
         Api.post('appointments', appointmentBody)
             .then(({ data }) => {
                 dispath(createAppointmentSuccess(data))

@@ -12,7 +12,7 @@ export const getUserDetailsSuccess = data => ({
 });
 
 export const GET_USER_DEATILS_FAILED = 'GET_USER_DEATILS_FAILED';
-export const getUserDetailsFailed = (error) => ({
+export const getUserDetailsFailed = error => ({
     type: GET_USER_DEATILS_FAILED,
     error
 });

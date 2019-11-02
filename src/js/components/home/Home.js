@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { withTheme } from '@material-ui/core';
-import CustomButton from '../custom/CustomButton';
+import CustomButton from '../custom/button/CustomButton';
 import { askForNotifications } from '../../utils/push-notifications';
 import { setTokenPushNotificationsRequest } from '../../actions/signin-actions';
 

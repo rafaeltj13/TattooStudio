@@ -1,5 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core';
+import CustomContainer from '../pages/CustomContainer';
 
 import background from '../../../../images/bg.png';
 
@@ -9,33 +10,32 @@ const styles = theme => ({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     backgroundImg: {
         backgroundImage: `url(${background})`,
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-        height: '100vh',
         maxWidth: '750px',
+        height: '100vh',
         color: theme.palette.primary.light,
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     content: {
-        padding: '1rem',
-        textAlign: 'center'
+        textAlign: 'center',
     }
 });
 
 const SigninBackground = props => (
     <div className={props.classes.background}>
         <div className={props.classes.backgroundImg}>
-            <div className={props.classes.content}>
+            <CustomContainer className={props.classes.content}>
                 {props.children}
-            </div>
+            </CustomContainer>
         </div>
     </div>
 )

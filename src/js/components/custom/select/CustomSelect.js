@@ -1,7 +1,7 @@
 import React from 'react';
 import { createMuiTheme, MenuItem, MuiThemeProvider, withStyles } from '@material-ui/core';
-import theme from '../../utils/theme';
-import CustomTextField from './textField/CustomTextField';
+import theme from '../../../utils/theme';
+import CustomTextField from '../textField/CustomTextField';
 import FormControl from '@material-ui/core/FormControl/index';
 
 const styles = {
@@ -43,8 +43,8 @@ const CustomSelect = ({ classes, ...props }) => {
         error={Boolean(field.touched[name] && field.errors[name])}
       >
         <CustomTextField
-          select
           {...props}
+          select
           SelectProps={{
             MenuProps: {
               className: classes.menu,
