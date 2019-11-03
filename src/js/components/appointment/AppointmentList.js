@@ -65,7 +65,7 @@ const mapStateToProps = ({ appointment, signin }) => ({
 const mapDispatchToProps = dispatch => ({
     getAppointments: typeUser => dispatch(getAppointmentsRequest(getId(), typeUser)),
     selectedArtist: artist => dispatch(setSelectedArtist(artist)),
-    newNotification: payload => dispatch(createNotification(payload))
+    newNotification: payload => dispatch(createNotification(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withTheme(AppointmentList)));

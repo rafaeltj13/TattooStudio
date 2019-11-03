@@ -28,7 +28,7 @@ const SearchList = props => {
         <CustomContainer>
             <CustomTextField
                 name={'search'}
-                label="Pesquisar"
+                label="Pesquisar por tatuador"
                 field={fields}
                 onKeyPress={target => {
                     if (target.charCode == 13) console.log('Enter clicked!!!')

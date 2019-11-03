@@ -14,7 +14,7 @@ export const saveState = signinState => {
     try {
         console.log(signinState)
         const signin = JSON.stringify({
-            sessionToken: `Bearer ${signinState.sessionToken}`,
+            sessionToken: signinState.sessionToken ? `Bearer ${signinState.sessionToken}` : '',
             username: signinState.username,
             idUser: signinState.idUser,
             type: signinState.type,

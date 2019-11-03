@@ -86,3 +86,30 @@ export const getUserTattoosRequest = (id, type) => {
             });
     };
 };
+
+export const SET_LAST_VISITED_SUCCESS = 'SET_LAST_VISITED_SUCCESS';
+export const setLastVisitedSuccess = data => ({
+    type: SET_LAST_VISITED_SUCCESS,
+    data
+});
+
+export const SET_LAST_VISITED_FAILED = 'SET_LAST_VISITED_FAILED';
+export const setLastVisitedFailed = error => ({
+    type: SET_LAST_VISITED_FAILED,
+    error
+});
+
+export const SET_LAST_VISITED_REQUEST = 'GET_USER_TATTOOS_REQUEST';
+export const setLastVisitedRequest = (customerId, lastArtistVisited) => {
+    return dispatch => {
+        dispatch(profileAsyncRequestStarted());
+
+        Api.patch(`customers/${customerId}`, { lastArtistVisited })
+            .then(({ data }) => {
+                dispatch(setLastVisitedSuccess(data));
+            })
+            .catch(({ message }) => {
+                dispatch(setLastVisitedFailed(message));
+            });
+    };
+};

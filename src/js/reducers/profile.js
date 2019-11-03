@@ -6,6 +6,8 @@ import {
     GET_SELECTED_ARTIST_FAILED,
     GET_USER_TATTOOS_SUCCESS,
     GET_USER_TATTOOS_FAILED,
+    SET_LAST_VISITED_SUCCESS,
+    SET_LAST_VISITED_FAILED,
 } from '../actions/profile-actions';
 
 const initialState = {
@@ -70,6 +72,20 @@ const search = (state = initialState, action) => {
                 loading: false,
                 error: action.error,
                 tattoos: [],
+            };
+
+        case SET_LAST_VISITED_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: '',
+            };
+
+        case SET_LAST_VISITED_FAILED:
+            return {
+                ...state,
+                loading: false,
+                error: action.error,
             };
 
         default:

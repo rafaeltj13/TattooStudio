@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { withTheme } from '@material-ui/core';
-import { getSelectedArtistRequest } from '../../actions/profile-actions';
+import { getSelectedArtistRequest, setLastVisitedRequest } from '../../actions/profile-actions';
 import { createNotification } from '../../actions/notification-actions';
+import { getId } from '../../store/localStorage';
 import CustomContainer from '../custom/pages/CustomContainer';
 import PersonIcon from '@material-ui/icons/Person';
 import Typography from '@material-ui/core/Typography';
@@ -17,14 +18,9 @@ import Grid from '@material-ui/core/Grid';
 
 const ArtistProfile = props => {
   const {
-    isSubmitting,
-    handleSubmit,
-    setSubmitting,
-    loading,
-    error,
-    values,
     getSelectedArtist,
     selectedArtist,
+    setLastVisited,
     match: {
       params: { id },
     }
@@ -32,7 +28,10 @@ const ArtistProfile = props => {
 
   useEffect(
     () => {
-      if (id) getSelectedArtist(id);
+      if (id) {
+        getSelectedArtist(id);
+        setLastVisited(getId(), id)
+      }
     },
     [id]
   );
@@ -100,6 +99,7 @@ const mapStateToProps = ({ profile }) => ({
 
 const mapDispatchToProps = dispatch => ({
   getSelectedArtist: artistId => dispatch(getSelectedArtistRequest(artistId)),
+  setLastVisited: (customerId, artistId) => dispatch(setLastVisitedRequest(customerId, artistId)),
   newNotification: payload => dispatch(createNotification(payload))
 });
 

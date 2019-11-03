@@ -19,7 +19,7 @@ const styles = theme => ({
 });
 
 const CustomButton = ({ classes, variant, width, ...props }) => (
-    <Button {...props} variant={variant} className={width ? classNames(classes.button, classes.width) : classes.button} size="small"/>
+    <Button {...props} variant={variant} className={width ? classNames(classes.button, classes.width) : classes.button} />
 );
 
 
