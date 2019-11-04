@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { withTheme } from '@material-ui/core';
 import { getSelectedArtistRequest, setLastVisitedRequest } from '../../actions/profile-actions';
+import { showTattooListDialog } from '../../actions/tattoo-actions';
 import { createNotification } from '../../actions/notification-actions';
 import { getId } from '../../store/localStorage';
+import { TATTOO, USER_TYPES } from '../../utils/constants';
 import CustomContainer from '../custom/pages/CustomContainer';
 import PersonIcon from '@material-ui/icons/Person';
 import Typography from '@material-ui/core/Typography';
@@ -15,12 +17,15 @@ import CustomContainerInline from '../custom/pages/CustomContainerInline';
 import CustomFormActions from '../custom/pages/CustomFormActions'
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
+import CustomFeaturedWork from '../custom/profile/CustomFeaturedWork';
+import TattooList from '../tattoo/TattooList';
 
 const ArtistProfile = props => {
   const {
     getSelectedArtist,
     selectedArtist,
     setLastVisited,
+    showTattooList,
     match: {
       params: { id },
     }
@@ -82,12 +87,13 @@ const ArtistProfile = props => {
           Principais trabalhos
         </Typography>
       </CustomContainerInline>
+      <CustomFeaturedWork data={selectedArtist.tattoos} onClick={showTattooList} />
       <Divider />
       <CustomFormActions>
         <CustomButton variant='outlined' component={Link} to={`/appointment/create`}>Realizar Agendamento</CustomButton>
       </CustomFormActions>
+      <TattooList title={TATTOO.AVAILABLE} typeUser={USER_TYPES.ARTIST} idUser={selectedArtist._id} />
     </CustomContainer>
-
   );
 };
 
@@ -100,7 +106,8 @@ const mapStateToProps = ({ profile }) => ({
 const mapDispatchToProps = dispatch => ({
   getSelectedArtist: artistId => dispatch(getSelectedArtistRequest(artistId)),
   setLastVisited: (customerId, artistId) => dispatch(setLastVisitedRequest(customerId, artistId)),
-  newNotification: payload => dispatch(createNotification(payload))
+  showTattooList: () => dispatch(showTattooListDialog(true)),
+  newNotification: payload => dispatch(createNotification(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withTheme(ArtistProfile)));

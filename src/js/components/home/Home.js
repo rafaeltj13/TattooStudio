@@ -85,9 +85,9 @@ const Home = props => {
         <CustomContainer>
             <Typography variant="h5" gutterBottom> Bem vindo ao {SIGNIN.TITLE}! </Typography>
             <Button
-                variant="contained"
+                variant="outlined"
                 color="primary"
-                size="large"
+                // size="large"
                 onClick={() => props.history.push(`/search`)}
                 startIcon={<SearchIcon />}
             >
