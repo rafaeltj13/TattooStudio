@@ -10,6 +10,8 @@ import {
     SET_LAST_VISITED_FAILED,
     GET_STUDIOS_SUCCESS,
     GET_STUDIOS_FAILED,
+    GET_SELECTED_STUDIO_SUCCESS,
+    GET_SELECTED_STUDIO_FAILED,
 } from '../actions/profile-actions';
 
 const initialState = {
@@ -53,7 +55,8 @@ const search = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: '',
-                selectedArtist: action.data
+                selectedArtist: action.data,
+                selectedStudio: {},
             };
 
         case GET_SELECTED_ARTIST_FAILED:
@@ -61,7 +64,8 @@ const search = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: action.error,
-                selectedArtist: {}
+                selectedArtist: {},
+                selectedStudio: {},
             };
 
         case GET_USER_TATTOOS_SUCCESS:
@@ -110,6 +114,24 @@ const search = (state = initialState, action) => {
                 error: action.error,
                 studios: [],
                 artists: [],
+            };
+
+        case GET_SELECTED_STUDIO_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: '',
+                selectedStudio: action.data,
+                selectedArtist: {},
+            };
+
+        case GET_SELECTED_STUDIO_FAILED:
+            return {
+                ...state,
+                loading: false,
+                error: action.error,
+                selectedStudio: {},
+                selectedArtist: {},
             };
 
         default:

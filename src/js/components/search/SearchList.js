@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { withTheme } from '@material-ui/core';
 import { getArtistsRequest, getStudiosRequest } from '../../actions/profile-actions';
-import { createNotification } from '../../actions/notification-actions';
 import CustomContainer from '../custom/pages/CustomContainer';
 import CustomSearchList from '../custom/search/CustomSearchList';
 import CustomSearchTab from '../custom/search/CustomSearchTab';

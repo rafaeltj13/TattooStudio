@@ -25,6 +25,13 @@ const Signin = props => {
 
     useEffect(
         () => {
+            newSigninType('customer')
+        },
+        []
+    )
+
+    useEffect(
+        () => {
             if (!loading && isSubmitting) {
                 setSubmitting(false);
                 if (error) {
@@ -67,7 +74,7 @@ const Signin = props => {
 
     return (
         <SigninBackground>
-            <Typography variant="h4" style={{textAlign: 'center'}}>
+            <Typography variant="h4" style={{ textAlign: 'center' }}>
                 {SIGNIN.TITLE}
             </Typography>
             <CustomTextField

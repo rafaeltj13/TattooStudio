@@ -142,3 +142,30 @@ export const getStudiosRequest = searchQuery => {
             });
     };
 };
+
+export const GET_SELECTED_STUDIO_SUCCESS = 'GET_SELECTED_STUDIO_SUCCESS';
+export const getSelectedStudioSuccess = data => ({
+    type: GET_SELECTED_STUDIO_SUCCESS,
+    data
+});
+
+export const GET_SELECTED_STUDIO_FAILED = 'GET_SELECTED_STUDIO_FAILED';
+export const getSelectedStudioFailed = error => ({
+    type: GET_SELECTED_STUDIO_FAILED,
+    error
+});
+
+export const GET_SELECTED_STUDIO_REQUEST = 'GET_SELECTED_STUDIO_REQUEST';
+export const getSelectedStudioRequest = studioId => {
+    return dispath => {
+        dispath(profileAsyncRequestStarted());
+
+        Api.get(`studios/${studioId}`)
+            .then(({ data }) => {
+                dispath(getSelectedStudioSuccess(data))
+            })
+            .catch(({ message }) => {
+                dispath(getSelectedStudioFailed(message))
+            });
+    };
+};

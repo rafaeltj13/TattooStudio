@@ -24,6 +24,7 @@ const styles = theme => ({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
+        overflow: 'auto',
     },
     content: {
         textAlign: 'center',

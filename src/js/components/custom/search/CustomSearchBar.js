@@ -48,6 +48,7 @@ const CustomSearchBar = props => {
                 name={'search'}
                 label={`Pesquisar por ${value === 0 ? 'tatuador' : 'estúdio'}`}
                 field={fields}
+                style={{ marginTop: 0 }}
                 onKeyPress={target => {
                     if (target.charCode == 13) handleSubmit();
                 }}

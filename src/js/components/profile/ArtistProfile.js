@@ -95,7 +95,7 @@ const ArtistProfile = props => {
           <CustomButton variant='outlined' component={Link} to={`/appointment/create`}>Realizar Agendamento</CustomButton>
         </CustomFormActions>
         )}
-      < TattooList title={TATTOO.AVAILABLE} typeUser={USER_TYPES.ARTIST} idUser={selectedArtist._id} />
+      <TattooList title={TATTOO.AVAILABLE} typeUser={USER_TYPES.ARTIST} idUser={selectedArtist._id} />
     </CustomContainer>
   );
 };
