@@ -9,19 +9,20 @@ const styles = {
     }
 };
 
-const CustomDoubleInput = ({ classes, ...props }) => {
+const CustomInlineFields = ({ classes, ...props }) => {
+    const xs = 12 / props.children.length;
+
     return (
         <div className={classes.root}>
             <Grid container spacing={2}>
-                <Grid item xs={6}>
-                    {props.children[0]}
-                </Grid>
-                <Grid item xs={6}>
-                    {props.children[1]}
-                </Grid>
+                {props.children.map((element, index) => (
+                    <Grid item xs={xs} key={index}>
+                        {element}
+                    </Grid>
+                ))}
             </Grid>
         </div>
     );
 };
 
-export default withStyles(styles)(CustomDoubleInput)
+export default withStyles(styles)(CustomInlineFields)

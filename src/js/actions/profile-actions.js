@@ -22,7 +22,7 @@ export const getArtistsRequest = searchQuery => {
     return dispath => {
         dispath(profileAsyncRequestStarted());
 
-        const queryUrl = searchQuery ? `?query=${searchQuery}` : '';
+        const queryUrl = searchQuery ? `?name=${searchQuery}` : '';
 
         Api.get(`artists${queryUrl}`)
             .then(({ data }) => {
@@ -110,6 +110,35 @@ export const setLastVisitedRequest = (customerId, lastArtistVisited) => {
             })
             .catch(({ message }) => {
                 dispatch(setLastVisitedFailed(message));
+            });
+    };
+};
+
+export const GET_STUDIOS_SUCCESS = 'GET_STUDIOS_SUCCESS';
+export const getStudiosSuccess = data => ({
+    type: GET_STUDIOS_SUCCESS,
+    data
+});
+
+export const GET_STUDIOS_FAILED = 'GET_STUDIOS_FAILED';
+export const getStudiosFailed = error => ({
+    type: GET_STUDIOS_FAILED,
+    error
+});
+
+export const GET_STUDIOS_REQUEST = 'GET_STUDIOS_REQUEST';
+export const getStudiosRequest = searchQuery => {
+    return dispath => {
+        dispath(profileAsyncRequestStarted());
+
+        const queryUrl = searchQuery ? `?name=${searchQuery}` : '';
+
+        Api.get(`studios${queryUrl}`)
+            .then(({ data }) => {
+                dispath(getStudiosSuccess(data))
+            })
+            .catch(({ message }) => {
+                dispath(getStudiosFailed(message))
             });
     };
 };

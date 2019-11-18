@@ -7,7 +7,7 @@ const styles = {
     }
 };
 
-const CustomDoubleInput = ({ classes, ...props }) => {
+const CustomContainerInline = ({ classes, ...props }) => {
     return (
         <div className={classes.root}>
             {props.children}
@@ -15,4 +15,4 @@ const CustomDoubleInput = ({ classes, ...props }) => {
     );
 };
 
-export default withStyles(styles)(CustomDoubleInput)
+export default withStyles(styles)(CustomContainerInline)

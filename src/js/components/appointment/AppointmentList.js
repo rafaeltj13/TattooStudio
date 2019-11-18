@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { withTheme } from '@material-ui/core';
-import { getAppointmentsRequest, setSelectedArtist } from '../../actions/appointment-actions';
+import Typography from '@material-ui/core/Typography';
+import { getAppointmentsRequest, setSelectedArtist, getStudioAppointmentsRequest } from '../../actions/appointment-actions';
 import { createNotification } from '../../actions/notification-actions';
 import { APPOINTMENT, USER_TYPES } from '../../utils/constants';
 import { getId } from '../../store/localStorage';
@@ -10,12 +11,15 @@ import CustomContainer from '../custom/pages/CustomContainer';
 import AppointmentCard from '../custom/card/CustomAppointmentCards';
 
 const AppointmentList = props => {
-    const { appointments, loading, error, newNotification, getAppointments, typeUser, selectedArtist } = props;
+    const { appointments, loading, error, newNotification, getAppointments, typeUser, selectedArtist, getStudioAppointments } = props;
 
     useEffect(
         () => {
-            getAppointments(typeUser);
-            selectedArtist({});
+            if (typeUser === 'owner') getStudioAppointments();
+            else {
+                getAppointments(typeUser);
+                selectedArtist({});
+            }
         },
         []
     );
@@ -37,11 +41,12 @@ const AppointmentList = props => {
     const handleClick = appointment => {
         selectedArtist(appointment.artist)
         appointment.appointment.status === APPOINTMENT.STATUS.CREATED ? props.history.push(`/appointment/create/${appointment.appointment._id}`)
-            :  props.history.push(`/appointment/confirm/${appointment.appointment._id}`);
+            : props.history.push(`/appointment/confirm/${appointment.appointment._id}`);
     };
 
     return (
         <CustomContainer>
+            {appointments.length > 0 || <Typography variant="subtitle2" gutterBottom> Nenhum agendamento encontrado. </Typography>}
             {appointments.map((appointment, index) => (
                 <AppointmentCard
                     imagePath={appointment.appointment['tattoo'].imagePath}
@@ -65,6 +70,7 @@ const mapStateToProps = ({ appointment, signin }) => ({
 const mapDispatchToProps = dispatch => ({
     getAppointments: typeUser => dispatch(getAppointmentsRequest(getId(), typeUser)),
     selectedArtist: artist => dispatch(setSelectedArtist(artist)),
+    getStudioAppointments: () => dispatch(getStudioAppointmentsRequest()),
     newNotification: payload => dispatch(createNotification(payload)),
 });
 

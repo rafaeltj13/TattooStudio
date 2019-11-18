@@ -8,6 +8,8 @@ import {
     GET_USER_TATTOOS_FAILED,
     SET_LAST_VISITED_SUCCESS,
     SET_LAST_VISITED_FAILED,
+    GET_STUDIOS_SUCCESS,
+    GET_STUDIOS_FAILED,
 } from '../actions/profile-actions';
 
 const initialState = {
@@ -15,6 +17,8 @@ const initialState = {
     error: null,
     artists: [],
     selectedArtist: {},
+    studios: [],
+    selectedStudio: {},
     tattoos: [],
 };
 
@@ -31,7 +35,8 @@ const search = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: '',
-                artists: action.data
+                artists: action.data,
+                studios: [],
             };
 
         case GET_ARTISTS_FAILED:
@@ -39,7 +44,8 @@ const search = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: action.error,
-                artists: []
+                artists: [],
+                studios: [],
             };
 
         case GET_SELECTED_ARTIST_SUCCESS:
@@ -86,6 +92,24 @@ const search = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: action.error,
+            };
+
+        case GET_STUDIOS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: '',
+                studios: action.data,
+                artists: [],
+            };
+
+        case GET_STUDIOS_FAILED:
+            return {
+                ...state,
+                loading: false,
+                error: action.error,
+                studios: [],
+                artists: [],
             };
 
         default:

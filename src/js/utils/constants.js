@@ -26,6 +26,23 @@ export const SIGNUP = {
     SPECIALITY: 'Especialidade',
     EXPERIENCE_YEARS: 'Anos de experiência',
     TRACE: 'Tipo de traço',
+    STUDIO: 'Estúdio',
+    STUDIO_INFORMATION: 'Dados do estúdio',
+    STUDIO_NAME: 'Nome do estúdio',
+    STUDIO_ADDRESS: 'Endereço do estúdio',
+    STUDIO_EXTRA_INFORMATION: 'Serviços adicionais do estúdio',
+    STUDIO_PHONE: 'Telefone do estúdio',
+    STUDIO_WORKTIME: 'Horário de trabalho',
+    STUDIO_WORKTIME_WEEK: 'Durante a semana',
+    STUDIO_MORNING_START_WEEK: 'Início na manhã',
+    STUDIO_MORNING_END_WEEK: 'Término na manhã',
+    STUDIO_AFTERNOON_START_WEEK: 'Início na tarde',
+    STUDIO_AFTERNOON_END_WEEK: 'Término na tarde',
+    STUDIO_NIGHT_START_WEEK: 'Início na noite',
+    STUDIO_NIGHT_END_WEEK: 'Término na noite',
+    STUDIO_WORKTIME_SATURDAY: 'Aos sábados',
+    STUDIO_WORKTIME_SUNDAY: 'Aos domingos',
+
 };
 
 export const APPOINTMENT = {
@@ -37,7 +54,8 @@ export const APPOINTMENT = {
         CREATED: 'created',
         VALIDATED: 'validated',
         REVIEWED:'reviewed',
-        APPROVED: 'approved'
+        APPROVED: 'approved',
+        FINISHED: 'finished',
     },
     TOTAL_DURATION: 'Duração total',
     SESSIONS: 'Número de seções',

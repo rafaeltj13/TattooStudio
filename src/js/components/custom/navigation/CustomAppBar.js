@@ -45,7 +45,11 @@ const CustomAppBar = ({ classes, ...props }) => {
 
     const handleClose = () => {
         setAnchorEl(null);
-        tattooDialog(true)
+    };
+
+    const openTattooDialog = () => {
+        tattooDialog(true);
+        setAnchorEl(null);
     };
 
     return (
@@ -53,7 +57,7 @@ const CustomAppBar = ({ classes, ...props }) => {
             <Toolbar className={classes.toolbar}>
                 <IconButton
                     className={classes.menuButton}
-                    color={props.location.pathname.split("/")[2] ? "inherit" : "secondary"}
+                    color={props.location.pathname.split("/")[2] ? "primary" : "secondary"}
                     aria-label="menu"
                     onClick={goBack}
                 >
@@ -64,7 +68,7 @@ const CustomAppBar = ({ classes, ...props }) => {
                 </Typography>
                 {/* <Image src="https://imgur.com/V6BXWCv" /> */}
                 <IconButton
-                    color="inherit"
+                    color="primary"
                     aria-controls="simple-menu"
                     aria-haspopup="true"
                     onClick={handleClick}
@@ -78,7 +82,7 @@ const CustomAppBar = ({ classes, ...props }) => {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                 >
-                    <MenuItem onClick={handleClose}>Criar tatuagem</MenuItem>
+                    <MenuItem onClick={openTattooDialog}>Criar tatuagem</MenuItem>
                 </Menu>
             </Toolbar>
             <TattooForm />

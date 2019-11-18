@@ -9,14 +9,14 @@ import {
 import { createUserRequest } from '../../actions/signup-actions';
 import { createNotification } from '../../actions/notification-actions';
 import { SIGNUP, GENERAL } from '../../utils/constants';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TitleTypography from '../custom/typography/CustomTitleTypography';
 import SigninBackground from '../custom/signin/SigninBackground';
 import CustomTextField from '../custom/textField/CustomOutlinedTextField';
 import CustomButton from '../custom/button/CustomButton';
 import CustomSelect from '../custom/select/CustomOutlinedSelect';
-import CustomDoubleField from '../custom/pages/CustomDoubleInput';
+import CustomDoubleField from '../custom/pages/CustomInlineFields';
+import CustomFormActions from '../custom/pages/CustomFormActions';
 
 const SignupCustomer = props => {
     const fields = props;
@@ -88,38 +88,34 @@ const SignupCustomer = props => {
                 variant="outlined"
                 type='email'
             />
-            <Grid container>
-                <Grid item xs={9}>
-                    <CustomSelect
-                        required
-                        name={'gender'}
-                        label={SIGNUP.GENDER}
-                        optionmessage={'Selecione um gênero'}
-                        field={fields}
-                        optionsmap={[
-                            {
-                                code: "Masculino",
-                                optionLabel: 'Masculino',
-                            },
-                            {
-                                code: "Masculino",
-                                optionLabel: 'Feminino',
-                            }
-                        ]}
-                        variant='outlined'
-                    />
-                </Grid>
-                <Grid item xs={3}>
-                    <CustomTextField
-                        required
-                        name={'age'}
-                        label={SIGNUP.AGE}
-                        field={fields}
-                        variant="outlined"
-                        type='number'
-                    />
-                </Grid>
-            </Grid>
+            <CustomDoubleField>
+                <CustomSelect
+                    required
+                    name={'gender'}
+                    label={SIGNUP.GENDER}
+                    optionmessage={'Selecione um gênero'}
+                    field={fields}
+                    optionsmap={[
+                        {
+                            code: "Masculino",
+                            optionLabel: 'Masculino',
+                        },
+                        {
+                            code: "Masculino",
+                            optionLabel: 'Feminino',
+                        }
+                    ]}
+                    variant='outlined'
+                />
+                <CustomTextField
+                    required
+                    name={'age'}
+                    label={SIGNUP.AGE}
+                    field={fields}
+                    variant="outlined"
+                    type='number'
+                />
+            </CustomDoubleField>
             <CustomTextField
                 required
                 name={'phone'}
@@ -128,11 +124,11 @@ const SignupCustomer = props => {
                 variant="outlined"
             />
 
-            <Grid item xs={12} style={{ textAlign: 'right' }}>
+            <CustomFormActions>
                 <CustomButton variant='outlined' component={Link} to={'/signin'}>Voltar</CustomButton>
                 <CustomButton variant='outlined' onClick={handleSubmit}>Cadastrar-se</CustomButton>
-            </Grid>
-        </SigninBackground>
+            </CustomFormActions>
+        </SigninBackground >
     )
 }
 

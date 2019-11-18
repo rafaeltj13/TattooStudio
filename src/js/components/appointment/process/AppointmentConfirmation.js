@@ -11,7 +11,7 @@ import { getScheduleId } from '../../../store/localStorage';
 import Typography from '@material-ui/core/Typography';
 import CustomButton from '../../custom/button/CustomButton';
 import CustomContainer from '../../custom/pages/CustomContainer';
-import CustomDoubleInput from '../../custom/pages/CustomDoubleInput';
+import CustomDoubleInput from '../../custom/pages/CustomInlineFields';
 import CustomFormActions from '../../custom/pages/CustomFormActions';
 import CustomTypography from '../../custom/typography/CustomTypografy';
 import CustomDatepicker from '../../custom/CustomDatepicker';
@@ -64,8 +64,7 @@ const AppointmentConfirmation = props => {
     useEffect(
         () => {
             if (Object.entries(selectedAppointment).length > 0) {
-                if (typeUser !== USER_TYPES.CUSTOMER) setDisableFields(true);
-                // else if (selectedAppointment.status !== APPOINTMENT.STATUS.VALIDATED) setDisableFields(true);
+                if (typeUser !== USER_TYPES.CUSTOMER || selectedAppointment.status === APPOINTMENT.STATUS.APPROVED) setDisableFields(true);
 
                 renderHours();
             }
@@ -104,7 +103,7 @@ const AppointmentConfirmation = props => {
     );
 
     const renderHours = () => {
-        if(!selectedAppointment.totalDuration || !selectedAppointment.sessions) return
+        if (!selectedAppointment.totalDuration || !selectedAppointment.sessions) return
 
         const interval = Math.round(selectedAppointment.totalDuration / selectedAppointment.sessions);
         availableHoursRequest(selectedArtist._id, values.pickDate, interval);
@@ -168,6 +167,7 @@ const AppointmentConfirmation = props => {
                 label={APPOINTMENT.SELECT_DATE}
                 field={fields}
                 disabled={disableFields}
+                render={() => setRender(!render)}
             />
             <Typography variant="overline" display="block" gutterBottom>Horários Disponíveis</Typography>
             {renderAvailableHours()}

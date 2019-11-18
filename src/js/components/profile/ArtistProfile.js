@@ -26,6 +26,7 @@ const ArtistProfile = props => {
     selectedArtist,
     setLastVisited,
     showTattooList,
+    typeUser,
     match: {
       params: { id },
     }
@@ -35,7 +36,7 @@ const ArtistProfile = props => {
     () => {
       if (id) {
         getSelectedArtist(id);
-        setLastVisited(getId(), id)
+        typeUser !== 'owner' && setLastVisited(getId(), id)
       }
     },
     [id]
@@ -89,18 +90,21 @@ const ArtistProfile = props => {
       </CustomContainerInline>
       <CustomFeaturedWork data={selectedArtist.tattoos} onClick={showTattooList} />
       <Divider />
-      <CustomFormActions>
-        <CustomButton variant='outlined' component={Link} to={`/appointment/create`}>Realizar Agendamento</CustomButton>
-      </CustomFormActions>
-      <TattooList title={TATTOO.AVAILABLE} typeUser={USER_TYPES.ARTIST} idUser={selectedArtist._id} />
+      {typeUser !== 'owner' &&
+        (<CustomFormActions>
+          <CustomButton variant='outlined' component={Link} to={`/appointment/create`}>Realizar Agendamento</CustomButton>
+        </CustomFormActions>
+        )}
+      < TattooList title={TATTOO.AVAILABLE} typeUser={USER_TYPES.ARTIST} idUser={selectedArtist._id} />
     </CustomContainer>
   );
 };
 
-const mapStateToProps = ({ profile }) => ({
+const mapStateToProps = ({ profile, signin }) => ({
   loading: profile.loading,
   error: profile.error,
   selectedArtist: profile.selectedArtist,
+  typeUser: signin.type,
 });
 
 const mapDispatchToProps = dispatch => ({

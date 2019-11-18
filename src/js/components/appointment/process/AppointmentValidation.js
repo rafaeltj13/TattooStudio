@@ -12,7 +12,7 @@ import { validateAppointment } from '../../../utils/utils';
 import CustomButton from '../../custom/button/CustomButton';
 import CustomTextField from '../../custom/textField/CustomTextField';
 import CustomContainer from '../../custom/pages/CustomContainer';
-import CustomDoubleInput from '../../custom/pages/CustomDoubleInput';
+import CustomDoubleInput from '../../custom/pages/CustomInlineFields';
 import CustomFormActions from '../../custom/pages/CustomFormActions';
 import CustomTypography from '../../custom/typography/CustomTypografy';
 

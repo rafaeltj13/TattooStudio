@@ -1,44 +1,49 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { withFormik } from 'formik';
 import { withTheme } from '@material-ui/core';
-import { getArtistsRequest } from '../../actions/profile-actions';
+import { getArtistsRequest, getStudiosRequest } from '../../actions/profile-actions';
 import { createNotification } from '../../actions/notification-actions';
 import CustomContainer from '../custom/pages/CustomContainer';
 import CustomSearchList from '../custom/search/CustomSearchList';
-import CustomTextField from '../custom/textField/CustomTextField';
+import CustomSearchTab from '../custom/search/CustomSearchTab';
+import CustomSearchbar from '../custom/search/CustomSearchBar';
 
 const SearchList = props => {
-    const fields = props;
-    const { artists, getArtists, loading, error } = props;
+    const { artists, getArtists, studios, getStudios } = props;
+
+    const [value, setValue] = React.useState(0);
 
     useEffect(
         () => {
-            getArtists();
+            value === 0 ? getArtists() : getStudios();
         },
-        []
+        [value]
     );
 
     const handleClick = id => {
-        props.history.push(`/profile/artist/${id}`);
-    }
+        props.history.push(`/profile/${value === 0 ? 'artist' : 'studio'}/${id}`);
+    };
+
+    const handleChangeTab = (event, newValue) => {
+        setValue(newValue);
+    };
 
     return (
         <CustomContainer>
-            <CustomTextField
-                name={'search'}
-                label="Pesquisar por tatuador"
-                field={fields}
-                onKeyPress={target => {
-                    if (target.charCode == 13) console.log('Enter clicked!!!')
-                }}
-            />
-            <CustomSearchList
-                type={'artist'}
-                data={artists}
-                handleClick={handleClick}
-            />
+            <CustomSearchbar value={value} />
+            <CustomSearchTab value={value} handleChange={handleChangeTab}>
+                <CustomSearchList
+                    type={'artist'}
+                    data={artists}
+                    handleClick={handleClick}
+                />
+                <CustomSearchList
+                    type={'studio'}
+                    data={studios}
+                    handleClick={handleClick}
+                />
+            </CustomSearchTab>
         </CustomContainer>
     );
 };
@@ -47,27 +52,12 @@ const mapStateToProps = ({ profile }) => ({
     loading: profile.loading,
     error: profile.error,
     artists: profile.artists,
+    studios: profile.studios,
 });
 
 const mapDispatchToProps = dispatch => ({
     getArtists: () => dispatch(getArtistsRequest()),
-    newNotification: payload => dispatch(createNotification(payload))
+    getStudios: () => dispatch(getStudiosRequest()),
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(
-    withRouter(
-        withFormik({
-            mapPropsToValues: () => {
-                return {
-                    search: '',
-                };
-            },
-            handleSubmit: (values, { props }) => {
-                console.log(values)
-            },
-        })(withTheme(SearchList))
-    )
-);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter((withTheme(SearchList))));

@@ -4,6 +4,10 @@ import {
     GET_LAST_VISITED_ARTIST_FAILED,
     GET_FEATURED_ARTISTS_SUCCESS,
     GET_FEATURED_ARTISTS_FAILED,
+    GET_PENDING_ARTISTS_SUCCESS,
+    GET_PENDING_ARTISTS_FAILED,
+    RESPOND_ARTIST_SUCCESS,
+    RESPOND_ARTIST_FAILED,
 } from '../actions/home-actions';
 
 const initialState = {
@@ -11,6 +15,7 @@ const initialState = {
     error: null,
     lastArtistVisited: {},
     featuredArtists: [],
+    pendingArtists: [],
 };
 
 const home = (state = initialState, action) => {
@@ -52,6 +57,36 @@ const home = (state = initialState, action) => {
                 error: action.error,
                 featuredArtists: [],
             };
+
+        case GET_PENDING_ARTISTS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: '',
+                pendingArtists: action.data,
+            };
+
+        case GET_PENDING_ARTISTS_FAILED:
+            return {
+                ...state,
+                loading: false,
+                error: action.error,
+                pendingArtists: [],
+            };
+
+        case RESPOND_ARTIST_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: '',
+            };
+
+        case RESPOND_ARTIST_FAILED:
+            return {
+                ...state,
+                loading: false,
+                error: action.error,
+            }
 
         default:
             return state;

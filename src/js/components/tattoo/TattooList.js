@@ -50,6 +50,8 @@ const TattooList = props => {
     );
 
     const handleClick = (tattooId, imagePath) => {
+        if(!onClick) return;
+        
         onClick(tattooId, imagePath);
         handleClose();
     }

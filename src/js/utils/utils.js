@@ -22,6 +22,46 @@ export const containsDate = (dateList, dateToCheck) => {
 
 export const createDate = () => {
     const newDate = new Date();
-    newDate.setHours(0,0,0,0);
+    newDate.setHours(0, 0, 0, 0);
     return newDate;
 }
+
+export const formatOwner = values => {
+    const studio = {
+        name: values.studioName,
+        address: values.address,
+        phone: values.studioPhone,
+        information: values.information,
+        workTime: {
+            week: {
+                morning: [values.weekMoringStart, values.weekMoringEnd],
+                afternoon: [values.weekAfternoonStart, values.weekAfternoonEnd],
+                night: [values.weekNightStart, values.weekNightEnd]
+            },
+            saturday: {
+                morning: [values.saturdayMoringStart, values.saturdayMoringEnd],
+                afternoon: [values.saturdayAfternoonStart, values.saturdayAfternoonEnd],
+                night: [values.saturdayNightStart, values.saturdayNightEnd]
+            },
+            sunday: {
+                morning: [values.sundayMoringStart, values.sundayMoringEnd],
+                afternoon: [values.sundayAfternoonStart, values.sundayAfternoonEnd],
+                night: [values.sundayNightStart, values.sundayNightEnd]
+            },
+        }
+    };
+
+    const owner = {
+        username: values.username,
+        password: values.password,
+        confirmPassword: values.confirmPassword,
+        name: values.name,
+        email: values.email,
+        phone: values.phone,
+        age: values.age,
+        gender: values.gender,
+        studio: studio,
+    };
+
+    return owner;
+};

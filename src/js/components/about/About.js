@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { withTheme } from '@material-ui/core';
@@ -47,12 +47,16 @@ const About = props => {
                     <ListItemText primary={userDetails.name} secondary={`${userDetails.age}, ${userDetails.gender}`} />
                 </ListItem>
                 <Divider />
-                <ListItem button onClick={showTattooList}>
-                    <ListItemIcon>
-                        <AppsIcon />
-                    </ListItemIcon>
-                    <ListItemText primary={TATTOO.MY_TATTOOS} />
-                </ListItem>
+                {
+                    typeUser !== 'owner' ?
+                        <ListItem button onClick={showTattooList}>
+                            <ListItemIcon>
+                                <AppsIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={TATTOO.MY_TATTOOS} />
+                        </ListItem>
+                        : <Fragment />
+                }
                 <Divider light />
                 <ListItem button onClick={logout}>
                     <ListItemIcon>

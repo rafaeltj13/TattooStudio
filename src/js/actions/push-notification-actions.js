@@ -3,8 +3,6 @@ import { UTILS } from '../utils/constants';
 
 export const PUSH_NOTIFICATION = 'PUSH_NOTIFICATION';
 export const pushNotification = (tokenToNotificate, title, body) => {
-    console.log(tokenToNotificate, title, body)
-    
     const notificationBody = {
         notification: {
             title,

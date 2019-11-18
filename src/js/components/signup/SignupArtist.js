@@ -4,21 +4,28 @@ import { withRouter, Link } from 'react-router-dom';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import { withTheme } from '@material-ui/core';
-import { createUserRequest } from '../../actions/signup-actions';
+import { createUserRequest, getStudiosRequest } from '../../actions/signup-actions';
 import { createNotification } from '../../actions/notification-actions';
 import { SIGNUP, GENERAL } from '../../utils/constants';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import CustomTitleTypography from '../custom/typography/CustomTitleTypography';
 import SigninBackground from '../custom/signin/SigninBackground';
 import CustomTextField from '../custom/textField/CustomOutlinedTextField';
 import CustomButton from '../custom/button/CustomButton';
 import CustomSelect from '../custom/select/CustomOutlinedSelect';
-import CustomDoubleField from '../custom/pages/CustomDoubleInput';
+import CustomDoubleField from '../custom/pages/CustomInlineFields';
+import CustomFormActions from '../custom/pages/CustomFormActions';
 
 const SignupArtist = props => {
     const fields = props;
-    const { isSubmitting, handleSubmit, setSubmitting, loading, error, newNotification } = props;
+    const { isSubmitting, handleSubmit, setSubmitting, loading, error, newNotification, getStudios, studios } = props;
+
+    useEffect(
+        () => {
+            getStudios();
+        },
+        []
+    )
 
     useEffect(
         () => {
@@ -131,38 +138,48 @@ const SignupArtist = props => {
                 variant="outlined"
             />
             <CustomDoubleField>
-            <CustomTextField
-                required
-                name={'experienceYears'}
-                label={SIGNUP.EXPERIENCE_YEARS}
-                field={fields}
-                type='number'
-                variant="outlined"
-            />
-            <CustomTextField
-                required
-                name={'trace'}
-                label={SIGNUP.TRACE}
-                field={fields}
-                variant="outlined"
-            />
+                <CustomTextField
+                    required
+                    name={'experienceYears'}
+                    label={SIGNUP.EXPERIENCE_YEARS}
+                    field={fields}
+                    type='number'
+                    variant="outlined"
+                />
+                <CustomTextField
+                    required
+                    name={'trace'}
+                    label={SIGNUP.TRACE}
+                    field={fields}
+                    variant="outlined"
+                />
             </CustomDoubleField>
+            <CustomSelect
+                name={'studio'}
+                label={SIGNUP.STUDIO}
+                optionmessage={'Selecione um estúdio'}
+                field={fields}
+                optionsmap={studios}
+                variant='outlined'
+            />
 
-            <Grid item xs={12} style={{ textAlign: 'right' }}>
+            <CustomFormActions>
                 <CustomButton variant='outlined' component={Link} to={'/signin'}>Voltar</CustomButton>
                 <CustomButton variant='outlined' onClick={handleSubmit}>Cadastrar-se</CustomButton>
-            </Grid>
-        </SigninBackground>
+            </CustomFormActions>
+        </SigninBackground >
     );
 };
 
 const mapStateToProps = ({ signup }) => ({
     loading: signup.loading,
     error: signup.error,
+    studios: signup.studios,
 });
 
 const mapDispatchToProps = dispatch => ({
     createUser: (artistBody, type) => dispatch(createUserRequest(artistBody, type)),
+    getStudios: () => dispatch(getStudiosRequest()),
     newNotification: payload => dispatch(createNotification(payload))
 });
 
@@ -185,6 +202,7 @@ export default connect(
                     specialty: '',
                     experienceYears: '',
                     trace: '',
+                    studio: '',
                 };
             },
             validationSchema: () =>
