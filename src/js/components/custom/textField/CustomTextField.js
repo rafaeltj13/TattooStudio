@@ -53,7 +53,6 @@ const CustomTextField = ({ classes, classStyle, ...props }) => {
                         root: classStyle ? classStyle.root : classes.input,
                         input: classStyle ? classStyle.input : classes.input,
                         disabled: classes.disabledInput,
-
                     },
                 }}
                 InputLabelProps={

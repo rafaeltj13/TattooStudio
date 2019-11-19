@@ -32,14 +32,15 @@ const Home = props => {
         respondArtist,
     } = props;
 
-    const [renderArtistList, setRenderArtistList] = useState(false);
+    const [render, setRender] = useState(false);
 
     useEffect(
         () => {
             getFeaturedArtists(typeUser);
-            typeUser === 'owner' ? getPendingArtists() : getLastVisitedArtist();
+            if (typeUser === 'owner') getPendingArtists();
+            else if (typeUser === 'customer') getLastVisitedArtist();
         },
-        [renderArtistList]
+        []
     );
 
     useEffect(
@@ -63,7 +64,6 @@ const Home = props => {
 
     const respondPendingArtist = (response, artistId) => {
         respondArtist({ response, artistId })
-        setRenderArtistList(!renderArtistList);
     }
 
     const renderLastVisited = () => {

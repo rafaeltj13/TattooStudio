@@ -54,7 +54,7 @@ const ArtistProfile = props => {
       </Grid>
       <CustomContainerInline>
         <Typography variant="overline" gutterBottom>
-          {selectedArtist.studio ? selectedArtist.studio : 'Não possui estúdio'}
+          {selectedArtist.studio ? selectedArtist.studio.name : 'Não possui estúdio'}
         </Typography>
       </CustomContainerInline>
       <CustomContainerInline>
@@ -63,7 +63,7 @@ const ArtistProfile = props => {
         </Typography>
         <StarIcon fontSize='small' />
         <Typography variant="overline" gutterBottom>
-          {selectedArtist.rating}
+          {selectedArtist.rating && selectedArtist.rating.value || 'Sem avaliação'}
         </Typography>
       </CustomContainerInline>
       <CustomContainerInline>

@@ -23,7 +23,7 @@ const TattooForm = props => {
         isSubmitting,
         handleSubmit,
         setSubmitting,
-        values, 
+        values,
         newTattoo,
         loading,
         error,
@@ -31,7 +31,20 @@ const TattooForm = props => {
         open,
         tattooDialog,
         setAppointment,
+        art,
+        setValues,
     } = props;
+
+    useEffect(
+        () => {
+            setValues({
+                imageBase64: '',
+                size: '',
+                place: '',
+            })
+        },
+        [open]
+    );
 
     useEffect(
         () => {
@@ -63,7 +76,7 @@ const TattooForm = props => {
 
     return (
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">{TATTOO.TITLE}</DialogTitle>
+            <DialogTitle id="form-dialog-title">{art ? 'Escolher imagem' : TATTOO.TITLE}</DialogTitle>
             <DialogContent>
                 <CustomFileField
                     required
@@ -87,7 +100,7 @@ const TattooForm = props => {
             </DialogContent>
             <DialogActions>
                 <CustomButton variant='contained' onClick={handleClose}>Cancelar</CustomButton>
-                <CustomButton variant='contained' onClick={handleSubmit}>Criar Tatuagem</CustomButton>
+                <CustomButton variant='contained' onClick={handleSubmit}>{art ? 'Escolher' : 'Criar Tatuagem'}</CustomButton>
             </DialogActions>
         </Dialog>
     );

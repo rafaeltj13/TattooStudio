@@ -56,6 +56,7 @@ export const APPOINTMENT = {
         REVIEWED:'reviewed',
         APPROVED: 'approved',
         FINISHED: 'finished',
+        EVALUATED: 'evaluated',
     },
     TOTAL_DURATION: 'Duração total',
     SESSIONS: 'Número de seções',

@@ -130,7 +130,7 @@ export const editAppointmentRequest = (appointmentId, appointmentBody) => {
     return dispatch => {
         dispatch(appointmentAsyncRequestStarted());
 
-        Api.patch(`/appointments/${appointmentId}`, appointmentBody)
+        return Api.patch(`/appointments/${appointmentId}`, appointmentBody)
             .then(({ data }) => {
                 dispatch(editAppointmentSuccess(data))
             })

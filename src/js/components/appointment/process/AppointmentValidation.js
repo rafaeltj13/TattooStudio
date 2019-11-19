@@ -50,7 +50,6 @@ const AppointmentValidation = props => {
         () => {
             if (selectedAppointment) {
                 if (typeUser !== USER_TYPES.ARTIST) setDisableFields(true);
-                // else if (selectedAppointment.status !== APPOINTMENT.STATUS.CREATED) setDisableFields(true);
             }
         },
         [selectedAppointment],

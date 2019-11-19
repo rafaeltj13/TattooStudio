@@ -106,7 +106,7 @@ const personalDataStep = fields => (
 
 const workTimeStep = fields => (
     <Fragment>
-        <CustomTitleTypography variant="h6">{SIGNUP.STUDIO_WORKTIME}</CustomTitleTypography>
+        <CustomTitleTypography variant="h6" style={{ marginTop: 0 }}>{SIGNUP.STUDIO_WORKTIME}</CustomTitleTypography>
         <Typography variant="body1">{SIGNUP.STUDIO_WORKTIME_WEEK}</Typography>
         <CustomDoubleField>
             <CustomTextField
@@ -150,7 +150,7 @@ const workTimeStep = fields => (
                 variant="outlined"
             />
         </CustomDoubleField>
-        <Typography variant="body1">{SIGNUP.STUDIO_WORKTIME_SATURDAY}</Typography>
+        <Typography variant="body1" style={{ marginTop: 24 }}>{SIGNUP.STUDIO_WORKTIME_SATURDAY}</Typography>
         <CustomDoubleField>
             <CustomTextField
                 name={'saturdayMoringStart'}
@@ -193,7 +193,7 @@ const workTimeStep = fields => (
                 variant="outlined"
             />
         </CustomDoubleField>
-        <Typography variant="body1">{SIGNUP.STUDIO_WORKTIME_SUNDAY}</Typography>
+        <Typography variant="body1" style={{ marginTop: 24 }}>{SIGNUP.STUDIO_WORKTIME_SUNDAY}</Typography>
         <CustomDoubleField>
             <CustomTextField
                 name={'sundayMoringStart'}

@@ -73,7 +73,7 @@ const Signin = props => {
     };
 
     return (
-        <SigninBackground>
+        <SigninBackground signin>
             <Typography variant="h4" style={{ textAlign: 'center' }}>
                 {SIGNIN.TITLE}
             </Typography>

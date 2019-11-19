@@ -169,3 +169,30 @@ export const getSelectedStudioRequest = studioId => {
             });
     };
 };
+
+export const RATE_ARTIST_SUCCESS = 'RATE_ARTIST_SUCCESS';
+export const rateArtistSuccess = data => ({
+    type: RATE_ARTIST_SUCCESS,
+    data
+});
+
+export const RATE_ARTIST_FAILED = 'RATE_ARTIST_FAILED';
+export const rateArtistFailed = error => ({
+    type: RATE_ARTIST_FAILED,
+    error
+});
+
+export const RATE_ARTIST_REQUEST = 'GET_SELECTED_STUDIO_REQUEST';
+export const rateArtistRequest = (artistId, rating) => {
+    return dispath => {
+        dispath(profileAsyncRequestStarted());
+
+        Api.patch(`artists/${artistId}/rate`, { rating })
+            .then(({ data }) => {
+                dispath(getSelectedStudioSuccess(data))
+            })
+            .catch(({ message }) => {
+                dispath(getSelectedStudioFailed(message))
+            });
+    };
+};

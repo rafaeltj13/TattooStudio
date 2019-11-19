@@ -21,6 +21,8 @@ const styles = thisTheme => ({
 const CustomSearchItem = ({ classes, type, value, handleClick, ...props }) => {
     const renderIcon = type === 'owner' ? <WorkIcon /> : <PersonIcon />;
 
+    const ratingValue = typeof value.rating === 'number' ? value.rating : (value.rating && value.rating.value) ? value.rating.value : undefined;
+
     return (
         <ListItem button onClick={() => handleClick(value._id)}>
             <Avatar>
@@ -35,7 +37,7 @@ const CustomSearchItem = ({ classes, type, value, handleClick, ...props }) => {
                         className={classes.inline}
                         color="textPrimary"
                     >
-                        {value.rating} - {type === 'artist' ? value.specialty : ''}
+                        {ratingValue || 'Sem Avaliação'} {type === 'artist' ? `- ${value.specialty || ''}` : ''}
                     </Typography>
 
                 </React.Fragment>

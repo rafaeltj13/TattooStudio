@@ -38,6 +38,13 @@ const AppointmentForm = props => {
 
     useEffect(
         () => {
+            setAppointment({});
+        },
+        []
+    );
+
+    useEffect(
+        () => {
             if (!loading) {
                 if (isSubmitting) {
                     setSubmitting(false);
@@ -66,7 +73,7 @@ const AppointmentForm = props => {
     }
 
     const selectTattoo = (tattooId, imageBase64) => {
-        setAppointment({ tattoo: tattooId, imageBase64 })
+        setAppointment({ tattoo: tattooId, imageBase64 });
     }
 
     const renderForm = () => {
@@ -100,7 +107,16 @@ const AppointmentForm = props => {
                 </React.Fragment>
             );
         }
-        else if (values.type === 'art') return /*<ArtForm />*/(<div></div>)
+        else if (values.type === 'art') {
+            return (
+                <React.Fragment>
+                    <TattooForm appointment art />
+                    <CustomFormActions>
+                        <CustomButton width variant='outlined' onClick={() => tattooDialog(true)}>Escolher imagem</CustomButton>
+                    </CustomFormActions>
+                </React.Fragment>
+            )
+        }
         else return (<div></div>);
     }
 

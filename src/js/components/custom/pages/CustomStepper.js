@@ -12,6 +12,9 @@ const styles = {
     textColor: {
         '& span': {
             color: theme.palette.primary.light,
+        },
+        '& span > span': {
+            color: theme.palette.primary.light,
         }
     }
 };
@@ -38,7 +41,7 @@ const CustomStepper = ({ classes, activeStep, steps, ...props }) => {
             <Stepper className={classes.root} activeStep={activeStep} alternativeLabel>
                 {steps.map(label => (
                     <Step key={label}>
-                        <StepLabel className={classes.textColor}>{label}</StepLabel>
+                        <StepLabel className={classes.textColor} style={{ textColor: 'white' }}>{label}</StepLabel>
                     </Step>
                 ))}
             </Stepper>

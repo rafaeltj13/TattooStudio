@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core';
 import CustomContainer from '../pages/CustomContainer';
 
@@ -20,11 +21,13 @@ const styles = theme => ({
         maxWidth: '750px',
         height: '100vh',
         color: theme.palette.primary.light,
+        overflow: 'auto',
+    },
+    alignCenter: {
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        overflow: 'auto',
     },
     content: {
         textAlign: 'center',
@@ -33,7 +36,7 @@ const styles = theme => ({
 
 const SigninBackground = props => (
     <div className={props.classes.background}>
-        <div className={props.classes.backgroundImg}>
+        <div className={props.signin ? classNames(props.classes.backgroundImg, props.classes.alignCenter) : props.classes.backgroundImg}>
             <CustomContainer className={props.classes.content}>
                 {props.children}
             </CustomContainer>

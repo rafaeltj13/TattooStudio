@@ -57,17 +57,17 @@ const StudioProfile = props => {
                 </Typography>
                 <StarIcon fontSize='small' />
                 <Typography variant="overline" gutterBottom>
-                    {selectedStudio.rating || '-'}
+                    {selectedStudio.rating || 'Sem avaliação'}
                 </Typography>
             </CustomContainerInline>
             <CustomContainerInline>
                 <Typography variant="overline" gutterBottom>
-                    {selectedStudio.address}
+                    Endereço: {selectedStudio.address}
                 </Typography>
             </CustomContainerInline>
             <CustomContainerInline>
                 <Typography variant="overline" gutterBottom>
-                    {selectedStudio.phone}
+                    Telefone: {selectedStudio.phone}
                 </Typography>
             </CustomContainerInline>
             <CustomContainerInline>

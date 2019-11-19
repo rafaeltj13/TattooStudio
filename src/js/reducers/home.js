@@ -79,6 +79,7 @@ const home = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: '',
+                featuredArtists: action.data,
             };
 
         case RESPOND_ARTIST_FAILED:
@@ -86,6 +87,7 @@ const home = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: action.error,
+                featuredArtists: [],
             }
 
         default:

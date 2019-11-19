@@ -12,6 +12,8 @@ import {
     GET_STUDIOS_FAILED,
     GET_SELECTED_STUDIO_SUCCESS,
     GET_SELECTED_STUDIO_FAILED,
+    RATE_ARTIST_SUCCESS,
+    RATE_ARTIST_FAILED,
 } from '../actions/profile-actions';
 
 const initialState = {
@@ -132,6 +134,13 @@ const search = (state = initialState, action) => {
                 error: action.error,
                 selectedStudio: {},
                 selectedArtist: {},
+            };
+
+        case RATE_ARTIST_SUCCESS:
+        case RATE_ARTIST_FAILED:
+            return {
+                ...state,
+                loading: false,
             };
 
         default:

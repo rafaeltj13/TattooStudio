@@ -5,6 +5,10 @@ import theme from '../../../utils/theme';
 
 const styles = thisTheme => ({
     root: {
+        '& select': {
+            borderColor: theme.palette.primary.light,
+            borderWidth: 2,
+        },
         '& select:valid + fieldset': {
             borderColor: theme.palette.primary.light,
             borderWidth: 2,
@@ -50,7 +54,10 @@ const CustomOutlinedSelectField = ({ classes, ...props }) => {
                 {...props}
                 classStyle={{ input: classes.input, root: classes.root }}
                 InputLabelProps={{
-                    className: classes.floatingLabelFocusStyle,
+                    classes: {
+                        root: classes.floatingLabelFocusStyle,
+                        input: classes.floatingLabelFocusStyle,
+                    }
                 }}
                 variant="outlined"
                 InputProps={{
@@ -59,7 +66,6 @@ const CustomOutlinedSelectField = ({ classes, ...props }) => {
                         root: classes.input,
                         input: classes.input,
                         disabled: classes.disabledInput,
-
                     },
                 }}
             />
