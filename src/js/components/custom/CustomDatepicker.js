@@ -24,7 +24,7 @@ const myTheme = createMuiTheme({
 });
 
 const CustomDatepicker = ({ classes, ...props }) => {
-    const { field, name, label, disabled } = props;
+    const { field, name, label, disabled, render } = props;
 
     const [selectedDate, setSelectedDate] = React.useState(field.values[name]);
 
@@ -39,6 +39,7 @@ const CustomDatepicker = ({ classes, ...props }) => {
         date.setHours(0,0,0,0);
         field.values[name] = date;
         setSelectedDate(date);
+        render && render();
     };
 
     return (

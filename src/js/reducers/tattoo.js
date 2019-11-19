@@ -2,17 +2,19 @@ import {
     TATTOO_ASYNC_REQUEST_STARTED,
     SHOW_TATTOO_DIALOG,
     CREATE_TATTOO_SUCCESS,
-    CREATE_TATTOO_FAILED
+    CREATE_TATTOO_FAILED,
+    SHOW_TATTOO_LIST_DIALOG,
 } from '../actions/tattoo-actions';
 
 const initialState = {
     loading: false,
     error: null,
     openForm: false,
-    tattoo: {}
+    openList: false,
+    tattoo: {},
 };
 
-const appointment = (state = initialState, action) => {
+const tattoo = (state = initialState, action) => {
     switch (action.type) {
         case TATTOO_ASYNC_REQUEST_STARTED:
             return {
@@ -23,7 +25,7 @@ const appointment = (state = initialState, action) => {
         case SHOW_TATTOO_DIALOG:
             return {
                 ...state,
-                openForm: action.show
+                openForm: action.show,
             }
 
         case CREATE_TATTOO_SUCCESS:
@@ -31,7 +33,7 @@ const appointment = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: '',
-                tattoo: action.data
+                tattoo: action.data,
             };
 
         case CREATE_TATTOO_FAILED:
@@ -41,9 +43,16 @@ const appointment = (state = initialState, action) => {
                 error: action.error,
             };
 
+        case SHOW_TATTOO_LIST_DIALOG:
+            return {
+                ...state,
+                openList: action.show,
+            };
+
+
         default:
             return state;
     }
 };
 
-export default appointment;
+export default tattoo;

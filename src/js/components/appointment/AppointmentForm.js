@@ -1,24 +1,47 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
-import Image from 'material-ui-image'
+import Image from 'material-ui-image';
 import { withTheme } from '@material-ui/core';
-import { createAppointmentRequest } from '../../actions/appointment-actions';
-import { showTattooDialog } from '../../actions/tattoo-actions';
+import { createAppointmentRequest, setAppointmentData } from '../../actions/appointment-actions';
+import { showTattooDialog, showTattooListDialog } from '../../actions/tattoo-actions';
 import { createNotification } from '../../actions/notification-actions';
-import { APPOINTMENT, GENERAL } from '../../utils/constants';
+import { getId } from '../../store/localStorage';
+import { APPOINTMENT, TATTOO, GENERAL, USER_TYPES, UTILS } from '../../utils/constants';
 import CustomDatepicker from '../custom/CustomDatepicker';
-import CustomButton from '../custom/CustomButton';
-import CustomSelect from '../custom/CustomSelect';
+import CustomButton from '../custom/button/CustomButton';
+import CustomSelect from '../custom/select/CustomSelect';
 import CustomContainer from '../custom/pages/CustomContainer';
-import CustomFormActions from '../custom/pages/CustomFormActions'
+import CustomFormActions from '../custom/pages/CustomFormActions';
 import TattooForm from '../tattoo/TattooForm';
+import TattooList from '../tattoo/TattooList';
 
 const AppointmentForm = props => {
     const fields = props;
-    const { isSubmitting, handleSubmit, setSubmitting, loading, error, newNotification, values, tattooDialog, selectedAppointment } = props;
+    const {
+        isSubmitting,
+        handleSubmit,
+        setSubmitting,
+        loading,
+        error,
+        newNotification,
+        values,
+        tattooDialog,
+        selectedAppointment,
+        tattooListDialog,
+        setAppointment,
+    } = props;
+
+    const [searchUserDetails, setSearchUserDetails] = useState({ title: '', typeUser: '', idUser: '' })
+
+    useEffect(
+        () => {
+            setAppointment({});
+        },
+        []
+    );
 
     useEffect(
         () => {
@@ -43,11 +66,24 @@ const AppointmentForm = props => {
         [loading, error]
     );
 
+    const showTestList = (title, typeUser, idUser) => {
+        setSearchUserDetails({ title, typeUser, idUser });
+
+        tattooListDialog();
+    }
+
+    const selectTattoo = (tattooId, imageBase64) => {
+        setAppointment({ tattoo: tattooId, imageBase64 });
+    }
+
     const renderForm = () => {
         if (selectedAppointment.imageBase64) {
+            const src = selectedAppointment.imageBase64.split(":")[0] === 'data' ?
+                selectedAppointment.imageBase64 : `${UTILS.apiUrl}/${selectedAppointment.imageBase64}`;
+
             return (
                 <CustomFormActions>
-                    <Image src={selectedAppointment.imageBase64} />
+                    <Image src={src} />
                     <CustomButton variant='outlined' onClick={handleSubmit} width>Solicitar</CustomButton>
                 </CustomFormActions >
             );
@@ -57,14 +93,30 @@ const AppointmentForm = props => {
             return (
                 <React.Fragment>
                     <TattooForm appointment />
+                    <TattooList
+                        title={searchUserDetails.title}
+                        typeUser={searchUserDetails.typeUser}
+                        idUser={searchUserDetails.idUser}
+                        onClick={selectTattoo}
+                    />
                     <CustomFormActions>
-                        <CustomButton variant='outlined' onClick={() => { }}>Escolher Tatuagem</CustomButton>
-                        <CustomButton variant='outlined' onClick={() => tattooDialog(true)}>Criar nova Tatuagem</CustomButton>
+                        <CustomButton width variant='outlined' onClick={() => showTestList(TATTOO.AVAILABLE, USER_TYPES.ARTIST, props.artistId)}>Tatuagens do tatuador</CustomButton>
+                        <CustomButton width variant='outlined' onClick={() => showTestList(TATTOO.MY_TATTOOS, USER_TYPES.CUSTOMER, getId())}> Escolher minha tatuagem</CustomButton>
+                        <CustomButton width variant='outlined' onClick={() => tattooDialog(true)}>Criar nova tatuagem</CustomButton>
                     </CustomFormActions>
                 </React.Fragment>
             );
         }
-        else if (values.type === 'art') return /*<ArtForm />*/(<div></div>)
+        else if (values.type === 'art') {
+            return (
+                <React.Fragment>
+                    <TattooForm appointment art />
+                    <CustomFormActions>
+                        <CustomButton width variant='outlined' onClick={() => tattooDialog(true)}>Escolher imagem</CustomButton>
+                    </CustomFormActions>
+                </React.Fragment>
+            )
+        }
         else return (<div></div>);
     }
 
@@ -72,6 +124,7 @@ const AppointmentForm = props => {
         <CustomContainer>
             <CustomDatepicker
                 required
+                disabled
                 name={'appointmentDate'}
                 label={APPOINTMENT.SELECT_DATE}
                 field={fields}
@@ -90,7 +143,7 @@ const AppointmentForm = props => {
                     },
                     {
                         code: "art",
-                        optionLabel: 'Criar arte',
+                        optionLabel: 'Arte',
                     }
                 ]}
             />
@@ -99,16 +152,20 @@ const AppointmentForm = props => {
     );
 };
 
-const mapStateToProps = ({ appointment, signin }) => ({
+const mapStateToProps = ({ appointment, signin, profile }) => ({
     loading: appointment.loading,
     error: appointment.error,
     selectedAppointment: appointment.selectedAppointment,
-    idUser: signin.idUser
+    idUser: signin.idUser,
+    artistId: profile.selectedArtist._id,
+    tokenToNotificate: profile.selectedArtist.notificationToken,
 });
 
 const mapDispatchToProps = dispatch => ({
-    createAppointment: appointmentBody => dispatch(createAppointmentRequest(appointmentBody)),
-    tattooDialog: show => dispatch(showTattooDialog(show)),
+    createAppointment: (appointmentBody, tokenToNotificate) => dispatch(createAppointmentRequest(appointmentBody, tokenToNotificate)),
+    tattooDialog: () => dispatch(showTattooDialog(true)),
+    tattooListDialog: () => dispatch(showTattooListDialog(true)),
+    setAppointment: tattoo => dispatch(setAppointmentData(tattoo)),
     newNotification: payload => dispatch(createNotification(payload))
 });
 
@@ -118,13 +175,11 @@ export default connect(
 )(
     withRouter(
         withFormik({
-            mapPropsToValues: () => {
-                return {
-                    artist: '5db48d05f530f13bc8d55fb7',
-                    appointmentDate: new Date(),
-                    type: '',
-                };
-            },
+            mapPropsToValues: props => ({
+                artist: props.artistId,
+                appointmentDate: new Date(),
+                type: '',
+            }),
             validationSchema: () =>
                 Yup.object().shape({
                     appointmentDate: Yup.date().required(GENERAL.REQUIRED_FIELD),
@@ -135,9 +190,9 @@ export default connect(
                 props.createAppointment({
                     ...values,
                     customer: props.idUser,
-                    tattoo: props.selectedAppointment.id,
-                    status: APPOINTMENT.STATUS.CREATED
-                })
+                    tattoo: props.selectedAppointment.tattoo,
+                    status: APPOINTMENT.STATUS.CREATED,
+                }, props.tokenToNotificate);
             },
         })(withTheme(AppointmentForm))
     )

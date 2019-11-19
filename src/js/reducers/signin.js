@@ -4,8 +4,9 @@ import {
     SIGNIN_FAILED,
     SIGNOUT,
     CHANGE_SIGNIN_TYPE,
+    SET_TOKEN_PUSH_NOTIFICATIONS_SUCCESS,
+    SET_TOKEN_PUSH_NOTIFICATIONS_FAILED,
 } from '../actions/signin-actions';
-
 import { saveState } from '../store/localStorage';
 
 const initialState = {
@@ -15,7 +16,8 @@ const initialState = {
     idUser: '',
     sessionToken: null,
     type: 'customer',
-    scheduleId: ''
+    scheduleId: '',
+    pushNotificationToken: '',
 };
 
 const signin = (state = initialState, action) => {
@@ -33,7 +35,7 @@ const signin = (state = initialState, action) => {
                 idUser: action.data.id,
                 type: action.data.type,
                 scheduleId: action.data.scheduleId
-            })
+            });
 
             return {
                 ...state,
@@ -62,7 +64,8 @@ const signin = (state = initialState, action) => {
                 username: '',
                 idUser: '',
                 type: 'customer',
-            })
+                scheduleId: ''
+            });
 
             return {
                 ...state,
@@ -78,6 +81,22 @@ const signin = (state = initialState, action) => {
             return {
                 ...state,
                 type: action.newType
+            }
+
+        case SET_TOKEN_PUSH_NOTIFICATIONS_SUCCESS:
+            return {
+                ...state,
+                pushNotificationToken: action.token,
+                loading: false,
+                error: '',
+            }
+
+        case SET_TOKEN_PUSH_NOTIFICATIONS_FAILED:
+            return {
+                ...state,
+                pushNotificationToken: '',
+                loading: false,
+                error: action.error,
             }
 
         default:

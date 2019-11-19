@@ -16,12 +16,19 @@ import { SIGNIN, GENERAL, USER_TYPES } from '../../utils/constants';
 import LinkUi from '@material-ui/core/Link';
 import SigninBackground from '../custom/signin/SigninBackground';
 import CustomTextField from '../custom/textField/CustomOutlinedTextField';
-import CustomButton from '../custom/CustomButton';
+import CustomButton from '../custom/button/CustomButton';
 import CustomFormActions from '../custom/pages/CustomFormActions';
 
 const Signin = props => {
     const fields = props;
     const { isSubmitting, handleSubmit, setSubmitting, newNotification, newSigninType, loading, error, type } = props;
+
+    useEffect(
+        () => {
+            newSigninType('customer')
+        },
+        []
+    )
 
     useEffect(
         () => {
@@ -66,9 +73,9 @@ const Signin = props => {
     };
 
     return (
-        <SigninBackground>
-            <Typography variant="h4">
-                Bem vindo!
+        <SigninBackground signin>
+            <Typography variant="h4" style={{ textAlign: 'center' }}>
+                {SIGNIN.TITLE}
             </Typography>
             <CustomTextField
                 required

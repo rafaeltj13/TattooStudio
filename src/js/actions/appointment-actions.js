@@ -1,5 +1,7 @@
 import Api from '../services/api';
-import { getScheduleId } from '../store/localStorage';
+import { getid, getScheduleId, getId } from '../store/localStorage';
+import { pushNotification } from '../actions/push-notification-actions';
+import { PUSH_NOTIFICATIONS } from '../utils/constants';
 
 export const APPOINTMENT_ASYNC_REQUEST_STARTED = 'APPOINTMENT_ASYNC_REQUEST_STARTED';
 export const appointmentAsyncRequestStarted = () => ({
@@ -19,13 +21,16 @@ export const createAppointmentFailed = error => ({
 });
 
 export const CREATE_APPOINTMENT_REQUEST = 'CREATE_TATTOO_REQUEST';
-export const createAppointmentRequest = appointmentBody => {
+export const createAppointmentRequest = (appointmentBody, tokenToNotificate) => {
     return dispath => {
         dispath(appointmentAsyncRequestStarted());
 
         Api.post('appointments', appointmentBody)
             .then(({ data }) => {
                 dispath(createAppointmentSuccess(data))
+                pushNotification(tokenToNotificate,
+                    PUSH_NOTIFICATIONS.CREATE_APPOINTMENT.TITLE,
+                    PUSH_NOTIFICATIONS.CREATE_APPOINTMENT.BODY)
             })
             .catch(({ message }) => {
                 dispath(createAppointmentFailed(message))
@@ -53,6 +58,21 @@ export const getAppointmentsRequest = () => {
         Api.get(`/schedules/${getScheduleId()}`)
             .then(({ data }) => {
                 dispath(getAppointmentsSuccess(data.appointments))
+            })
+            .catch(({ message }) => {
+                dispath(getAppointmentsFailed(message))
+            });
+    };
+};
+
+export const GET_STUDIO_APPOINTMENTS_REQUEST = 'GET_STUDIO_APPOINTMENTS_REQUEST';
+export const getStudioAppointmentsRequest = () => {
+    return dispath => {
+        dispath(appointmentAsyncRequestStarted());
+
+        Api.get(`/owners/${getId()}/studioAppointments`)
+            .then(({ data }) => {
+                dispath(getAppointmentsSuccess(data))
             })
             .catch(({ message }) => {
                 dispath(getAppointmentsFailed(message))
@@ -110,7 +130,7 @@ export const editAppointmentRequest = (appointmentId, appointmentBody) => {
     return dispatch => {
         dispatch(appointmentAsyncRequestStarted());
 
-        Api.patch(`/appointments/${appointmentId}`, appointmentBody)
+        return Api.patch(`/appointments/${appointmentId}`, appointmentBody)
             .then(({ data }) => {
                 dispatch(editAppointmentSuccess(data))
             })

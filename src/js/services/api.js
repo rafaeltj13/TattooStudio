@@ -2,7 +2,6 @@ import axios from 'axios';
 import { getToken } from './auth';
 import { UTILS } from '../utils/constants';
 
-// const url = `${process.env.REACT_APP_LOGIN_URL}:${process.env.REACT_APP_LOGIN_PORT}`;
 const url = `${UTILS.apiUrl}/`
 
 const Api = axios.create({

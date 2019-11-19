@@ -1,7 +1,8 @@
 import React from 'react';
 import { createMuiTheme, MenuItem, MuiThemeProvider, withStyles } from '@material-ui/core';
-import theme from '../../utils/theme';
-import CustomTextField from './textField/CustomTextField';
+import theme from '../../../utils/theme';
+import CustomTextField from '../textField/CustomTextField';
+import CustomOutlinedTextField from '../textField/CustomOutlinedTextField';
 import FormControl from '@material-ui/core/FormControl/index';
 
 const styles = {
@@ -33,7 +34,9 @@ const myTheme = createMuiTheme({
 });
 
 const CustomSelect = ({ classes, ...props }) => {
-  const { field, name, required, optionsmap } = props;
+  const { field, name, required, optionsmap, variant } = props;
+
+  const TextField = variant === 'outlined' ? CustomOutlinedTextField : CustomTextField;
 
   return (
     <MuiThemeProvider theme={myTheme}>
@@ -42,9 +45,9 @@ const CustomSelect = ({ classes, ...props }) => {
         required={required}
         error={Boolean(field.touched[name] && field.errors[name])}
       >
-        <CustomTextField
-          select
+        <TextField
           {...props}
+          select
           SelectProps={{
             MenuProps: {
               className: classes.menu,
@@ -60,7 +63,7 @@ const CustomSelect = ({ classes, ...props }) => {
               {customLabel || optionLabel}
             </MenuItem>
           ))}
-        </CustomTextField>
+        </TextField>
       </FormControl>
     </MuiThemeProvider>
   );

@@ -4,19 +4,28 @@ import { withRouter, Link } from 'react-router-dom';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import { withTheme } from '@material-ui/core';
-import { createUserRequest } from '../../actions/signup-actions';
+import { createUserRequest, getStudiosRequest } from '../../actions/signup-actions';
 import { createNotification } from '../../actions/notification-actions';
 import { SIGNUP, GENERAL } from '../../utils/constants';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import CustomTitleTypography from '../custom/typography/CustomTitleTypography';
 import SigninBackground from '../custom/signin/SigninBackground';
 import CustomTextField from '../custom/textField/CustomOutlinedTextField';
-import CustomButton from '../custom/CustomButton';
-import CustomSelect from '../custom/CustomSelect';
+import CustomButton from '../custom/button/CustomButton';
+import CustomSelect from '../custom/select/CustomOutlinedSelect';
+import CustomDoubleField from '../custom/pages/CustomInlineFields';
+import CustomFormActions from '../custom/pages/CustomFormActions';
 
 const SignupArtist = props => {
     const fields = props;
-    const { isSubmitting, handleSubmit, setSubmitting, loading, error, newNotification } = props;
+    const { isSubmitting, handleSubmit, setSubmitting, loading, error, newNotification, getStudios, studios } = props;
+
+    useEffect(
+        () => {
+            getStudios();
+        },
+        []
+    )
 
     useEffect(
         () => {
@@ -49,24 +58,26 @@ const SignupArtist = props => {
                 field={fields}
                 variant="outlined"
             />
-            <CustomTextField
-                required
-                name={'password'}
-                label={SIGNUP.PASSWORD}
-                field={fields}
-                variant="outlined"
-                type='password'
-            />
-            <CustomTextField
-                required
-                name={'confirmPassword'}
-                label={SIGNUP.CONFIRM_PASSWORD}
-                field={fields}
-                variant="outlined"
-                type='password'
-            />
+            <CustomDoubleField>
+                <CustomTextField
+                    required
+                    name={'password'}
+                    label={SIGNUP.PASSWORD}
+                    field={fields}
+                    variant="outlined"
+                    type='password'
+                />
+                <CustomTextField
+                    required
+                    name={'confirmPassword'}
+                    label={SIGNUP.CONFIRM_PASSWORD}
+                    field={fields}
+                    variant="outlined"
+                    type='password'
+                />
+            </CustomDoubleField>
 
-            <Typography variant="h6">{SIGNUP.USER_INFORMATION}</Typography>
+            <CustomTitleTypography variant="h6">{SIGNUP.USER_INFORMATION}</CustomTitleTypography>
             <CustomTextField
                 required
                 name={'name'}
@@ -82,38 +93,6 @@ const SignupArtist = props => {
                 variant="outlined"
                 type='email'
             />
-            <Grid container>
-                <Grid item xs={9}>
-                    <CustomSelect
-                        required
-                        name={'gender'}
-                        label={SIGNUP.GENDER}
-                        optionmessage={'Selecione um gênero'}
-                        field={fields}
-                        optionsmap={[
-                            {
-                                code: 1,
-                                optionLabel: 'Masculino',
-                            },
-                            {
-                                code: 2,
-                                optionLabel: 'Feminino',
-                            }
-                        ]}
-                        variant='outlined'
-                    />
-                </Grid>
-                <Grid item xs={3}>
-                    <CustomTextField
-                        required
-                        name={'age'}
-                        label={SIGNUP.AGE}
-                        field={fields}
-                        variant="outlined"
-                        type='number'
-                    />
-                </Grid>
-            </Grid>
             <CustomTextField
                 required
                 name={'phone'}
@@ -121,22 +100,86 @@ const SignupArtist = props => {
                 field={fields}
                 variant="outlined"
             />
+            <CustomDoubleField>
+                <CustomTextField
+                    required
+                    name={'age'}
+                    label={SIGNUP.AGE}
+                    field={fields}
+                    variant="outlined"
+                    type='number'
+                />
+                <CustomSelect
+                    required
+                    name={'gender'}
+                    label={SIGNUP.GENDER}
+                    optionmessage={'Selecione um gênero'}
+                    field={fields}
+                    optionsmap={[
+                        {
+                            code: "Masculino",
+                            optionLabel: 'Masculino',
+                        },
+                        {
+                            code: "Feminino",
+                            optionLabel: 'Feminino',
+                        }
+                    ]}
+                    variant='outlined'
+                />
+            </CustomDoubleField>
 
-            <Grid item xs={12} style={{ textAlign: 'right' }}>
+            <CustomTitleTypography variant="h6">{SIGNUP.PROFISSIONAL_INFORMATION}</CustomTitleTypography>
+            <CustomTextField
+                required
+                name={'specialty'}
+                label={SIGNUP.SPECIALITY}
+                field={fields}
+                variant="outlined"
+            />
+            <CustomDoubleField>
+                <CustomTextField
+                    required
+                    name={'experienceYears'}
+                    label={SIGNUP.EXPERIENCE_YEARS}
+                    field={fields}
+                    type='number'
+                    variant="outlined"
+                />
+                <CustomTextField
+                    required
+                    name={'trace'}
+                    label={SIGNUP.TRACE}
+                    field={fields}
+                    variant="outlined"
+                />
+            </CustomDoubleField>
+            <CustomSelect
+                name={'studio'}
+                label={SIGNUP.STUDIO}
+                optionmessage={'Selecione um estúdio'}
+                field={fields}
+                optionsmap={studios}
+                variant='outlined'
+            />
+
+            <CustomFormActions>
                 <CustomButton variant='outlined' component={Link} to={'/signin'}>Voltar</CustomButton>
                 <CustomButton variant='outlined' onClick={handleSubmit}>Cadastrar-se</CustomButton>
-            </Grid>
-        </SigninBackground>
+            </CustomFormActions>
+        </SigninBackground >
     );
 };
 
 const mapStateToProps = ({ signup }) => ({
     loading: signup.loading,
     error: signup.error,
+    studios: signup.studios,
 });
 
 const mapDispatchToProps = dispatch => ({
-    createCustomer: (artistBody, type) => dispatch(createUserRequest(artistBody, type)),
+    createUser: (artistBody, type) => dispatch(createUserRequest(artistBody, type)),
+    getStudios: () => dispatch(getStudiosRequest()),
     newNotification: payload => dispatch(createNotification(payload))
 });
 
@@ -153,10 +196,13 @@ export default connect(
                     confirmPassword: '',
                     name: '',
                     email: '',
-                    age: undefined,
+                    age: '',
                     gender: '',
                     phone: '',
-                    specialities: []
+                    specialty: '',
+                    experienceYears: '',
+                    trace: '',
+                    studio: '',
                 };
             },
             validationSchema: () =>
@@ -169,10 +215,13 @@ export default connect(
                     age: Yup.string().required(GENERAL.REQUIRED_FIELD),
                     gender: Yup.string().required(GENERAL.REQUIRED_FIELD),
                     phone: Yup.string().required(GENERAL.REQUIRED_FIELD),
+                    specialty: Yup.string().required(GENERAL.REQUIRED_FIELD),
+                    experienceYears: Yup.string().required(GENERAL.REQUIRED_FIELD),
+                    trace: Yup.string().required(GENERAL.REQUIRED_FIELD),
                 }),
 
             handleSubmit: (values, { props }) => {
-                props.createCustomer(values, 'artist')
+                props.createUser(values, 'artist')
             },
         })(withTheme(SignupArtist))
     )

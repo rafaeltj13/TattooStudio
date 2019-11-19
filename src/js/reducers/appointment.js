@@ -54,7 +54,9 @@ const appointment = (state = initialState, action) => {
         case GET_APPOINTMENTS_SUCCESS:
             return {
                 ...state,
-                appointments: action.data
+                loading: false,
+                error: '',
+                appointments: action.data,
             };
 
         case GET_APPOINTMENTS_FAILED:
@@ -68,7 +70,8 @@ const appointment = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                selectedAppointment: action.data
+                error: '',
+                selectedAppointment: action.data,
             };
 
         case GET_APPOINTMENT_FAILED:
@@ -82,6 +85,7 @@ const appointment = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
+                error: '',
             };
 
         case EDIT_APPOINTMENT_FAILED:

@@ -9,12 +9,12 @@ import { getAppointmentRequest, editAppointmentRequest } from '../../../actions/
 import { createNotification } from '../../../actions/notification-actions';
 import { APPOINTMENT, GENERAL, USER_TYPES, UTILS } from '../../../utils/constants';
 import { validateAppointment } from '../../../utils/utils';
-import CustomButton from '../../custom/CustomButton';
+import CustomButton from '../../custom/button/CustomButton';
 import CustomTextField from '../../custom/textField/CustomTextField';
 import CustomContainer from '../../custom/pages/CustomContainer';
-import CustomDoubleInput from '../../custom/pages/CustomDoubleInput';
+import CustomDoubleInput from '../../custom/pages/CustomInlineFields';
 import CustomFormActions from '../../custom/pages/CustomFormActions';
-import CustomTypography from '../../custom/CustomTypografy';
+import CustomTypography from '../../custom/typography/CustomTypografy';
 
 const AppointmentValidation = props => {
     const fields = props;
@@ -50,7 +50,6 @@ const AppointmentValidation = props => {
         () => {
             if (selectedAppointment) {
                 if (typeUser !== USER_TYPES.ARTIST) setDisableFields(true);
-                // else if (selectedAppointment.status !== APPOINTMENT.STATUS.CREATED) setDisableFields(true);
             }
         },
         [selectedAppointment],

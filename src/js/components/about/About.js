@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { withTheme } from '@material-ui/core';
 import { getUserDetailsRequest } from '../../actions/about-actions';
 import { signoutRequest } from '../../actions/signin-actions';
+import { showTattooListDialog } from '../../actions/tattoo-actions';
 import { getId } from '../../store/localStorage';
 import { GENERAL, TATTOO } from '../../utils/constants';
 import List from '@material-ui/core/List';
@@ -17,9 +18,10 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import AppsIcon from '@material-ui/icons/Apps';
 import Divider from '@material-ui/core/Divider';
 import CustomContainer from '../custom/pages/CustomContainer';
+import TattooList from '../tattoo/TattooList';
 
 const About = props => {
-    const { getUserDetails, userDetails, typeUser, signout } = props;
+    const { getUserDetails, userDetails, typeUser, signout, showTattooList } = props;
 
     useEffect(
         () => {
@@ -45,12 +47,16 @@ const About = props => {
                     <ListItemText primary={userDetails.name} secondary={`${userDetails.age}, ${userDetails.gender}`} />
                 </ListItem>
                 <Divider />
-                <ListItem button>
-                    <ListItemIcon>
-                        <AppsIcon />
-                    </ListItemIcon>
-                    <ListItemText primary={TATTOO.MY_TATTOOS} />
-                </ListItem>
+                {
+                    typeUser !== 'owner' ?
+                        <ListItem button onClick={showTattooList}>
+                            <ListItemIcon>
+                                <AppsIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={TATTOO.MY_TATTOOS} />
+                        </ListItem>
+                        : <Fragment />
+                }
                 <Divider light />
                 <ListItem button onClick={logout}>
                     <ListItemIcon>
@@ -60,6 +66,7 @@ const About = props => {
                 </ListItem>
                 <Divider light />
             </List>
+            <TattooList title={TATTOO.MY_TATTOOS} typeUser={typeUser} idUser={getId()} />
         </CustomContainer>
     )
 };
@@ -73,7 +80,8 @@ const mapStateToProps = ({ about, signin }) => ({
 
 const mapDispatchToProps = dispatch => ({
     getUserDetails: typeUser => dispatch(getUserDetailsRequest(getId(), typeUser)),
-    signout: () => () => dispatch(signoutRequest())
+    signout: () => dispatch(signoutRequest()),
+    showTattooList: () => dispatch(showTattooListDialog(true))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(withTheme(About)));

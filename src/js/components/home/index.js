@@ -8,7 +8,8 @@ import BottomNavigation from '../custom/navigation/CustomBottomNavigation'
 
 const styles = () => ({
   mainContainer: {
-    height: '88vh'
+    height: '88vh',
+    overflow: 'scroll',
   },
 });
 
@@ -16,7 +17,7 @@ const Home = ({ classes, sessionToken }) => {
   if (!sessionToken) return <Redirect to="/signin" />;
 
   return (
-    <div>
+    <div className={classes.maxHeight}>
       <AppBar />
       <div className={classes.mainContainer}>
         <HomeRoutes />

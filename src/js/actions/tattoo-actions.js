@@ -36,3 +36,9 @@ export const showTattooDialog = show => ({
     type: SHOW_TATTOO_DIALOG,
     show
 });
+
+export const SHOW_TATTOO_LIST_DIALOG = 'SHOW_TATTOO_LIST_DIALOG';
+export const showTattooListDialog = show => ({
+    type: SHOW_TATTOO_LIST_DIALOG,
+    show
+});

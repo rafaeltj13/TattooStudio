@@ -31,3 +31,30 @@ export const createUserRequest = (signupBody, type) => {
             });
     };
 };
+
+export const GET_STUDIOS_SUCCESS = 'GET_STUDIOS_SUCCESS';
+export const getStudiosSuccess = data => ({
+    type: GET_STUDIOS_SUCCESS,
+    data
+});
+
+export const GET_STUDIOS_FAILED = 'GET_STUDIOS_FAILED';
+export const getStudiosFailed = error => ({
+    type: GET_STUDIOS_FAILED,
+    error
+});
+
+export const GET_STUDIOS_REQUEST = 'GET_STUDIOS_REQUEST';
+export const getStudiosRequest = () => {
+    return dispatch => {
+        dispatch(signupAsyncRequestStarted());
+
+        Api.get('studios')
+            .then(({ data }) => {
+                dispatch(getStudiosSuccess(data))
+            })
+            .catch(({ message }) => {
+                dispatch(getStudiosFailed(message))
+            });
+    };
+};
