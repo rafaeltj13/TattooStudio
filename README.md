@@ -1,68 +1,30 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# TattooStudio
 
-## Available Scripts
+O TattooStudio é um hub digital para estúdios de tatuagem, com a proposta de centralizar todo o processo de realização de agendamentos de tatuagens e outros serviços reliacionados nos estúdios. Para acessar o TattoStudio, [clique aqui](http://3.14.6.217:3000).
 
-In the project directory, you can run:
+## Instalação
 
-### `npm start`
+Caso seja necessário executar o sistema localmente, deve-se:
+1. Baixar o código do [servidor](https://github.com/rafaeltj13/TattooStudioApi);
+2. Baixar o código do [cliente](https://github.com/rafaeltj13/TattooStudio);
+3. Baixar a versão mais atualizada do [Node.js](https://nodejs.org/en/);
+4. Baixar o [MongoDB](https://www.mongodb.com/).
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Instalando o servidor
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Acesse o diretório do servidor para executar os seguintes comandos:
 
-### `npm test`
+`npm install -g yarn`
+`yarn`
+`cp .env.example .env`
+`npm install`
+`yarn start`
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Instalando o cliente
 
-### `npm run build`
+Acesse o diretório do cliente para executar os seguintes comandos:
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`npm install`
+`npm start`
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+O TattooStudio estará disponível localmente na porta [3000](http://localhost:3000).
